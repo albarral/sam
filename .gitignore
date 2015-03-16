@@ -1,0 +1,6 @@
+# Ignore these Netbeans files and folders when using git.
+
+build/
+dist/
+private/
+
