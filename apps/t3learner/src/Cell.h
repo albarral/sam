@@ -1,22 +1,29 @@
-/***************************************************************************
- *   Copyright (C) 2015 by Migtron Robotics   *
- *   albarral@migtron.com   *
- ***************************************************************************/
+/* 
+ * File:   Cell.h
+ * Author: ainoa
+ *
+ * Created on March 12, 2015, 10:13 AM
+ */
 
 #ifndef CELL_H
-#define CELL_H
+#define	CELL_H
 
 #include <QGraphicsRectItem>
 #include <QColor>
+#include <QMessageBox>
 #include <QtGui>
 #include <QtCore>
 
+
+
 class Cell : public QGraphicsRectItem
-{
+
+{   
 private:
     int ID;
     int x, y;
     QColor color;
+    QMessageBox* msgBox; 
     int state;   
     
     // cell selection states
@@ -32,17 +39,19 @@ private:
          eTURN_AGENT,     // agent's turn
          eTURN_PLAYER     // player's turn
     };
-
- public:
+    
+public:
     Cell(int ID, const QColor &color, int x, int y);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget); 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void cleanAll(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void checkForWin();
    
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:    
     bool selectByPlayer();        
-    bool selectByAgent();        
+    bool selectByAgent();    
 };
 
 #endif	/* CELL_H */

@@ -1,15 +1,19 @@
-/***************************************************************************
- *   Copyright (C) 2015 by Migtron Robotics   *
- *   albarral@migtron.com   *
- ***************************************************************************/
+/* 
+ * File:   Window.cpp
+ * Author: ainoa
+ * 
+ * Created on March 12, 2015, 10:13 AM
+ */
+
+#include "Window.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QtGui>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QPainter>
 
-#include "Window.h"
 #include "Cell.h"
 
 Window::Window(QWidget *parent) : QWidget(parent)
@@ -42,7 +46,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     buttonIniciar->setGeometry(QRect(2.5, 320, 150, 30));
     scene->addWidget(buttonIniciar);
     
-    connect(buttonIniciar, SIGNAL(released()), this, SLOT(clean()));
+    connect(buttonIniciar, SIGNAL(released()), this, SLOT(clear()));
     
     buttonRecuperar = new QPushButton("Recuperar Partida");
     buttonRecuperar->setGeometry(QRect(157.5, 320, 150, 30));
@@ -58,11 +62,13 @@ Window::Window(QWidget *parent) : QWidget(parent)
     setLayout(layout);
 }
 
-void Window::clean()
-{   
-    msgBox = new QMessageBox();  
-    msgBox->setText(QString("clear"));
-    msgBox->show();
+void Window::clear()
+{
+//    Cell::cleanAll();
+    
+//    msgBox = new QMessageBox();  
+//    msgBox->setText(QString("clear"));
+//    msgBox->show();
 }
 
 void Window::recuperar()

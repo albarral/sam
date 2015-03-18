@@ -1,12 +1,12 @@
-/***************************************************************************
- *   Copyright (C) 2015 by Migtron Robotics   *
- *   albarral@migtron.com   *
- ***************************************************************************/
+/*
+ * File:   main.cpp
+ * Author: ainoa
+ *
+ * Created on March 12, 2015, 9:35 AM
+ */
 
 #include <QApplication>
 #include "Window.h"
-
-// Comentario de prueba
 
 int main(int argc, char *argv[]) 
 {
