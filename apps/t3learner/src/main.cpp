@@ -6,6 +6,8 @@
 #include <QApplication>
 #include "Window.h"
 
+// Comentario de prueba
+
 int main(int argc, char *argv[]) 
 {
     // initialize resources, if needed
