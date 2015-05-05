@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="3tplayer" displayName="3tplayer" projectFiles="true">
+          <logicalFolder name="f1" displayName="core" projectFiles="true">
+            <itemPath>src/sam/3tplayer/core/Game.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/core/Game.h</itemPath>
+            <itemPath>src/sam/3tplayer/core/Players.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/core/Players.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="data" displayName="data" projectFiles="true">
+            <itemPath>src/sam/3tplayer/data/Board.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/data/Board.h</itemPath>
+            <itemPath>src/sam/3tplayer/data/Player.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/data/Player.h</itemPath>
+            <itemPath>src/sam/3tplayer/data/structs.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="modules" displayName="modules" projectFiles="true">
+            <itemPath>src/sam/3tplayer/modules/Field.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/modules/Field.h</itemPath>
+            <itemPath>src/sam/3tplayer/modules/Play.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/modules/Play.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="config" displayName="shared" projectFiles="true">
+            <itemPath>src/sam/3tplayer/shared/Config.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/shared/Config.h</itemPath>
+            <itemPath>src/sam/3tplayer/shared/Connections.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/shared/Connections.h</itemPath>
+            <itemPath>src/sam/3tplayer/shared/Data.cpp</itemPath>
+            <itemPath>src/sam/3tplayer/shared/Data.h</itemPath>
+          </logicalFolder>
+          <itemPath>src/sam/3tplayer/Bus.cpp</itemPath>
+          <itemPath>src/sam/3tplayer/Bus.h</itemPath>
+          <itemPath>src/sam/3tplayer/T3Player.cpp</itemPath>
+          <itemPath>src/sam/3tplayer/T3Player.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="2">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>../../../../Dropbox/DEV/goon/utils/src</pElem>
+            <pElem>../../test/VirtualBoard/src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../../Dropbox/DEV/goon/utils"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../../../Dropbox/DEV/goon/utils"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgoon_utils.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../test/VirtualBoard"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../test/VirtualBoard"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libVirtualBoard.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="src/sam/3tplayer/Bus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/Bus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/T3Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/T3Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Game.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Players.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Players.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Board.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Board.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/structs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Field.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Field.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Play.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Play.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Connections.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Connections.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Data.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Data.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="2">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="src/sam/3tplayer/Bus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/Bus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/T3Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/T3Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Game.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Players.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/core/Players.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Board.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Board.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/data/structs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Field.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Field.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Play.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/modules/Play.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Connections.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Connections.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Data.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/3tplayer/shared/Data.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
