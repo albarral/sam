@@ -1,12 +1,10 @@
-/* 
- * File:   Cell.h
- * Author: ainoa
- *
- * Created on March 12, 2015, 10:13 AM
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
 #ifndef CELL_H
-#define	CELL_H
+#define CELL_H
 
 #include <QGraphicsRectItem>
 #include <QColor>
@@ -17,7 +15,6 @@
 
 
 class Cell : public QGraphicsRectItem
-
 {   
 private:
     int ID;

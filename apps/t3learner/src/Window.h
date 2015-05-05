@@ -1,9 +1,7 @@
-/* 
- * File:   Window.h
- * Author: ainoa
- *
- * Created on March 12, 2015, 10:13 AM
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
 #ifndef WINDOW_H
 #define	WINDOW_H

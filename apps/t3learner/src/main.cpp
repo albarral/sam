@@ -1,9 +1,7 @@
-/*
- * File:   main.cpp
- * Author: ainoa
- *
- * Created on March 12, 2015, 9:35 AM
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
 #include <QApplication>
 #include "Window.h"
