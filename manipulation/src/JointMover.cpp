@@ -3,54 +3,45 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Joint.h"
+#include "JointMover.h"
 
 namespace sam 
 {
-namespace t3player 
+JointMover::JointMover(Joint& oJoint) : mJoint(oJoint)
 {
-Joint::Joint ()
-{
-    reset();
+    benabled = false;
 }
 
-Joint::~Joint()
+//JointMover::~JointMover()
+//{
+//}
+
+void JointMover::init(int tolerance, int max_speed, int accel)
 {
+    // control proper argument values
+    if (tolerance < 0 || 
+       max_speed < 0 ||
+       accel < 0)
+        return;
+
+    this->tolerance = tolerance;
+    this->maxSpeed = max_speed;
+    this->accel = accel;
+    benabled = true;
+};
+
+        
+void JointMover::setTarget(int value)
+{
+    if (benabled)
+    {
+        target = value;
+        start = mJoint.ist;
+    }
 }
 
-void Joint::reset()  
+void JointMover::rest()
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    
-    matNow = cv::Mat::zeros(3, 3, CV_8UC1);
-    matPrev = cv::Mat::zeros(3, 3, CV_8UC1);
-    numChanges = 0;
-};
-
-// updates matNow and checks differences with matPrev
-void Joint::update(cv::Mat& mat)
-{
-    std::lock_guard<std::mutex> locker(mutex);
-
-    matNow = mat.clone();
-    cv::Mat matChanges = matNow - matPrev;    
-    matPrev = matNow;
-    numChanges = cv::countNonZero(matChanges);           
-};
-
-bool Joint::isChanged() 
-{
-    std::lock_guard<std::mutex> locker(mutex);
-    
-    return (numChanges > 0);
-};
-
-cv::Mat& Joint::getMatNowCopy()
-{
-    std::lock_guard<std::mutex> locker(mutex);
-    
-    cv::Mat matCopy = matNow.clone();    
-    return matCopy;
-}
+    setTarget(mJoint.getRestAngle());    
 }
 }

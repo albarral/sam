@@ -8,18 +8,19 @@
 
 namespace sam 
 {
-// Represents an arm's joint
+// Class to represent an arm's joint. To move it use class JointMover.
 class Joint
 {
 private:
-        bool enabled;
-        int ist;        // angle read from encoders (degrees)
-        int angle;   // present setpoint angle (degrees)
-        int rest;    // angle at which the joint rests (the effort is minimum)
-        int type;    // type of joint (moves in pan plane or in tilt plane)
-        int length;     // joint's length (cm)
-        int limit1;      // lower allowed angle (degrees)
-        int limit2;      // upper allowed angle (degrees)
+    bool benabled;
+    int ist;        // angle read from encoders (degrees)
+    int angle;   // present setpoint angle (degrees)
+    // configuration data
+    int rest;    // angle at which the joint rests (the effort is minimum)
+    int type;    // type of joint (moves in pan plane or in tilt plane)
+    int length;     // joint's length (cm)
+    int limit1;      // lower allowed angle (degrees)
+    int limit2;      // upper allowed angle (degrees)
 
 public:
     // joint types
@@ -30,22 +31,24 @@ public:
          eJOINT_INVALID   // none of the others
     };
     
-        Joint();
-        ~Joint();
+    Joint();
+    ~Joint();
 
-        // initializes the joint 
-        void init(int type, int length, int limit1, int limit2);        
-        
-        int getIst() {return ist;};
-        void setIst(int value) {ist = value;};
-        
-        int getAngle() {return angle;};
-        void setAngle(int value) {angle = value;};
+    // initializes the joint 
+    void init(int type, int length, int limit1, int limit2);        
 
-        int getRestAngle() {return rest;};
-        void setRestAngle(int value) {rest = value;};
+    bool isEnabled() {return benabled;};
 
-        int getType() {return type;};
+    int getIst() {return ist;};
+    void setIst(int value) {ist = value;};
+
+    int getAngle() {return angle;};
+    void setAngle(int value) {angle = value;};
+
+    int getRestAngle() {return rest;};
+    void setRestAngle(int value) {rest = value;};
+
+    int getType() {return type;};
 };
 }
 #endif

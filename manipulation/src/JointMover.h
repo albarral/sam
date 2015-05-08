@@ -6,70 +6,57 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "Joint.h"
+
 namespace sam 
 {
 // Handler that moves a Joint
 class JointMover
 {
-private:
-        bool blocked;  // flag to block the joint's movement
-        // position info
-        int ist;        // angle read from encoders (degrees)
-        int angle;   // present setpoint angle (degrees)
-        int target;  // final desired joint angle (degrees)
-        int rest;    // angle at which the joint rests (the effort is minimum)
-        // speed info
-        int speed;  // degrees / s
-        int maxSpeed;  // maximum speed allowed for the joint
-        // configuration info
-        int length;     // in cm
-        int limit1;      // lower allowed angle (degrees)
-        int limit2;      // upper allowed angle (degrees)
+protected:
+    bool benabled;
+    Joint& mJoint;    
+    int start;    // initial position of a joint movement (degrees)
+    int target;  // desired final position of a joint movement (degrees)
+    int speed;  // degrees / s
+    // configuration data
+    int tolerance; // allowed tolerance for target reaching (degrees))
+    int maxSpeed;  // maximum speed allowed for the joint
+    int accel;          // degrees/s2
+    bool blocked;  // flag to block the joint's movement
 
 public:
-        JointMover();
-        ~JointMover();
+        JointMover(Joint& oJoint);
+        //~JointMover();
+                
+       void init (int tolerance, int max_speed, int accel);
+        
+        bool isEnabled() {return benabled;};
 
-        // initializes the joint 
-        void init(int length, int limit1, int limit2, int maxSpeed);        
+       // sets a new target for the joint 
+        virtual void setTarget(int value);
         // moves the joint towards the target 
-        void move();
-
-        // sets the joint speed as a factor of the maxSpeed        
-        void setSpeed(float factor);
-        void setMaxSpeed(int maxSpeed);
+        virtual void move() = 0;
+        // sets as target the rest angle
+        void rest();
         
-        bool isBlocked() {return blocked;};
         
-        int getIst() {return ist;};
-        int getAngle() {return angle;};
+        Joint& getJoint() {return mJoint;};
         int getTarget() {return target;};
-        int getRest() {return rest;};
 
         int getSpeed() {return speed;};
-        int getMaxSpeed() {return maxSpeed;};
-        
-        int getLength() {return length;};
-        int getLimit1() {return limit1;};
-        int getLimit2() {return limit2;};
+        void setSpeed(int value) {speed = value;};
 
+        int getMaxSpeed() {return maxSpeed;};
+        void setMaxSpeed(int value) {maxSpeed = value;};
+                
+        int getAccel() {return accel;};
+        void setAccel(int value) {accel = value;};
+        
+        // block handling        
+        bool isBlocked() {return blocked;};
         void block() {blocked = true;};
         void unblock() {blocked = false;};
-
-        
-        void setTarget(int value);
-        
-        
-        
-        
-        void 
-        
-        void update(cv::Mat& mat); 
-        bool isChanged();
-        cv::Mat& getMatNowCopy();
-        
-private:        
-        void checkChanges();        
 };
 }
 #endif

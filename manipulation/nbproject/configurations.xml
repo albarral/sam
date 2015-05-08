@@ -13,6 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>src/DynamicMover.cpp</itemPath>
+        <itemPath>src/DynamicMover.h</itemPath>
         <itemPath>src/Joint.cpp</itemPath>
         <itemPath>src/Joint.h</itemPath>
         <itemPath>src/JointMover.cpp</itemPath>
@@ -43,7 +45,32 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../Dropbox/DEV/goon/utils"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../../Dropbox/DEV/goon/utils"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgoon_utils.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
+      <item path="src/DynamicMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/DynamicMover.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Joint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Joint.h" ex="false" tool="3" flavor2="0">
@@ -73,6 +100,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/DynamicMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/DynamicMover.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Joint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Joint.h" ex="false" tool="3" flavor2="0">
