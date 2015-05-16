@@ -35,9 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/DynamicMover.o \
-	${OBJECTDIR}/src/Joint.o \
-	${OBJECTDIR}/src/JointMover.o
+	${OBJECTDIR}/src/sam/manipulation/ArmManager.o \
+	${OBJECTDIR}/src/sam/manipulation/bus/Bus.o \
+	${OBJECTDIR}/src/sam/manipulation/data/Arm.o \
+	${OBJECTDIR}/src/sam/manipulation/data/Joint.o \
+	${OBJECTDIR}/src/sam/manipulation/modules/DynamicMover.o \
+	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o
 
 
 # C Compiler Flags
@@ -54,7 +57,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -L../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -lgoon_utils
+LDLIBSOPTIONS=-Wl,-rpath,../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -L../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -66,20 +69,35 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmanipulation.${CND_DLIB_EXT}: ${OB
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmanipulation.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/DynamicMover.o: src/DynamicMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/sam/manipulation/ArmManager.o: src/sam/manipulation/ArmManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/DynamicMover.o src/DynamicMover.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmManager.o src/sam/manipulation/ArmManager.cpp
 
-${OBJECTDIR}/src/Joint.o: src/Joint.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/sam/manipulation/bus/Bus.o: src/sam/manipulation/bus/Bus.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Joint.o src/Joint.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o src/sam/manipulation/bus/Bus.cpp
 
-${OBJECTDIR}/src/JointMover.o: src/JointMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/sam/manipulation/data/Arm.o: src/sam/manipulation/data/Arm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/JointMover.o src/JointMover.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Arm.o src/sam/manipulation/data/Arm.cpp
+
+${OBJECTDIR}/src/sam/manipulation/data/Joint.o: src/sam/manipulation/data/Joint.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Joint.o src/sam/manipulation/data/Joint.cpp
+
+${OBJECTDIR}/src/sam/manipulation/modules/DynamicMover.o: src/sam/manipulation/modules/DynamicMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/DynamicMover.o src/sam/manipulation/modules/DynamicMover.cpp
+
+${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o: src/sam/manipulation/modules/JointMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
 
 # Subprojects
 .build-subprojects:
