@@ -29,8 +29,7 @@ class ArmManager
         Arm oArm;
         // modules ...
         //ArmMover oArmMover;
-        //std::vector<JointMover> listPreciseMovers;    // one for each joint
-        std::vector<JointMover> listDynamicMovers;  // one for each joint
+        std::vector<JointMover> listJointMovers;  // one for each joint
         //std::vector<JointControl> listJointControls;  // one for each joint
 
     public:

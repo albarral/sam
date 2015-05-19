@@ -27,10 +27,12 @@
             <itemPath>src/sam/manipulation/data/Joint.h</itemPath>
           </logicalFolder>
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
-            <itemPath>src/sam/manipulation/modules/DynamicMover.cpp</itemPath>
-            <itemPath>src/sam/manipulation/modules/DynamicMover.h</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="utils" displayName="utils" projectFiles="true">
+            <itemPath>src/sam/manipulation/utils/module2.cpp</itemPath>
+            <itemPath>src/sam/manipulation/utils/module2.h</itemPath>
           </logicalFolder>
           <itemPath>src/sam/manipulation/ArmManager.cpp</itemPath>
           <itemPath>src/sam/manipulation/ArmManager.h</itemPath>
@@ -107,22 +109,22 @@
       </item>
       <item path="src/sam/manipulation/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/modules/DynamicMover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/DynamicMover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/modules/JointMover.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/module2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/module2.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -170,22 +172,22 @@
       </item>
       <item path="src/sam/manipulation/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/modules/DynamicMover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/DynamicMover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/modules/JointMover.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/module2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/module2.h"
             ex="false"
             tool="3"
             flavor2="0">

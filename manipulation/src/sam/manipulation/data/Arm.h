@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <vector>
+#include "sam/manipulation/data/Joint.h"
 
 namespace sam 
 {

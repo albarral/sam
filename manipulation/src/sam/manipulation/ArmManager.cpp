@@ -5,8 +5,6 @@
 
 #include "ArmManager.h"
 
-#include "sam/manipulation/modules/DynamicMover.h"
-
 using namespace log4cxx;
 
 namespace sam 
@@ -21,40 +19,36 @@ ArmManager::ArmManager ()
 // Destructor
 ArmManager::~ArmManager ()
 {        
-//    if (oField != NULL)
-//        delete (oField);
-//    
-//    if (oVirBoard != NULL)
-//        delete (oVirBoard);
 }
 
 void ArmManager::init(std::string armConfigFile)
 {
-    // TEMPORAL: configuration must be read from the given file
+    // TEMPORAL: configuration should be read from the specified file
     
-    // create joints
-    Joint oHShoulder;
-    oHShoulder.init(Joint::eJOINT_PAN, 20, -180, 180);    
-    Joint oVShoulder;
-    oVShoulder.init(Joint::eJOINT_TILT, 20, -45, 90);    
+    // create joints (horizontal shoulder, vertical shoulder & elbow)
+    Joint oShoulderH;
+    Joint oShoulderV;
     Joint oElbow;
+
+    oShoulderH.init(Joint::eJOINT_PAN, 20, -180, 180);    
+    oShoulderV.init(Joint::eJOINT_TILT, 20, -45, 90);    
     oElbow.init(Joint::eJOINT_TILT, 20, 0, 90);
 
-    // build arm (the order is important)
-    oArm.addJoint(oHShoulder);
-    oArm.addJoint(oVShoulder);
+    // build the arm (the order is important)
+    oArm.addJoint(oShoulderH);
+    oArm.addJoint(oShoulderV);
     oArm.addJoint(oElbow);
             
-    // create joint controllers
-    DynamicMover oDynMoverHShoulder(oHShoulder);
-    DynamicMover oDynMoverVShoulder(oVShoulder);
-    DynamicMover oDynMoverElbow(oElbow);
+    // create dynamic joint controllers
+    JointMover oMoverShoulderH(oShoulderH);
+    JointMover oMoverShoulderV(oShoulderV);
+    JointMover oMoverElbow(oElbow);
 
-    listDynamicMovers.push_back(oDynMoverHShoulder);
-    listDynamicMovers.push_back(oDynMoverVShoulder);
-    listDynamicMovers.push_back(oDynMoverElbow);    
-    
-    // TO DO ... PreciseMover and JointControl modules
+    listJointMovers.push_back(oMoverShoulderH);
+    listJointMovers.push_back(oMoverShoulderV);
+    listJointMovers.push_back(oMoverElbow);    
+
+    // TO DO ... JointControl modules
 }
 
 
@@ -62,6 +56,13 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "Arm manager: starting modules ...");
     
+    std::vector<JointMover>::iterator it_mover = listJointMovers.begin();
+    while (it_mover != listJointMovers.end())
+    {
+	it_mover->on();
+	it_mover++;	
+    }
+
     // TO DO ... launch modules
 }
 
@@ -70,6 +71,21 @@ void ArmManager::stopModules()
     LOG4CXX_INFO(logger, "Arm manager: stoppint modules ...");
 
     // TO DO ... stop & wait for modules 
+    
+    std::vector<JointMover>::iterator it_mover = listJointMovers.begin();
+    while (it_mover != listJointMovers.end())
+    {
+	it_mover->off();
+	it_mover++;	
+    }
+
+    it_mover = listJointMovers.begin();
+    while (it_mover != listJointMovers.end())
+    {
+	it_mover->wait();
+	it_mover++;	
+    }
+
 }
 }
 

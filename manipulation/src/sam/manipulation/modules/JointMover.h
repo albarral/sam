@@ -6,57 +6,71 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Joint.h"
+#include "sam/manipulation/utils/module2.h"
+#include "sam/manipulation/data/Joint.h"
 
 namespace sam 
 {
-// Handler that moves a Joint
-class JointMover
+// Module that moves a Joint by speed commands.
+// It derives from base class sam::Module2
+// It has 4 states:
+// STOP    
+// launch() -> ACCEL    (speed ++)
+// brake() -> BRAKE     (speed --)
+// keep() -> KEEP        (speed =) 
+// stop()-> STOP         (speed 0)
+class JointMover : public Module2
 {
-protected:
-    bool benabled;
+public:
+    // states of JointMover module
+    enum eType
+    {
+         eSTATE_ACCEL, 
+         eSTATE_BRAKE, 
+         eSTATE_KEEP, 
+         eSTATE_STOP
+    };
+
+private:
     Joint& mJoint;    
-    int start;    // initial position of a joint movement (degrees)
-    int target;  // desired final position of a joint movement (degrees)
-    int speed;  // degrees / s
-    // configuration data
-    int tolerance; // allowed tolerance for target reaching (degrees))
-    int maxSpeed;  // maximum speed allowed for the joint
     int accel;          // degrees/s2
-    bool blocked;  // flag to block the joint's movement
+    int maxSpeed;  // maximum speed allowed for the joint
+    int deaccel;          // degrees/s2
+    int direction;
+    int speed;  // degrees / s
 
 public:
         JointMover(Joint& oJoint);
         //~JointMover();
                 
-       void init (int tolerance, int max_speed, int accel);
+       void setParams (int accel, int max_speed, int deaccel);
         
-        bool isEnabled() {return benabled;};
-
-       // sets a new target for the joint 
-        virtual void setTarget(int value);
-        // moves the joint towards the target 
-        virtual void move() = 0;
-        // sets as target the rest angle
-        void rest();
-        
+        // starts movement (in the specified joint direction)
+        void move(int direction);
+        // starts braking until the joint stops
+        void brake();
+        // keeps the present speed
+        void keep();
+        // suddenly stops the joint
+        void stop();        
         
         Joint& getJoint() {return mJoint;};
-        int getTarget() {return target;};
 
+        int getAccel() {return accel;};
+        int getMaxSpeed() {return maxSpeed;};
+        int getDeaccel() {return deaccel;};
+                
+        int getDirection() {return direction;};
         int getSpeed() {return speed;};
+        
+private:       
         void setSpeed(int value) {speed = value;};
 
-        int getMaxSpeed() {return maxSpeed;};
-        void setMaxSpeed(int value) {maxSpeed = value;};
-                
-        int getAccel() {return accel;};
-        void setAccel(int value) {accel = value;};
-        
-        // block handling        
-        bool isBlocked() {return blocked;};
-        void block() {blocked = true;};
-        void unblock() {blocked = false;};
+        // initialization when the module thread begins
+        virtual void init();
+        // loop inside the module thread 
+        virtual void loop();            
+
 };
 }
 #endif
