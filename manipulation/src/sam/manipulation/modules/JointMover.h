@@ -6,16 +6,21 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+#include <log4cxx/logger.h>
+
 #include "sam/manipulation/utils/module2.h"
-#include "sam/manipulation/data/Joint.h"
+#include "sam/manipulation/bus/ParamsJointMover.h"
+#include "sam/manipulation/bus/Bus.h"
+#include "goon/utils/Click.h"
 
 namespace sam 
 {
-// Module that moves a Joint by speed commands.
-// It derives from base class sam::Module2
+// Module that moves a Joint granting a continuous speed value.
+// It derives from base class Module2
 // It has 4 states:
 // STOP    
-// launch() -> ACCEL    (speed ++)
+// move() -> ACCEL    (speed ++)
 // brake() -> BRAKE     (speed --)
 // keep() -> KEEP        (speed =) 
 // stop()-> STOP         (speed 0)
@@ -32,19 +37,35 @@ public:
     };
 
 private:
-    Joint& mJoint;    
+    static log4cxx::LoggerPtr logger;
+    // params
+    bool benabled;
+    std::string name;   // module name
     int accel;          // degrees/s2
     int maxSpeed;  // maximum speed allowed for the joint
     int deaccel;          // degrees/s2
+    // bus
+    bool bconnected;        // connected to bus
+    manipulation::Bus* mBus;
+    // logic
     int direction;
-    int speed;  // degrees / s
+    float speed;  // degrees/s (must be float to grant continuity)
+    goon::Click oClick;   
+    float accel_ms;    // (degres/s)/ms
+    float deaccel_ms;    // (degres/s)/ms
 
 public:
-        JointMover(Joint& oJoint);
+        JointMover();
         //~JointMover();
                 
-       void setParams (int accel, int max_speed, int deaccel);
-        
+       // module params
+       void init (std::string name, manipulation::ParamsJointMover& oParamsJointMover);       
+       bool isEnabled() {return benabled;};
+
+       // bus connection 
+       void connect(manipulation::Bus& oBus);
+       bool isConnected() {return bconnected;};
+
         // starts movement (in the specified joint direction)
         void move(int direction);
         // starts braking until the joint stops
@@ -54,23 +75,26 @@ public:
         // suddenly stops the joint
         void stop();        
         
-        Joint& getJoint() {return mJoint;};
-
         int getAccel() {return accel;};
         int getMaxSpeed() {return maxSpeed;};
-        int getDeaccel() {return deaccel;};
-                
+        int getDeaccel() {return deaccel;};                
         int getDirection() {return direction;};
-        int getSpeed() {return speed;};
+        float getSpeed() {return speed;};
         
 private:       
-        void setSpeed(int value) {speed = value;};
+        //void setSpeed(int value) {speed = value;};
 
-        // initialization when the module thread begins
-        virtual void init();
+        // first actions when the thread begins 
+        virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-
+        
+        // shows the present state name
+        void showState();
+        // softly increases speed till max value
+        void doAccel();
+        // softly reduces speed to 0
+        void doBrake();
 };
 }
 #endif

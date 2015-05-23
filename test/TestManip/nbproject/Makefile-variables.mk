@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=libsam_manip.so
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/libsam_manip.so
+CND_ARTIFACT_NAME_Debug=testmanip
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/testmanip
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=libmanipulation.so.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/libmanipulation.so.tar
+CND_PACKAGE_NAME_Debug=testmanip.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/testmanip.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=libmanipulation.so
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/libmanipulation.so
+CND_ARTIFACT_NAME_Release=testmanip
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/testmanip
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=libmanipulation.so.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/libmanipulation.so.tar
+CND_PACKAGE_NAME_Release=testmanip.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/testmanip.tar
 #
 # include compiler specific variables
 #

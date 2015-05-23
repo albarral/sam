@@ -56,7 +56,7 @@ void Module2::run ()
     // states begin unknown
     setState(Module2::state_UNKNOWN);
     forceNextState(Module2::state_UNKNOWN);
-    init();
+    first();
     while (!offRequested())
     {
         loop();
@@ -105,10 +105,16 @@ void Module2::forceNextState(int state)
     this->nextState = state;    
 }
 
-void Module2::updateState()
+bool Module2::updateState()
 {
     std::lock_guard<std::mutex> locker(mutex);
-    this->state = this->nextState;    
+    if (state != nextState)
+    {
+        state = nextState;    
+        return true;
+    }
+    else
+        return false;
 }
 
 

@@ -7,17 +7,21 @@
 
 namespace sam 
 {
-namespace t3player 
+namespace manipulation 
 {
 // Constructor
 Config::Config ()
 {    
-    // Initial values set by hand !!! They should be read from a config file (to do).
-    
-    slowLoop_ms = 500;  // 2 Hz
-    fastLoop_ms = 200;  // 5 Hz
-    bvirtualMode = true;
-    gameDelay = 5000;   // 5s
+    // TEMPORAL: should be read from a file    
+    modulesFreq = 5;  // 5 Hz
+    // TEMPORAL: should be read from a file    
+    oShoulderHParams.set(-180, 180, 20);    
+    oShoulderVParams.set(-45, 90, 20);    
+    oElbowParams.set(0, 90,20);
+    // TEMPORAL: should be read from a file    
+    oShoulderMoverHParams.set(3, 10, 3);
+    oShoulderMoverVParams.set(3, 10, 3);
+    oElbowMoverParams.set(3, 10, 3);
 }
 
 }

@@ -1,31 +1,46 @@
-#ifndef __T3PLAYER_CONFIG_H
-#define __T3PLAYER_CONFIG_H
+#ifndef __SAM_MANIPULATION_CONFIG_H
+#define __SAM_MANIPULATION_CONFIG_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
+#include "sam/manipulation/bus/ParamsJoint.h"
+#include "sam/manipulation/bus/ParamsJointMover.h"
+
 namespace sam 
 {
-namespace t3player 
+namespace manipulation 
 {
 class Config 
 {
-    private:        
-        int slowLoop_ms;  // slow loop time for the t3player modules (in ms))
-        int fastLoop_ms;  // slow loop time for the t3player modules (in ms))
-        bool bvirtualMode; // game developed on a virtual board
-        // Game module
-        int gameDelay;  // allowed delay for game movements from agent or player (ms)
+    private:                
+        std::string configFile;     // name of config file  (not used yet)
+        float modulesFreq;  // execution frequency for all modules (loops/sec)
+        // joints
+        ParamsJoint oShoulderHParams;   // horizontal shoulder
+        ParamsJoint oShoulderVParams;   // vertical shoulder
+        ParamsJoint oElbowParams;         // elbow
+        // joint movers
+        ParamsJointMover oShoulderMoverHParams;
+        ParamsJointMover oShoulderMoverVParams;
+        ParamsJointMover oElbowMoverParams;
         
     public:
         Config();
 
-        int getSlowLoopTime () {return slowLoop_ms;}
-        int getFastLoopTime () {return fastLoop_ms;}
-        bool isVirtualMode() {return bvirtualMode;}
-        int getGameDelay() {return gameDelay;}
+        float getModulesFreq () {return modulesFreq;}        
+        // joints
+        ParamsJoint& getShoulderHParams() {return oShoulderHParams;};
+        ParamsJoint& getShoulderVParams() {return oShoulderVParams;};
+        ParamsJoint& getElbowParams() {return oElbowParams;};
+        // joint movers
+        ParamsJointMover& getShoulderMoverHParams() {return oShoulderMoverHParams;};
+        ParamsJointMover& getShoulderMoverVParams() {return oShoulderMoverVParams;};
+        ParamsJointMover& getElbowMoverParams() {return oElbowMoverParams;};
 };
 
 }

@@ -55,9 +55,10 @@ protected:
         void run();
         // checks if off was requested
         bool offRequested();     
-        // initialization when the thread begins (to be implemented by derived module)
-        virtual void init() = 0;
-        // loops inside the thread (to be implemented by derived module)
+        
+        // first actions when the thread begins 
+        virtual void first() = 0;
+        // loops inside the thread 
         virtual void loop() = 0;            
         
         // sets the state directly (to be used only in special cases)
@@ -65,7 +66,7 @@ protected:
         // sets the next state (unless OFF is already set)
         void setNextState(int state);
         // converts state into next_state
-        void updateState();
+        virtual bool updateState();
         
 private:
         // sets the next state (ignoring the OFF limitation) 

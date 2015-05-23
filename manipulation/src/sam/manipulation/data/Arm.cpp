@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include <vector>
+#include <stddef.h>
 
 #include "Arm.h"
 
@@ -32,10 +33,7 @@ void Arm::addJoint(Joint& oJoint)
 
 Joint& Arm::getJoint(int pos)
 {
-    if (pos < listJoints.size())
-        return listJoints.at(pos);
-    else 
-        return 0; //NULL;
+    return listJoints.at(pos);
 }
 
 }

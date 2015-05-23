@@ -37,6 +37,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/ArmManager.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/Bus.o \
+	${OBJECTDIR}/src/sam/manipulation/bus/Config.o \
+	${OBJECTDIR}/src/sam/manipulation/bus/ConnectionSet.o \
+	${OBJECTDIR}/src/sam/manipulation/bus/Connections.o \
+	${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o \
+	${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o \
 	${OBJECTDIR}/src/sam/manipulation/data/Arm.o \
 	${OBJECTDIR}/src/sam/manipulation/data/Joint.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o \
@@ -76,6 +81,31 @@ ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o: src/sam/manipulation/bus/Bus.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o src/sam/manipulation/bus/Bus.cpp
+
+${OBJECTDIR}/src/sam/manipulation/bus/Config.o: src/sam/manipulation/bus/Config.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Config.o src/sam/manipulation/bus/Config.cpp
+
+${OBJECTDIR}/src/sam/manipulation/bus/ConnectionSet.o: src/sam/manipulation/bus/ConnectionSet.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionSet.o src/sam/manipulation/bus/ConnectionSet.cpp
+
+${OBJECTDIR}/src/sam/manipulation/bus/Connections.o: src/sam/manipulation/bus/Connections.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Connections.o src/sam/manipulation/bus/Connections.cpp
+
+${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o: src/sam/manipulation/bus/ParamsJoint.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o src/sam/manipulation/bus/ParamsJoint.cpp
+
+${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o: src/sam/manipulation/bus/ParamsJointMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o src/sam/manipulation/bus/ParamsJointMover.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/data/Arm.o: src/sam/manipulation/data/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data

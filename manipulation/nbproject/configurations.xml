@@ -19,6 +19,16 @@
           <logicalFolder name="bus" displayName="bus" projectFiles="true">
             <itemPath>src/sam/manipulation/bus/Bus.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/Bus.h</itemPath>
+            <itemPath>src/sam/manipulation/bus/Config.cpp</itemPath>
+            <itemPath>src/sam/manipulation/bus/Config.h</itemPath>
+            <itemPath>src/sam/manipulation/bus/ConnectionSet.cpp</itemPath>
+            <itemPath>src/sam/manipulation/bus/ConnectionSet.h</itemPath>
+            <itemPath>src/sam/manipulation/bus/Connections.cpp</itemPath>
+            <itemPath>src/sam/manipulation/bus/Connections.h</itemPath>
+            <itemPath>src/sam/manipulation/bus/ParamsJoint.cpp</itemPath>
+            <itemPath>src/sam/manipulation/bus/ParamsJoint.h</itemPath>
+            <itemPath>src/sam/manipulation/bus/ParamsJointMover.cpp</itemPath>
+            <itemPath>src/sam/manipulation/bus/ParamsJointMover.h</itemPath>
           </logicalFolder>
           <logicalFolder name="data" displayName="data" projectFiles="true">
             <itemPath>src/sam/manipulation/data/Arm.cpp</itemPath>
@@ -67,9 +77,11 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
+            <pElem>../../../Dropbox/DEV/goon/utils/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}</output>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../../../Dropbox/DEV/goon/utils"
@@ -97,6 +109,53 @@
       <item path="src/sam/manipulation/bus/Bus.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/manipulation/bus/Bus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Config.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionSet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionSet.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Connections.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Connections.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJoint.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJoint.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJointMover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/sam/manipulation/data/Arm.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -160,6 +219,53 @@
       <item path="src/sam/manipulation/bus/Bus.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/manipulation/bus/Bus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Config.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Config.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionSet.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionSet.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Connections.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/Connections.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJoint.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJoint.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJointMover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ParamsJointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/sam/manipulation/data/Arm.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -16,20 +16,18 @@ Joint::~Joint()
 {
 }
 
-
-void Joint::init(int type, int length, int limit1, int limit2)
+void Joint::init(int type, manipulation::ParamsJoint& oParamsJoint)
 {
     // control proper argument values
-    if (type < 0 || 
-            type >= eJOINT_INVALID || 
-            length < 0 ||
-            limit1 >= limit2)
+    if (type < 0 || type >= eJOINT_INVALID ||        
+            oParamsJoint.getLen() < 0 ||
+            oParamsJoint.getLimit1() >= oParamsJoint.getLimit2())
         return;
 
     this->type = type;
-    this->length = length;
-    this->limit1 = limit1;
-    this->limit2 = limit2;
+    this->length = oParamsJoint.getLen();
+    this->limit1 = oParamsJoint.getLimit1();
+    this->limit2 = oParamsJoint.getLimit2();
     this->rest = 0; // default
     benabled = true;
 };

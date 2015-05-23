@@ -3,15 +3,16 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Connections.h"
+#include "ParamsJoint.h"
 
 namespace sam 
 {
-namespace manipulation
+namespace manipulation 
 {
 // Constructor
-Connections::Connections ()
+ParamsJoint::ParamsJoint ()
 {    
+    // TEMPORAL: configuration should be read from a file    
 }
 
 }

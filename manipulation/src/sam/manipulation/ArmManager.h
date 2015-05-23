@@ -6,15 +6,13 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <vector>
+//#include <vector>
 #include <log4cxx/logger.h>
 
+#include "sam/manipulation/bus/Bus.h"
 #include "sam/manipulation/data/Arm.h"
-//#include "sam/manipulation/bus/Config.h"
-//#include "sam/manipulation/bus/Connections.h"
 //#include "sam/manipulation/modules/ArmMover.h"
 #include "sam/manipulation/modules/JointMover.h"
-//#include "sam/manipulation/modules/JointControl.h"
 
 namespace sam 
 {
@@ -24,20 +22,19 @@ class ArmManager
 {
     private:
         static log4cxx::LoggerPtr logger;
-        //manipulation::Config oConfig;
-        //manipulation::Connections oConnections;
+        manipulation::Bus oBus;
         Arm oArm;
         // modules ...
+        JointMover* oShoulderMoverH;
         //ArmMover oArmMover;
-        std::vector<JointMover> listJointMovers;  // one for each joint
         //std::vector<JointControl> listJointControls;  // one for each joint
 
     public:
         ArmManager();
         ~ArmManager();
 
-        // initializes the arm joints & their controllers given the arm's configuration file
-        void init(std::string armConfigFile);
+        // initializes the arm joints & their controllers
+        void init();
         
         // starts the task's modules 
         void startModules();

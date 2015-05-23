@@ -3,16 +3,26 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Connections.h"
+
+#include "Bus.h"
 
 namespace sam 
 {
 namespace manipulation
 {
+
 // Constructor
-Connections::Connections ()
+Bus::Bus ()
 {    
+}
+
+// Destructor
+Bus::~Bus ()
+{        
 }
 
 }
 }
+
+
+

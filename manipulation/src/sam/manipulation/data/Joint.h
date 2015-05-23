@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "sam/manipulation/bus/ParamsJoint.h"
+
 namespace sam 
 {
 // Class to represent an arm's joint. To move it use class JointMover.
@@ -13,8 +15,6 @@ class Joint
 {
 private:
     bool benabled;
-    int ist;        // angle read from encoders (degrees)
-    int angle;   // present setpoint angle (degrees)
     // configuration data
     int rest;    // angle at which the joint rests (the effort is minimum)
     int type;    // type of joint (moves in pan plane or in tilt plane)
@@ -35,15 +35,8 @@ public:
     ~Joint();
 
     // initializes the joint 
-    void init(int type, int length, int limit1, int limit2);        
-
+    void init(int type, manipulation::ParamsJoint& oParamsJoint);        
     bool isEnabled() {return benabled;};
-
-    int getIst() {return ist;};
-    void setIst(int value) {ist = value;};
-
-    int getAngle() {return angle;};
-    void setAngle(int value) {angle = value;};
 
     int getRestAngle() {return rest;};
     void setRestAngle(int value) {rest = value;};

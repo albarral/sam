@@ -3,14 +3,14 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Connections.h"
+#include "ConnectionSet.h"
 
 namespace sam 
 {
-namespace manipulation
+namespace manipulation 
 {
 // Constructor
-Connections::Connections ()
+ConnectionSet::ConnectionSet ()
 {    
 }
 
