@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "JointMover.h"
+#include "sam/manipulation/modules/Commands.h"
 
 using namespace log4cxx;
 
@@ -59,38 +60,57 @@ void JointMover::first()
     setState(eSTATE_STOP);
     setNextState(eSTATE_STOP);
 }
-    
-// starts movement in the specified joint direction (positive as default) 
-void JointMover::move(int direction = 1)
+                    
+void JointMover::senseBus()
 {
-    if (direction > 0)
-        this->direction = 1;
-    else if (direction < 0)
-        this->direction = -1;
-
-    setNextState(eSTATE_ACCEL);
-}
-    
-// starts braking until the joint stops        
-void JointMover::brake()
-{
-    setNextState(eSTATE_BRAKE);    
-}
-        
-// keeps the present speed
-void JointMover::keep()
-{
-    setNextState(eSTATE_KEEP);    
+    int reqCommand;
+    if (mBus->getConnections().getShoulderConnectionsH().getCOAction().isRequested(reqCommand))
+    {
+        processActionRequest(reqCommand);
+    }    
 }
 
-// suddenly stops the joint
-void JointMover::stop()
+void JointMover::processActionRequest(int reqCommand)
 {
-    setNextState(eSTATE_STOP);    
+    switch (reqCommand)
+    {
+        // start movement to the right (or up if vertical) 
+        case manipulation::Commands::eMOVER_MOVE_R:
+            this->direction = 1;
+            setNextState(eSTATE_ACCEL);
+            break;
+            
+        // start movement to the left (or down if vertical) 
+        case manipulation::Commands::eMOVER_MOVE_L:
+            this->direction = -1;
+            setNextState(eSTATE_ACCEL);
+            break;
+
+        // start braking until the joint stops        
+        case manipulation::Commands::eMOVER_BRAKE:
+            setNextState(eSTATE_BRAKE);    
+            break;
+            
+        // keeps the present speed
+        case manipulation::Commands::eMOVER_KEEP:
+            setNextState(eSTATE_KEEP);
+            break;
+            
+        // suddenly stops the joint
+        case manipulation::Commands::eMOVER_STOP:
+            setNextState(eSTATE_STOP);    
+            break;
+
+        default:
+            LOG4CXX_INFO(logger, "> unkown request");
+            break;
+    }    
 }
-                
+
 void JointMover::loop()
 {
+    senseBus();
+    
     if (updateState())
         showState();
     
@@ -105,7 +125,7 @@ void JointMover::loop()
             
             // if max speed reached -> go to KEEP state
             if (abs(speed) == maxSpeed)
-                keep();
+                setNextState(eSTATE_KEEP);
 
             break;
             
@@ -114,7 +134,7 @@ void JointMover::loop()
             doBrake();
             
             if(speed == 0)
-                stop();
+                setNextState(eSTATE_STOP);    
 
             break;
                     
@@ -130,7 +150,10 @@ void JointMover::loop()
                 speed = 0;
             break;
     }   // end switch    
+    
+    writeBus();
 }
+
 
 // increase speed in the proper direction
 void JointMover::doAccel()
@@ -155,6 +178,12 @@ void JointMover::doBrake()
     {
         speed = 0;
     }
+}
+
+void JointMover::writeBus()
+{
+    mBus->getConnections().getShoulderConnectionsH().getCOSpeed().request(speed);
+    LOG4CXX_INFO(logger, ">> speed = " << speed);
 }
 
 void JointMover::showState()

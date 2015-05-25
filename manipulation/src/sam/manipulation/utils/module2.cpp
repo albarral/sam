@@ -53,9 +53,6 @@ float Module2::getFrequency()
 
 void Module2::run ()
 {
-    // states begin unknown
-    setState(Module2::state_UNKNOWN);
-    forceNextState(Module2::state_UNKNOWN);
     first();
     while (!offRequested())
     {

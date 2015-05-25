@@ -6,8 +6,6 @@
 // TEST: SAM MANIPULATION
 
 #include <unistd.h> // for sleep() 
-//#include <iostream> // for cout
-//#include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "sam/manipulation/ArmManager.h"
@@ -30,7 +28,7 @@ void testManipulation()
     
     oArmManager.startModules();
     
-    sleep(10);
+    sleep(20);
     
     oArmManager.stopModules();
 

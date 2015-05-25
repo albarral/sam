@@ -37,10 +37,15 @@
             <itemPath>src/sam/manipulation/data/Joint.h</itemPath>
           </logicalFolder>
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
+            <itemPath>src/sam/manipulation/modules/Commands.h</itemPath>
+            <itemPath>src/sam/manipulation/modules/ComsManip.cpp</itemPath>
+            <itemPath>src/sam/manipulation/modules/ComsManip.h</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.h</itemPath>
           </logicalFolder>
           <logicalFolder name="utils" displayName="utils" projectFiles="true">
+            <itemPath>src/sam/manipulation/utils/Responder.cpp</itemPath>
+            <itemPath>src/sam/manipulation/utils/Responder.h</itemPath>
             <itemPath>src/sam/manipulation/utils/module2.cpp</itemPath>
             <itemPath>src/sam/manipulation/utils/module2.h</itemPath>
           </logicalFolder>
@@ -168,12 +173,37 @@
       </item>
       <item path="src/sam/manipulation/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/sam/manipulation/modules/Commands.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ComsManip.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ComsManip.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/sam/manipulation/modules/JointMover.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/Responder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/Responder.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -278,12 +308,37 @@
       </item>
       <item path="src/sam/manipulation/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/sam/manipulation/modules/Commands.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ComsManip.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ComsManip.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/sam/manipulation/modules/JointMover.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/Responder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/utils/Responder.h"
             ex="false"
             tool="3"
             flavor2="0">

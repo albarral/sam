@@ -54,6 +54,12 @@ void ArmManager::init()
     oShoulderMoverH->connect(oBus);
     // Vertical shoulder (to do ...)
     // Elbow (to do ...)
+    
+    // communications module (listens to console)
+    oComsManip = new ComsManip();
+    oComsManip->init();
+    oComsManip->setFrequency(1); // 1Hz
+    oComsManip->connect(oBus);    
 }
 
 
@@ -63,6 +69,9 @@ void ArmManager::startModules()
     
     if (oShoulderMoverH->isEnabled() && oShoulderMoverH->isConnected())
         oShoulderMoverH->on();
+    
+    if (oComsManip->isEnabled() && oComsManip->isConnected())
+        oComsManip->on();
     
 //    std::vector<JointMover>::iterator it_mover = listJointMovers.begin();
 //    while (it_mover != listJointMovers.end())
@@ -81,6 +90,9 @@ void ArmManager::stopModules()
     // stop & wait for modules 
     oShoulderMoverH->off();
     oShoulderMoverH->wait();
+    
+    oComsManip->off();
+    oComsManip->wait();
     
 //    std::vector<JointMover>::iterator it_mover = listJointMovers.begin();
 //    while (it_mover != listJointMovers.end())

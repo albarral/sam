@@ -13,6 +13,7 @@
 #include "sam/manipulation/data/Arm.h"
 //#include "sam/manipulation/modules/ArmMover.h"
 #include "sam/manipulation/modules/JointMover.h"
+#include "sam/manipulation/modules/ComsManip.h"
 
 namespace sam 
 {
@@ -27,6 +28,7 @@ class ArmManager
         // modules ...
         JointMover* oShoulderMoverH;
         //ArmMover oArmMover;
+        ComsManip* oComsManip;
         //std::vector<JointControl> listJointControls;  // one for each joint
 
     public:

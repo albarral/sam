@@ -38,8 +38,8 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    // params
     bool benabled;
+    // params
     std::string name;   // module name
     int accel;          // degrees/s2
     int maxSpeed;  // maximum speed allowed for the joint
@@ -66,15 +66,6 @@ public:
        void connect(manipulation::Bus& oBus);
        bool isConnected() {return bconnected;};
 
-        // starts movement (in the specified joint direction)
-        void move(int direction);
-        // starts braking until the joint stops
-        void brake();
-        // keeps the present speed
-        void keep();
-        // suddenly stops the joint
-        void stop();        
-        
         int getAccel() {return accel;};
         int getMaxSpeed() {return maxSpeed;};
         int getDeaccel() {return deaccel;};                
@@ -82,13 +73,20 @@ public:
         float getSpeed() {return speed;};
         
 private:       
-        //void setSpeed(int value) {speed = value;};
-
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
         
+        // read bus data
+        void senseBus();
+        // process request received from bus
+        void processActionRequest(int reqCommand);
+        // write data to bus (speed)
+        void writeBus();
+
+        //void setSpeed(int value) {speed = value;};
+
         // shows the present state name
         void showState();
         // softly increases speed till max value
