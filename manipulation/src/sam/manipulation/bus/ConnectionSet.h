@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 #include "goon/utils/brooks/controlT.h"
 #include "goon/utils/brooks/sensorT.h"
 
@@ -16,6 +18,8 @@ namespace manipulation
 class ConnectionSet
 {
     private:        
+        bool benabled;
+        std::string jointName;
         // JointMover module
         goon::ControlT<int> coAction;        // move, brake, keep, stop
         goon::ControlT<float> coSpeed;        
@@ -30,6 +34,11 @@ class ConnectionSet
         ConnectionSet();
         //~ConnectionSet();
                 
+        // initializes the JointConnection with the given joint name
+        void init (std::string jointName);        
+        bool isEnabled() {return benabled;};
+        std::string& getJointName() {return jointName;};
+
         // JointMover module
         goon::ControlT<int>& getCOAction() {return coAction;};        
         goon::ControlT<float>& getCOSpeed() {return coSpeed;};                

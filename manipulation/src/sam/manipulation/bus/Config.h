@@ -7,7 +7,9 @@
  ***************************************************************************/
 
 #include <string>
+#include <vector>
 
+#include "sam/manipulation/data/defines.h"
 #include "sam/manipulation/bus/ParamsJoint.h"
 #include "sam/manipulation/bus/ParamsJointMover.h"
 
@@ -19,28 +21,25 @@ class Config
 {
     private:                
         std::string configFile;     // name of config file  (not used yet)
+        int numJoints;
+        std::vector<std::string> listJointNames;
         float modulesFreq;  // execution frequency for all modules (loops/sec)
         // joints
-        ParamsJoint oShoulderHParams;   // horizontal shoulder
-        ParamsJoint oShoulderVParams;   // vertical shoulder
-        ParamsJoint oElbowParams;         // elbow
+        ParamsJoint oJointParams[SAM_MAX_JOINTS];
         // joint movers
-        ParamsJointMover oShoulderMoverHParams;
-        ParamsJointMover oShoulderMoverVParams;
-        ParamsJointMover oElbowMoverParams;
+        ParamsJointMover oJointMoverParams[SAM_MAX_JOINTS];
         
     public:
         Config();
 
+        int getNumJoints() {return numJoints;};
+        std::vector<std::string>& getListJointNames() {return listJointNames;};
         float getModulesFreq () {return modulesFreq;}        
+        
         // joints
-        ParamsJoint& getShoulderHParams() {return oShoulderHParams;};
-        ParamsJoint& getShoulderVParams() {return oShoulderVParams;};
-        ParamsJoint& getElbowParams() {return oElbowParams;};
+        ParamsJoint& getJointParams(int index);
         // joint movers
-        ParamsJointMover& getShoulderMoverHParams() {return oShoulderMoverHParams;};
-        ParamsJointMover& getShoulderMoverVParams() {return oShoulderMoverVParams;};
-        ParamsJointMover& getElbowMoverParams() {return oElbowMoverParams;};
+        ParamsJointMover& getJointMoverParams(int index);
 };
 
 }

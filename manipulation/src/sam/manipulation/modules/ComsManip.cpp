@@ -5,6 +5,7 @@
 
 
 #include "log4cxx/ndc.h"
+
 #include "ComsManip.h"
 #include "sam/manipulation/bus/Bus.h"
 #include "sam/manipulation/modules/Commands.h"
@@ -20,7 +21,6 @@ ComsManip::ComsManip ()
 {    
        benabled = false;
  }
-
 
 // Destructor
 ComsManip::~ComsManip ()
@@ -43,7 +43,7 @@ void ComsManip::init ()
 
 void ComsManip::connect(manipulation::Bus& oBus)
 {
-    mBus = &oBus;
+    pBus = &oBus;
     bconnected = true;
 
     LOG4CXX_INFO(logger, "ComsManip connected to bus");      
@@ -51,17 +51,20 @@ void ComsManip::connect(manipulation::Bus& oBus)
 
 void ComsManip::first()
 {    
-    oResponder.showAcceptedWords();
+    log4cxx::NDC::push("coms");   	
+    showResponderWords();
 }
 
 void ComsManip::loop ()
 {
+    LOG4CXX_INFO(logger, "> ?");    
     oResponder.listen();
 
-    int reqCommand = oResponder.getRequestedCommand();
+    int reqCommand = oResponder.getCommandID();
     
     if (reqCommand != Responder::INVALID_WORD)
     {
+        LOG4CXX_INFO(logger, oResponder.getCommandString());      
         sendManipCommand(reqCommand);
     }
     else
@@ -71,7 +74,6 @@ void ComsManip::loop ()
 
 void ComsManip::sendManipCommand(int reqCommand)
 {
-    LOG4CXX_INFO(logger, "ok");      
     switch (reqCommand)
     {
         case manipulation::Commands::eMOVER_MOVE_R:
@@ -80,13 +82,27 @@ void ComsManip::sendManipCommand(int reqCommand)
         case manipulation::Commands::eMOVER_KEEP:
         case manipulation::Commands::eMOVER_STOP:
             
-            mBus->getConnections().getShoulderConnectionsH().getCOAction().request(reqCommand);
+            pBus->getConnections().getJointConnections("shoulderH").getCOAction().request(reqCommand);
+            
             break;
  
         default:
             LOG4CXX_INFO(logger, "> nothing requested");
             break;
     }    
+}
+
+void ComsManip::showResponderWords()
+{    
+    LOG4CXX_INFO(logger, "List of accepted words:");      
+    std::vector<std::string>& listWords = oResponder.getListWords();
+    std::vector<std::string>::iterator it_word = listWords.begin();
+
+    while (it_word != listWords.end())
+    {
+        LOG4CXX_INFO(logger, *it_word);             
+        it_word++;
+    }
 }
 
 }

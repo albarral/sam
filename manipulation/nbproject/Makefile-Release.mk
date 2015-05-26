@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/data/Arm.o \
 	${OBJECTDIR}/src/sam/manipulation/data/Joint.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o \
+	${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o \
 	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o \
 	${OBJECTDIR}/src/sam/manipulation/utils/module2.o
@@ -123,6 +124,11 @@ ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o: src/sam/manipulation/modu
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o src/sam/manipulation/modules/ComsManip.cpp
+
+${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o: src/sam/manipulation/modules/JointControl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o src/sam/manipulation/modules/JointControl.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o: src/sam/manipulation/modules/JointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules

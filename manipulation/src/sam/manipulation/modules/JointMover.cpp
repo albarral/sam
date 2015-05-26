@@ -21,50 +21,54 @@ JointMover::JointMover()
     speed = 0;
     
     bconnected = false;
-    mBus = 0;
+    pBus = 0;
 }
 
 //JointMover::~JointMover()
 //{
 //}
 
-void JointMover::init(std::string name, manipulation::ParamsJointMover& oParamsJointMover)
+void JointMover::init(manipulation::ParamsJointMover& oJointMoverParams)
 {
     // all params must be positive
-    if (oParamsJointMover.getAccel() <= 0 || 
-       oParamsJointMover.getMaxSpeed() <= 0 ||
-       oParamsJointMover.getDeaccel() <= 0)
+    if (oJointMoverParams.getAccel() <= 0 || 
+       oJointMoverParams.getMaxSpeed() <= 0 ||
+       oJointMoverParams.getDeaccel() <= 0)
         return;
 
-    this->name = name;    
-    accel = oParamsJointMover.getAccel();
-    maxSpeed = oParamsJointMover.getMaxSpeed();
-    deaccel = oParamsJointMover.getDeaccel();
+    jointName = oJointMoverParams.getJointName();
+    accel = oJointMoverParams.getAccel();
+    maxSpeed = oJointMoverParams.getMaxSpeed();
+    deaccel = oJointMoverParams.getDeaccel();
     accel_ms = (float)this->accel/1000;
     deaccel_ms = (float)this->deaccel/1000;
     benabled = true;
 
-    LOG4CXX_INFO(logger, "JointMover " << name << " initialized: a = " << accel << ", maxSpeed = " << maxSpeed << ", deaccel = " << deaccel);      
+    LOG4CXX_INFO(logger, "JointMover " << jointName << " initialized: a = " << accel << ", maxSpeed = " << maxSpeed << ", deaccel = " << deaccel);      
 };
 
 void JointMover::connect(manipulation::Bus& oBus)
 {
-    mBus = &oBus;
+    pBus = &oBus;
     bconnected = true;
 
-    LOG4CXX_INFO(logger, "JointMover " << name << " connected to bus");      
+    LOG4CXX_INFO(logger, "JointMover " << jointName << " connected to bus");      
 }
 
 void JointMover::first()
 {
+    pConnectionSet = &(pBus->getConnections().getJointConnections(jointName));
+    
     setState(eSTATE_STOP);
     setNextState(eSTATE_STOP);
+    
+    log4cxx::NDC::push("stop." + jointName);   	
 }
                     
 void JointMover::senseBus()
 {
     int reqCommand;
-    if (mBus->getConnections().getShoulderConnectionsH().getCOAction().isRequested(reqCommand))
+    if (pConnectionSet->getCOAction().isRequested(reqCommand))
     {
         processActionRequest(reqCommand);
     }    
@@ -120,13 +124,14 @@ void JointMover::loop()
     switch (getState())
     {
         case eSTATE_ACCEL:
-            
-            doAccel();
-            
-            // if max speed reached -> go to KEEP state
-            if (abs(speed) == maxSpeed)
-                setNextState(eSTATE_KEEP);
+            {
 
+                bool bmaxReached = doAccel();
+
+                // if max speed reached -> go to KEEP state
+                if (bmaxReached)
+                    setNextState(eSTATE_KEEP);
+            }
             break;
             
         case eSTATE_BRAKE:
@@ -155,16 +160,19 @@ void JointMover::loop()
 }
 
 
-// increase speed in the proper direction
-void JointMover::doAccel()
+// Increase speed in the proper direction. Returns true if max speed reached.
+bool JointMover::doAccel()
 {
-    speed += (float)(direction*oClick.getMillis()*accel_ms);
+    speed += (float)(direction*accel_ms*oClick.getMillis());
 
     // limit speed to max value 
-    if (abs(speed)>maxSpeed)
+    if (abs(speed)>=maxSpeed)
     {
         speed = (speed > 0 ? maxSpeed : -maxSpeed);
+        return true;
     }
+    else 
+        return false;
 }
 
 // decrease speed in the proper direction
@@ -182,34 +190,36 @@ void JointMover::doBrake()
 
 void JointMover::writeBus()
 {
-    mBus->getConnections().getShoulderConnectionsH().getCOSpeed().request(speed);
+    pConnectionSet->getCOSpeed().request(speed);
     LOG4CXX_INFO(logger, ">> speed = " << speed);
 }
 
 void JointMover::showState()
 {
-    log4cxx::NDC::pop();	
-
     switch (getState())
     {
         case eSTATE_ACCEL:
             LOG4CXX_INFO(logger, ">> accel");
-            log4cxx::NDC::push("accel");   	
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push("accel." + jointName);   	
             break;
             
         case eSTATE_BRAKE:
             LOG4CXX_INFO(logger, ">> brake");
-            log4cxx::NDC::push("brake");   	
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push("brake." + jointName);   	
             break;
                     
         case eSTATE_KEEP:
             LOG4CXX_INFO(logger, ">> keep");
-            log4cxx::NDC::push("keep");   	
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push("keep." + jointName);   	
             break;
             
         case eSTATE_STOP:
             LOG4CXX_INFO(logger, ">> stop");
-            log4cxx::NDC::push("stop");   	
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push("stop." + jointName);   	
             break;
     }   // end switch    
 }

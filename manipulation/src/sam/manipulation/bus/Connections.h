@@ -6,6 +6,10 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+#include <vector>
+
+#include "sam/manipulation/data/defines.h"
 #include "sam/manipulation/bus/ConnectionSet.h"
 
 namespace sam 
@@ -15,17 +19,20 @@ namespace manipulation
 class Connections
 {
     private:        
-        ConnectionSet oShoulderConnectionsH;
-        ConnectionSet oShoulderConnectionsV;
-        ConnectionSet oElbowConnections;
+        bool benabled;
+        ConnectionSet oJointConnections[SAM_MAX_JOINTS];
+        int numJoints;   // number of active joints
         
     public:
         Connections();
         //~Connections();
-                
-        ConnectionSet& getShoulderConnectionsH() {return oShoulderConnectionsH;};
-        ConnectionSet& getShoulderConnectionsV() {return oShoulderConnectionsV;};
-        ConnectionSet& getElbowConnections() {return oElbowConnections;};
+
+        // initializes the JointConnections, each with a given joint name
+        void init (std::vector<std::string> listJointNames);        
+        bool isEnabled() {return benabled;};
+        
+        // gets the connections set for the specified joint 
+        ConnectionSet& getJointConnections(std::string jointName);
 };
 
 }

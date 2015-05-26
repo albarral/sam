@@ -7,12 +7,8 @@
 
 #include "Responder.h"
 
-using namespace log4cxx;
-
 namespace sam
 {
-LoggerPtr Responder::logger(Logger::getLogger("sam.responder"));
-
 // Constructor 
 Responder::Responder ()
 {
@@ -27,7 +23,7 @@ Responder::~Responder ()
 void Responder::reset()
 {
     command = "";
-    iCommand = Responder::INVALID_WORD;
+    commandID = Responder::INVALID_WORD;
     brequested = false;    
 }
 
@@ -40,7 +36,6 @@ void Responder::listen()
 {
     reset();
     
-    LOG4CXX_INFO(logger, "> ?");
     std::string buffer;        
     std::getline(std::cin, buffer);
     brequested = true;    
@@ -58,7 +53,7 @@ void Responder::listen()
             if (buffer.compare(*it_word) == 0) 
             {
                 command = *it_word;
-                iCommand = pos;                
+                commandID = pos;                
                 break;
             }
             it_word++;
@@ -67,20 +62,6 @@ void Responder::listen()
     }    
 }
 
-
-void Responder::showAcceptedWords()
-{
-    LOG4CXX_INFO(logger, "Responder accepted words:");
-    
-    std::vector<std::string>::iterator it_word = listWords.begin();
-
-    while (it_word != listWords.end())
-    {
-        LOG4CXX_INFO(logger, *it_word);
-             
-        it_word++;
-    }
-}
 
 void Responder::clearWords()
 {

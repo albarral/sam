@@ -12,6 +12,13 @@ namespace manipulation
 // Constructor
 ConnectionSet::ConnectionSet ()
 {    
+    benabled = false;
+}
+
+void ConnectionSet::init(std::string jointName)
+{
+    this->jointName = jointName;
+    benabled = true;    
 }
 
 }

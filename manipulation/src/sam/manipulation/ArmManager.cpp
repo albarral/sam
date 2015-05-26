@@ -25,36 +25,29 @@ ArmManager::~ArmManager ()
 
 void ArmManager::init()
 {
+    LOG4CXX_INFO(logger, "Arm manager: init ...");
+    
+    // read config
     manipulation::Config& mConfig = oBus.getConfig();
-    
-    // build the arm ...
-    // Horizontal shoulder
-    Joint oShoulderH; 
-    oShoulderH.init(Joint::eJOINT_PAN, mConfig.getShoulderHParams());    
-    if (oShoulderH.isEnabled())
-        oArm.addJoint(oShoulderH);
-    /*
-    // Vertical shoulder
-    Joint oShoulderV; 
-    oShoulderV.init(Joint::eJOINT_TILT, mConfig.getShoulderVParams());    
-    if (oShoulderV.isEnabled())
-        oArm.addJoint(oShoulderV);
-    // Elbow
-    Joint oElbow;       
-    oElbow.init(Joint::eJOINT_TILT, mConfig.getElbowParams());
-    if (oElbow.isEnabled())
-        oArm.addJoint(oElbow);
-    */
-    
-    // setup the joint controllers
-    // Horizontal shoulder
-    oShoulderMoverH = new JointMover();
-    oShoulderMoverH->init("shoulder", mConfig.getShoulderMoverHParams());
-    oShoulderMoverH->setFrequency(mConfig.getModulesFreq());
-    oShoulderMoverH->connect(oBus);
-    // Vertical shoulder (to do ...)
-    // Elbow (to do ...)
-    
+
+    // set bus connections
+    oBus.getConnections().init(mConfig.getListJointNames());
+       
+    // build arm & modules joint by joint ...
+    int numJoints = mConfig.getNumJoints();
+    for (int i=0; i<numJoints; i++)
+    {        
+        // arm
+        Joint oJoint; 
+        oJoint.init(mConfig.getJointParams(i));    
+        oArm.addJoint(oJoint);
+                
+        // joint mover modules
+        oJointMover[i].init(mConfig.getJointMoverParams(i));  
+        oJointMover[i].setFrequency(mConfig.getModulesFreq());
+        oJointMover[i].connect(oBus);
+    }
+        
     // communications module (listens to console)
     oComsManip = new ComsManip();
     oComsManip->init();
@@ -67,20 +60,11 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "Arm manager: starting modules ...");
     
-    if (oShoulderMoverH->isEnabled() && oShoulderMoverH->isConnected())
-        oShoulderMoverH->on();
+    if (oJointMover[0].isEnabled() && oJointMover[0].isConnected())
+        oJointMover[0].on();
     
     if (oComsManip->isEnabled() && oComsManip->isConnected())
         oComsManip->on();
-    
-//    std::vector<JointMover>::iterator it_mover = listJointMovers.begin();
-//    while (it_mover != listJointMovers.end())
-//    {
-//	it_mover->on();
-//	it_mover++;	
-//    }
-
-    // TO DO ... launch modules
 }
 
 void ArmManager::stopModules()
@@ -88,26 +72,11 @@ void ArmManager::stopModules()
     LOG4CXX_INFO(logger, "Arm manager: stopping modules ...");
 
     // stop & wait for modules 
-    oShoulderMoverH->off();
-    oShoulderMoverH->wait();
+    oJointMover[0].off();
+    oJointMover[0].wait();
     
     oComsManip->off();
-    oComsManip->wait();
-    
-//    std::vector<JointMover>::iterator it_mover = listJointMovers.begin();
-//    while (it_mover != listJointMovers.end())
-//    {
-//	it_mover->off();
-//	it_mover++;	
-//    }
-//
-//    it_mover = listJointMovers.begin();
-//    while (it_mover != listJointMovers.end())
-//    {
-//	it_mover->wait();
-//	it_mover++;	
-//    }
-
+    oComsManip->wait();    
 }
 }
 

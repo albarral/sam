@@ -40,16 +40,17 @@ private:
     static log4cxx::LoggerPtr logger;
     bool benabled;
     // params
-    std::string name;   // module name
+    std::string jointName;   // module name
     int accel;          // degrees/s2
     int maxSpeed;  // maximum speed allowed for the joint
     int deaccel;          // degrees/s2
     // bus
     bool bconnected;        // connected to bus
-    manipulation::Bus* mBus;
+    manipulation::Bus* pBus;
+    manipulation::ConnectionSet* pConnectionSet;    // the connection set corresponding to its name
     // logic
     int direction;
-    float speed;  // degrees/s (must be float to grant continuity)
+    float speed;  // output: degrees/s (must be float to grant continuity)
     goon::Click oClick;   
     float accel_ms;    // (degres/s)/ms
     float deaccel_ms;    // (degres/s)/ms
@@ -59,7 +60,7 @@ public:
         //~JointMover();
                 
        // module params
-       void init (std::string name, manipulation::ParamsJointMover& oParamsJointMover);       
+       void init (manipulation::ParamsJointMover& oParamsJointMover);       
        bool isEnabled() {return benabled;};
 
        // bus connection 
@@ -90,7 +91,7 @@ private:
         // shows the present state name
         void showState();
         // softly increases speed till max value
-        void doAccel();
+        bool doAccel();
         // softly reduces speed to 0
         void doBrake();
 };

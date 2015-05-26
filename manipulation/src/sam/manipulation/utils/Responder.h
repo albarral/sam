@@ -8,7 +8,6 @@
 
 #include <string>
 #include <vector>
-#include <log4cxx/logger.h>
 
 namespace sam 
 {
@@ -19,11 +18,10 @@ public:
     static const int INVALID_WORD = -1;    
 
 private:
-    static log4cxx::LoggerPtr logger;
     std::vector<std::string> listWords;        // list of accepted words 
-    std::string command;                          // requested command (null if not valid)      
     bool brequested;                                // indicates a command has been requested
-    int iCommand;                                    // ID of requested command (0 if not valid)   
+    std::string command;                          // requested command (null if not valid)      
+    int commandID;                                  // ID of requested command (0 if not valid)   
 
 public:
     Responder ();
@@ -36,12 +34,12 @@ public:
     void listen();
     
     // checks if a command has been requested
-    bool isCommandRequested() {return brequested;};
-    
-    int getRequestedCommand() {return iCommand;};
-        
-    // shows the list of accepted words
-    void showAcceptedWords();
+    bool isCommandRequested() {return brequested;};    
+    std::string& getCommandString() {return command;};
+    int getCommandID() {return commandID;};
+
+    // return list of accepted words
+    std::vector<std::string>& getListWords() {return listWords;};
     
     // reset list of accepted words
     void clearWords();

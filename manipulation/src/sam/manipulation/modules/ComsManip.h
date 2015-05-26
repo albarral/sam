@@ -21,7 +21,7 @@ private:
     bool benabled;
     // bus
     bool bconnected;        // connected to bus
-    manipulation::Bus* mBus;
+    manipulation::Bus* pBus;
     // logic
     Responder oResponder;    
 
@@ -47,6 +47,8 @@ private:
     
     // performs the proper request to the goon system modules
     void sendManipCommand(int reqCommand);    
+    
+    void showResponderWords();
 };
 }		
 #endif

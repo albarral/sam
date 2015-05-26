@@ -6,11 +6,16 @@
 // TEST: SAM MANIPULATION
 
 #include <unistd.h> // for sleep() 
+#include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "sam/manipulation/ArmManager.h"
 
 void testManipulation();
+
+//using namespace log4cxx;
+
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.manipulation"));
 
 // main program
 int main(int argc, char** argv) 
@@ -24,6 +29,8 @@ int main(int argc, char** argv)
 
 void testManipulation()
 {
+    LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST MANIPULATION >>>>>>>>>>>>>>");      
+    
     sam::ArmManager oArmManager;
     
     oArmManager.startModules();

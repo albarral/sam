@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 namespace sam 
 {
 namespace manipulation 
@@ -14,6 +16,7 @@ namespace manipulation
 class ParamsJointMover 
 {
     private:                
+        std::string jointName;
         int accel;          // degrees/s2
         int maxSpeed;  // maximum speed allowed for the joint
         int deaccel;      // degrees/s2
@@ -21,8 +24,9 @@ class ParamsJointMover
     public:
         ParamsJointMover();
 
-        void set(int accel, int maxSpeed, int deaccel) {this->accel = accel; this->maxSpeed = maxSpeed; this->deaccel = deaccel;}
+        void set(std::string jointName, int accel, int maxSpeed, int deaccel) {this->jointName = jointName; this->accel = accel; this->maxSpeed = maxSpeed; this->deaccel = deaccel;}
 
+        std::string& getJointName() {return jointName;};
         int getAccel() {return accel;}
         int getMaxSpeed() {return maxSpeed;}
         int getDeaccel() {return deaccel;}

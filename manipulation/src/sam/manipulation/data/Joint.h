@@ -17,7 +17,7 @@ private:
     bool benabled;
     // configuration data
     int rest;    // angle at which the joint rests (the effort is minimum)
-    int type;    // type of joint (moves in pan plane or in tilt plane)
+    //int type;    // type of joint (moves in pan plane or in tilt plane)
     int length;     // joint's length (cm)
     int limit1;      // lower allowed angle (degrees)
     int limit2;      // upper allowed angle (degrees)
@@ -35,13 +35,13 @@ public:
     ~Joint();
 
     // initializes the joint 
-    void init(int type, manipulation::ParamsJoint& oParamsJoint);        
+    void init(manipulation::ParamsJoint& oParamsJoint);        
     bool isEnabled() {return benabled;};
 
     int getRestAngle() {return rest;};
     void setRestAngle(int value) {rest = value;};
 
-    int getType() {return type;};
+    //int getType() {return type;};
 };
 }
 #endif

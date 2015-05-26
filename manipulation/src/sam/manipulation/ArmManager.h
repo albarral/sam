@@ -9,6 +9,7 @@
 //#include <vector>
 #include <log4cxx/logger.h>
 
+#include "sam/manipulation/data/defines.h"
 #include "sam/manipulation/bus/Bus.h"
 #include "sam/manipulation/data/Arm.h"
 //#include "sam/manipulation/modules/ArmMover.h"
@@ -26,10 +27,9 @@ class ArmManager
         manipulation::Bus oBus;
         Arm oArm;
         // modules ...
-        JointMover* oShoulderMoverH;
+        JointMover oJointMover[SAM_MAX_JOINTS];
         //ArmMover oArmMover;
         ComsManip* oComsManip;
-        //std::vector<JointControl> listJointControls;  // one for each joint
 
     public:
         ArmManager();
