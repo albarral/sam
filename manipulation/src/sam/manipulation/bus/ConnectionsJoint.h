@@ -1,5 +1,5 @@
-#ifndef __SAM_MANIPULATION_CONNECTIONSET_H
-#define __SAM_MANIPULATION_CONNECTIONSET_H
+#ifndef __SAM_MANIPULATION_CONNECTIONS_JOINT_H
+#define __SAM_MANIPULATION_CONNECTIONS_JOINT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -15,7 +15,9 @@ namespace sam
 {
 namespace manipulation 
 {    
-class ConnectionSet
+// Set of bus connections for a specific joint. 
+// All modules controlling this joint must be connected through this bus section.
+class ConnectionsJoint
 {
     private:        
         bool benabled;
@@ -31,10 +33,10 @@ class ConnectionSet
         goon::SensorT<int> soIst;            // sensed joint angle
         
     public:
-        ConnectionSet();
-        //~ConnectionSet();
+        ConnectionsJoint();
+        //~ConnectionsJoint();
                 
-        // initializes the JointConnection with the given joint name
+        // initializes the class with the given joint name
         void init (std::string jointName);        
         bool isEnabled() {return benabled;};
         std::string& getJointName() {return jointName;};

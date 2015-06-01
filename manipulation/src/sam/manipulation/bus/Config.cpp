@@ -16,46 +16,50 @@ Config::Config ()
 
     modulesFreq = 5;  // 5 Hz
 
-    listJointNames.push_back("shoulderH");
-//    listJointNames.push_back("shoulderV");        
-//    listJointNames.push_back("elbow");
-
     int i=0;
-    // important: use same name for joints & joint movers
-    std::string name = listJointNames.at(i);
-    oJointParams[i].set(name, -180, 180, 20);
-    oJointMoverParams[i].set(name, 3, 10, 3);
-    i++;
-
-//    name = listJointNames.at(i);
-//    oJointParams[i].set(name, -45, 90, 20);
-//    oJointMoverParams[i].set(name, 3, 10, 3);
-//    i++;
-//
-//    name = listJointNames.at(i);
-//    oJointParams[i].set(name, 0, 90,20);
-//    oJointMoverParams[i].set(name, 3, 10, 3);
-//    i++;
+    std::string jointName = "shoulderH";
+    oJointParams[i].set(jointName, -180, 180, 20);
+    oJointMoverParams[i].set(jointName, 3, 10, 3);        
+    listJointNames.push_back(jointName);
     
-    numJoints = i;
+//    i++;
+//    jointName = "shoulderV";
+//    oJointParams[i].set(jointName, -45, 90, 20);
+//    oJointMoverParams[i].set(jointName, 3, 10, 3);
+//    listJointNames.push_back(jointName);
+
+//    i++;
+//    jointName = "elbow";
+//    oJointParams[i].set(jointName, 0, 90,20);
+//    oJointMoverParams[i].set(jointName, 3, 10, 3);
+//    listJointNames.push_back(jointName);
+    
+    numJoints = listJointNames.size();
 }
 
-ParamsJoint& Config::getJointParams(int index)
+
+ParamsJoint& Config::getParamsJoint(std::string jointName)
 {
-    if (index < numJoints)
-        return oJointParams[index];
-    else
-        // temporal: if not found return the first (should use lists)
-        return oJointParams[0];    
+    for (int i=0; i<numJoints; i++)
+    {
+        if (oJointParams[i].getJointName().compare(jointName) == 0)          
+            return oJointParams[i];
+    }
+      
+    // temporal: if not found return the first (should use lists)
+    return oJointParams[0];    
 }
 
-ParamsJointMover& Config::getJointMoverParams(int index)
+ParamsJointMover& Config::getParamsJointMover(std::string jointName)
 {
-    if (index < numJoints)
-        return oJointMoverParams[index];
-    else
-        // temporal: if not found return the first (should use lists)
-        return oJointMoverParams[0];        
+    for (int i=0; i<numJoints; i++)
+    {
+        if (oJointMoverParams[i].getJointName().compare(jointName) == 0)                
+            return oJointMoverParams[i];
+    }
+
+    // temporal: if not found return the first (should use lists)
+    return oJointMoverParams[0];        
 }
 
 }

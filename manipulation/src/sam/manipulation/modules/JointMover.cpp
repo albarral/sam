@@ -21,7 +21,7 @@ JointMover::JointMover()
     speed = 0;
     
     bconnected = false;
-    pBus = 0;
+    pConnectionsJoint = 0;
 }
 
 //JointMover::~JointMover()
@@ -47,9 +47,9 @@ void JointMover::init(manipulation::ParamsJointMover& oJointMoverParams)
     LOG4CXX_INFO(logger, "JointMover " << jointName << " initialized: a = " << accel << ", maxSpeed = " << maxSpeed << ", deaccel = " << deaccel);      
 };
 
-void JointMover::connect(manipulation::Bus& oBus)
+void JointMover::connect(manipulation::ConnectionsJoint& oConnectionsJoint)
 {
-    pBus = &oBus;
+    pConnectionsJoint = &oConnectionsJoint;
     bconnected = true;
 
     LOG4CXX_INFO(logger, "JointMover " << jointName << " connected to bus");      
@@ -57,8 +57,6 @@ void JointMover::connect(manipulation::Bus& oBus)
 
 void JointMover::first()
 {
-    pConnectionSet = &(pBus->getConnections().getJointConnections(jointName));
-    
     setState(eSTATE_STOP);
     setNextState(eSTATE_STOP);
     
@@ -68,7 +66,7 @@ void JointMover::first()
 void JointMover::senseBus()
 {
     int reqCommand;
-    if (pConnectionSet->getCOAction().isRequested(reqCommand))
+    if (pConnectionsJoint->getCOAction().isRequested(reqCommand))
     {
         processActionRequest(reqCommand);
     }    
@@ -190,7 +188,7 @@ void JointMover::doBrake()
 
 void JointMover::writeBus()
 {
-    pConnectionSet->getCOSpeed().request(speed);
+    pConnectionsJoint->getCOSpeed().request(speed);
     LOG4CXX_INFO(logger, ">> speed = " << speed);
 }
 

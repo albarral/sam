@@ -11,7 +11,7 @@
 
 #include "sam/manipulation/utils/module2.h"
 #include "sam/manipulation/bus/ParamsJointMover.h"
-#include "sam/manipulation/bus/Bus.h"
+#include "sam/manipulation/bus/ConnectionsJoint.h"
 #include "goon/utils/Click.h"
 
 namespace sam 
@@ -46,8 +46,7 @@ private:
     int deaccel;          // degrees/s2
     // bus
     bool bconnected;        // connected to bus
-    manipulation::Bus* pBus;
-    manipulation::ConnectionSet* pConnectionSet;    // the connection set corresponding to its name
+    manipulation::ConnectionsJoint* pConnectionsJoint;    // the bus connections corresponding to a given joint
     // logic
     int direction;
     float speed;  // output: degrees/s (must be float to grant continuity)
@@ -64,7 +63,7 @@ public:
        bool isEnabled() {return benabled;};
 
        // bus connection 
-       void connect(manipulation::Bus& oBus);
+       void connect(manipulation::ConnectionsJoint& oConnectionsJoint);
        bool isConnected() {return bconnected;};
 
         int getAccel() {return accel;};

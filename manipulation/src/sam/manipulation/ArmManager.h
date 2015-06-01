@@ -6,7 +6,6 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-//#include <vector>
 #include <log4cxx/logger.h>
 
 #include "sam/manipulation/data/defines.h"

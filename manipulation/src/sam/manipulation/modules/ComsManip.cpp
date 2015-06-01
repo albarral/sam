@@ -82,7 +82,7 @@ void ComsManip::sendManipCommand(int reqCommand)
         case manipulation::Commands::eMOVER_KEEP:
         case manipulation::Commands::eMOVER_STOP:
             
-            pBus->getConnections().getJointConnections("shoulderH").getCOAction().request(reqCommand);
+            pBus->getConnections().getConnectionsJoint("shoulderH").getCOAction().request(reqCommand);
             
             break;
  

@@ -21,10 +21,10 @@
             <itemPath>src/sam/manipulation/bus/Bus.h</itemPath>
             <itemPath>src/sam/manipulation/bus/Config.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/Config.h</itemPath>
-            <itemPath>src/sam/manipulation/bus/ConnectionSet.cpp</itemPath>
-            <itemPath>src/sam/manipulation/bus/ConnectionSet.h</itemPath>
             <itemPath>src/sam/manipulation/bus/Connections.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/Connections.h</itemPath>
+            <itemPath>src/sam/manipulation/bus/ConnectionsJoint.cpp</itemPath>
+            <itemPath>src/sam/manipulation/bus/ConnectionsJoint.h</itemPath>
             <itemPath>src/sam/manipulation/bus/ParamsJoint.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/ParamsJoint.h</itemPath>
             <itemPath>src/sam/manipulation/bus/ParamsJointMover.cpp</itemPath>
@@ -41,8 +41,6 @@
             <itemPath>src/sam/manipulation/modules/Commands.h</itemPath>
             <itemPath>src/sam/manipulation/modules/ComsManip.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/ComsManip.h</itemPath>
-            <itemPath>src/sam/manipulation/modules/JointControl.cpp</itemPath>
-            <itemPath>src/sam/manipulation/modules/JointControl.h</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.h</itemPath>
           </logicalFolder>
@@ -125,22 +123,22 @@
       </item>
       <item path="src/sam/manipulation/bus/Config.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ConnectionSet.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/ConnectionSet.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/bus/Connections.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/bus/Connections.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionsJoint.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionsJoint.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -192,16 +190,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/ComsManip.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/JointControl.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/JointControl.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -275,22 +263,22 @@
       </item>
       <item path="src/sam/manipulation/bus/Config.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ConnectionSet.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/ConnectionSet.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/bus/Connections.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/bus/Connections.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionsJoint.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/bus/ConnectionsJoint.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -342,16 +330,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/ComsManip.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/JointControl.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/JointControl.h"
             ex="false"
             tool="3"
             flavor2="0">

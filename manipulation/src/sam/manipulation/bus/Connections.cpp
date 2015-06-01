@@ -16,31 +16,44 @@ Connections::Connections ()
     numJoints = 0;
 }
 
-void Connections::init(std::vector<std::string> listJointNames)
+bool Connections::add4Joint(std::string jointName)
 {
-    std::string jointName; 
-    
-    // init each joint connection set
-    for (int i=0; i<listJointNames.size(); i++)
-    {
-        jointName = listJointNames.at(i);
-        oJointConnections[i].init(jointName);
-        numJoints++;
-    }        
+    // ignore if joint already used
+    if (checkExistingJoint(jointName))
+        return false;
 
-    benabled = true;    
+    if (numJoints < SAM_MAX_JOINTS)
+    {
+        oConnectionsJoint[numJoints].init(jointName);
+        numJoints++;        
+        benabled = true;    
+        return true;
+    }    
+    else
+        return false;
 }
 
-ConnectionSet& Connections::getJointConnections(std::string jointName)
+ConnectionsJoint& Connections::getConnectionsJoint(std::string jointName)
 {
     for (int i=0; i<numJoints; i++)
     {
-        if (oJointConnections[i].getJointName().compare(jointName) == 0)
-            return oJointConnections[i];
+        if (oConnectionsJoint[i].getJointName().compare(jointName) == 0)
+            return oConnectionsJoint[i];
     }
     
     // if not found return the first joint (should use lists)
-    return oJointConnections[0];        
+    return oConnectionsJoint[0];        
+}
+
+bool Connections::checkExistingJoint(std::string jointName)
+{
+    for (int i=0; i<SAM_MAX_JOINTS; i++)
+    {
+        if (oConnectionsJoint[i].getJointName().compare(jointName) == 0)
+            return true;
+    }
+    
+    return false;        
 }
 
 }

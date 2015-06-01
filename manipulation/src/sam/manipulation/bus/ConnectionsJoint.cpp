@@ -3,19 +3,19 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "ConnectionSet.h"
+#include "ConnectionsJoint.h"
 
 namespace sam 
 {
 namespace manipulation 
 {
 // Constructor
-ConnectionSet::ConnectionSet ()
+ConnectionsJoint::ConnectionsJoint ()
 {    
     benabled = false;
 }
 
-void ConnectionSet::init(std::string jointName)
+void ConnectionsJoint::init(std::string jointName)
 {
     this->jointName = jointName;
     benabled = true;    

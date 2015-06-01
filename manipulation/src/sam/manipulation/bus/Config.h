@@ -36,10 +36,10 @@ class Config
         std::vector<std::string>& getListJointNames() {return listJointNames;};
         float getModulesFreq () {return modulesFreq;}        
         
-        // joints
-        ParamsJoint& getJointParams(int index);
-        // joint movers
-        ParamsJointMover& getJointMoverParams(int index);
+        // gets the Joint module paramaters for the given joint name
+        ParamsJoint& getParamsJoint(std::string jointName);
+        // gets the JointMover module paramaters for the given joint name
+        ParamsJointMover& getParamsJointMover(std::string jointName);
 };
 
 }
