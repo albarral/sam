@@ -41,6 +41,8 @@ public:
     int getRestAngle() {return rest;};
     void setRestAngle(int value) {rest = value;};
 
+    int getLowerLimit() {return limit1;}
+    int getUpperLimit() {return limit2;}
     //int getType() {return type;};
 };
 }

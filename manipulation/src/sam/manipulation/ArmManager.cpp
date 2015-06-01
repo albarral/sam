@@ -60,6 +60,11 @@ void ArmManager::init()
         oJointMover[i].init(mParamsJointMover);  
         oJointMover[i].connect(mBusConnections4Joint);
         oJointMover[i].setFrequency(mConfig.getModulesFreq());
+
+        // joint control  for joint
+        oJointControl[i].init(jointName, oJoint);  
+        oJointControl[i].connect(mBusConnections4Joint);
+        oJointControl[i].setFrequency(mConfig.getModulesFreq());
     }
                      
     // communications module (listens to console)
@@ -73,6 +78,9 @@ void ArmManager::init()
 void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "Arm manager: starting modules ...");
+
+    if (oJointControl[0].isEnabled() && oJointControl[0].isConnected())
+        oJointControl[0].on();
     
     if (oJointMover[0].isEnabled() && oJointMover[0].isConnected())
         oJointMover[0].on();
@@ -89,6 +97,9 @@ void ArmManager::stopModules()
     oJointMover[0].off();
     oJointMover[0].wait();
     
+    oJointControl[0].off();
+    oJointControl[0].wait();
+
     oComsManip->off();
     oComsManip->wait();    
 }

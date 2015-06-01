@@ -21,19 +21,20 @@ Config::Config ()
     oJointParams[i].set(jointName, -180, 180, 20);
     oJointMoverParams[i].set(jointName, 3, 10, 3);        
     listJointNames.push_back(jointName);
-    
-//    i++;
-//    jointName = "shoulderV";
-//    oJointParams[i].set(jointName, -45, 90, 20);
-//    oJointMoverParams[i].set(jointName, 3, 10, 3);
-//    listJointNames.push_back(jointName);
 
-//    i++;
-//    jointName = "elbow";
-//    oJointParams[i].set(jointName, 0, 90,20);
-//    oJointMoverParams[i].set(jointName, 3, 10, 3);
-//    listJointNames.push_back(jointName);
-    
+/*    
+    i++;
+    jointName = "shoulderV";
+    oJointParams[i].set(jointName, -45, 90, 20);
+    oJointMoverParams[i].set(jointName, 3, 10, 3);
+    listJointNames.push_back(jointName);
+
+    i++;
+    jointName = "elbow";
+    oJointParams[i].set(jointName, 0, 90,20);
+    oJointMoverParams[i].set(jointName, 3, 10, 3);
+    listJointNames.push_back(jointName);
+*/    
     numJoints = listJointNames.size();
 }
 
