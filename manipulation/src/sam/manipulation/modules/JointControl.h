@@ -31,7 +31,7 @@ private:
     static log4cxx::LoggerPtr logger;
     bool benabled;
     // params
-    std::string name;   // module name
+    std::string modName;   // module name
     Joint* mJoint;        // controlled joint  
     // bus
     bool bconnected;        // connected to bus
@@ -48,7 +48,7 @@ public:
         //~JointControl();
                 
        // module params
-       void init (std::string name, Joint& oJoint);       
+       void init (std::string jointName, Joint& oJoint);       
        bool isEnabled() {return benabled;};
 
        // bus connection               

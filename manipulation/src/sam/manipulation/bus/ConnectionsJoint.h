@@ -23,14 +23,14 @@ class ConnectionsJoint
         bool benabled;
         std::string jointName;
         // JointMover module
-        goon::ControlT<int> coAction;        // move, brake, keep, stop
-        goon::ControlT<float> coSpeed;        
+        goon::ControlT<int> coAction;       // move actions: move, brake, keep, stop
+        goon::ControlT<float> coSpeed;    // desired joint speed (degrees/s)
         // JointControl module
-        goon::SensorT<float> soRealSpeed;     
-        goon::SensorT<int> soLimitReached;     // 0, 1 (top limit reached), -1 (bottom limit reached)
-        goon::ControlT<int> coAngle;         // commanded joint angle
+        goon::SensorT<float> soRealSpeed;     // real joint speed (degrees/s)
+        goon::SensorT<int> soLimitReached;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
+        goon::ControlT<int> coAngle;         // desired joint angle (degrees)
         // external sensing
-        goon::SensorT<int> soIst;            // sensed joint angle
+        goon::SensorT<int> soIst;            // real joint angle (degrees)
         
     public:
         ConnectionsJoint();

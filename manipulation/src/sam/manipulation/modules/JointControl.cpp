@@ -20,19 +20,21 @@ JointControl::JointControl()
     bconnected = false;
     pConnectionsJoint = 0;
     angle = 0;
+    limitBroken = 0;
 }
 
 //JointControl::~JointControl()
 //{
 //}
 
-void JointControl::init(std::string name, Joint& oJoint)
+void JointControl::init(std::string jointName, Joint& oJoint)
 {
-    this->name = name;    
+    modName = "con." + jointName;
     mJoint = &oJoint;
     benabled = true;
 
-    LOG4CXX_INFO(logger, "JointControl " << name << " initialized");      
+    LOG4CXX_INFO(logger, "JointControl " << modName << " initialized");      
+    LOG4CXX_INFO(logger, "joint range= " << mJoint->getLowerLimit() << ", " << mJoint->getUpperLimit());
 };
 
 void JointControl::connect(manipulation::ConnectionsJoint& oConnectionsJoint)
@@ -40,14 +42,17 @@ void JointControl::connect(manipulation::ConnectionsJoint& oConnectionsJoint)
     pConnectionsJoint = &oConnectionsJoint;
     bconnected = true;
 
-    LOG4CXX_INFO(logger, "JointControl " << name << " connected to bus");      
+    LOG4CXX_INFO(logger, "JointControl " << modName << " connected to bus");      
 }
 
 void JointControl::first()
 {
     setState(eSTATE_GO);
     setNextState(eSTATE_GO);
-    log4cxx::NDC::push("on." + name);   	
+    
+    // angle = read from ist angle
+    
+    log4cxx::NDC::push(modName + "-on");   	
 }
                     
 void JointControl::senseBus()
@@ -79,16 +84,18 @@ void JointControl::loop()
 
 void JointControl::doSpeed2Angle()
 {
-    angle += (float)(speed_ms*oClick.getMillis());
+    angle += (float)(speed_ms*oClick.getMillis());      
     
     // limit angle to joint's range
     if (angle > mJoint->getUpperLimit())
     {
+        LOG4CXX_WARN(logger, "upper limit!");
         angle = mJoint->getUpperLimit();
         limitBroken = 1;
     }
     else if (angle < mJoint->getLowerLimit())
     {
+        LOG4CXX_WARN(logger, "lower limit!");
         angle = mJoint->getLowerLimit();
         limitBroken = -1;
     }
@@ -100,7 +107,7 @@ void JointControl::writeBus()
 {
     int iAngle = angle;
     pConnectionsJoint->getCOAngle().request(iAngle);
-    LOG4CXX_INFO(logger, ">> angle = " << angle);
+    LOG4CXX_INFO(logger, "angle=" << angle);
 }
 
 

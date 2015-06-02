@@ -40,7 +40,7 @@ private:
     static log4cxx::LoggerPtr logger;
     bool benabled;
     // params
-    std::string jointName;   // module name
+    std::string modName;   // module name
     int accel;          // degrees/s2
     int maxSpeed;  // maximum speed allowed for the joint
     int deaccel;          // degrees/s2
@@ -59,7 +59,7 @@ public:
         //~JointMover();
                 
        // module params
-       void init (manipulation::ParamsJointMover& oParamsJointMover);       
+       void init (std::string jointName, manipulation::ParamsJointMover& oParamsJointMover);       
        bool isEnabled() {return benabled;};
 
        // bus connection 

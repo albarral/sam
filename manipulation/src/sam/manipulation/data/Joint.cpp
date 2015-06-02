@@ -24,11 +24,11 @@ void Joint::init(manipulation::ParamsJoint& oParamsJoint)
         oParamsJoint.getLimit1() >= oParamsJoint.getLimit2())
         return;
 
-    //this->type = type;
-    this->length = oParamsJoint.getLen();
-    this->limit1 = oParamsJoint.getLimit1();
-    this->limit2 = oParamsJoint.getLimit2();
-    this->rest = 0; // default
+    name = oParamsJoint.getJointName();
+    length = oParamsJoint.getLen();
+    limit1 = oParamsJoint.getLimit1();
+    limit2 = oParamsJoint.getLimit2();
+    rest = 0; // default
     benabled = true;
 };
 

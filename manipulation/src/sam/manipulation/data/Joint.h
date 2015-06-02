@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 #include "sam/manipulation/bus/ParamsJoint.h"
 
 namespace sam 
@@ -16,6 +18,7 @@ class Joint
 private:
     bool benabled;
     // configuration data
+    std::string name;
     int rest;    // angle at which the joint rests (the effort is minimum)
     //int type;    // type of joint (moves in pan plane or in tilt plane)
     int length;     // joint's length (cm)
@@ -38,6 +41,7 @@ public:
     void init(manipulation::ParamsJoint& oParamsJoint);        
     bool isEnabled() {return benabled;};
 
+    std::string getName() {return name;};
     int getRestAngle() {return rest;};
     void setRestAngle(int value) {rest = value;};
 

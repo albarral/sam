@@ -3,6 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "log4cxx/ndc.h"
+
 #include "ArmManager.h"
 #include "sam/manipulation/bus/Config.h"
 #include "sam/manipulation/bus/Connections.h"
@@ -26,52 +28,103 @@ ArmManager::~ArmManager ()
 
 void ArmManager::init()
 {
-    LOG4CXX_INFO(logger, "Arm manager: init ...");
+    log4cxx::NDC::push("Arm Manager");   	
+    LOG4CXX_INFO(logger, "init ...");
     
-    // get config & connections from bus
-    manipulation::Config& mConfig = oBus.getConfig();
-    manipulation::Connections& mConnections = oBus.getConnections();
-
     // obtain (from config file) the list of joints to be controlled 
-    std::vector<std::string> listJointNames = mConfig.getListJointNames();
+    std::vector<std::string> listJointNames = oBus.getConfig().getListJointNames();
 
-    // initialize the control modules for each joint
+    initArm(listJointNames);
+    initBus(listJointNames);
+    initModules(listJointNames);
+
+    // communications module (listens to console)
+    oComsManip = new ComsManip();
+    oComsManip->init();
+    oComsManip->setFrequency(1); // 1Hz
+    oComsManip->connect(oBus);    
+}
+
+void ArmManager::initArm(std::vector<std::string>& listJointNames)
+{
+    LOG4CXX_INFO(logger, "init Arm ...");
+    
+    // get config
+    manipulation::Config& mConfig = oBus.getConfig();
+
+    // build arm with joints
     for (int i=0; i<listJointNames.size(); i++)
     {        
         std::string jointName = listJointNames.at(i);        
-        LOG4CXX_INFO(logger, "configuring joint " << jointName << " ...");
-
-        // bus connections for joint
-        if (mConnections.add4Joint(jointName) == false)
-        {
-            LOG4CXX_ERROR(logger, "Error adding bus connection for joint " << jointName);
-            return;
-        }
-        manipulation::ConnectionsJoint& mBusConnections4Joint = mConnections.getConnectionsJoint(jointName);
+        LOG4CXX_INFO(logger, "joint " << jointName);
         
         // arm's joint
         manipulation::ParamsJoint& mParamsJoint = mConfig.getParamsJoint(jointName);                        
         Joint oJoint; 
         oJoint.init(mParamsJoint);    
         oArm.addJoint(oJoint);                
-        
-        // joint mover for joint
-        manipulation::ParamsJointMover& mParamsJointMover = mConfig.getParamsJointMover(jointName);        
-        oJointMover[i].init(mParamsJointMover);  
-        oJointMover[i].connect(mBusConnections4Joint);
-        oJointMover[i].setFrequency(mConfig.getModulesFreq());
-
-        // joint control  for joint
-        oJointControl[i].init(jointName, oJoint);  
-        oJointControl[i].connect(mBusConnections4Joint);
-        oJointControl[i].setFrequency(mConfig.getModulesFreq());
     }
-                     
-    // communications module (listens to console)
-    oComsManip = new ComsManip();
-    oComsManip->init();
-    oComsManip->setFrequency(1); // 1Hz
-    oComsManip->connect(oBus);    
+    
+    LOG4CXX_INFO(logger, "Arm ok!");
+}
+
+
+void ArmManager::initBus(std::vector<std::string>& listJointNames)
+{
+    LOG4CXX_INFO(logger, "init Bus ...");
+    
+    // get bus connections
+    manipulation::Connections& mConnections = oBus.getConnections();
+
+    // setup connections for each joint
+    for (int i=0; i<listJointNames.size(); i++)
+    {        
+        std::string jointName = listJointNames.at(i);        
+        LOG4CXX_INFO(logger, "joint " << jointName);
+        
+        if (mConnections.add4Joint(jointName) == false)
+        {
+            LOG4CXX_ERROR(logger, "Error adding bus connection for joint " << jointName);
+            return;
+        }
+    }
+    
+    LOG4CXX_INFO(logger, "Bus ok!");
+}
+
+void ArmManager::initModules(std::vector<std::string>& listJointNames)
+{
+    LOG4CXX_INFO(logger, "init modules ...");
+    
+    // get config
+    manipulation::Config& mConfig = oBus.getConfig();
+    float freq = mConfig.getModulesFreq();
+    // get bus connections
+    manipulation::Connections& mConnections = oBus.getConnections();
+
+    // init modules for each joint
+    for (int i=0; i<listJointNames.size(); i++)
+    {        
+        std::string jointName = listJointNames.at(i);        
+        LOG4CXX_INFO(logger, "joint " << jointName);
+        
+        // bus connections for this joint
+        manipulation::ConnectionsJoint& mConnections4Joint = mConnections.getConnectionsJoint(jointName);
+
+        // joint mover module
+        manipulation::ParamsJointMover& mParamsJointMover = mConfig.getParamsJointMover(jointName);        
+        oJointMover[i].init(jointName, mParamsJointMover);  
+        oJointMover[i].connect(mConnections4Joint);
+        oJointMover[i].setFrequency(freq);
+
+        // joint control module
+        Joint& mJoint = oArm.getJointByName(jointName);
+        oJointControl[i].init(jointName, mJoint);  
+        oJointControl[i].connect(mConnections4Joint);
+        oJointControl[i].setFrequency(freq);
+    }
+    
+    LOG4CXX_INFO(logger, "modules ok!");
 }
 
 

@@ -6,7 +6,9 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
 #include <vector>
+
 #include "sam/manipulation/data/Joint.h"
 
 namespace sam 
@@ -23,16 +25,20 @@ public:
     ~Arm();
 
     bool isEnabled() {return benabled;};
+    
     // reset joints
     void reset();
     // add a new joint
     void addJoint(Joint& oJoint);
     // get joints list
     std::vector<Joint>& getListJoints() {return listJoints;};
-    // get specific joint
-    Joint& getJoint(int pos);
     // gets number of joints
     int getNumJoints() {return listJoints.size();};
+    
+    // get specific joint by position
+    Joint& getJointByPos(int pos);
+    // get specific joint by name
+    Joint& getJointByName(std::string jointName);
     
 };
 }

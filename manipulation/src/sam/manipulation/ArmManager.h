@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+#include <vector>
 #include <log4cxx/logger.h>
 
 #include "sam/manipulation/data/defines.h"
@@ -36,14 +38,17 @@ class ArmManager
         ArmManager();
         ~ArmManager();
 
-        // initializes the arm joints & their controllers
-        void init();
-        
+        // initializes everything (arm, bus & modules)
+        void init();        
         // starts the task's modules 
-        void startModules();
-        
+        void startModules();        
         // stops the tasks' modules
         void stopModules();        
+        
+private:
+    void initArm(std::vector<std::string>& listJointNames);
+    void initBus(std::vector<std::string>& listJointNames);
+    void initModules(std::vector<std::string>& listJointNames);
 };
 
 }    
