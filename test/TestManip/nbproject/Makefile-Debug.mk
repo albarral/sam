@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../manipulation/dist/Debug/GNU-Linux-x86 -lsam_manip -Wl,-rpath,../../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -L../../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../manipulation/dist/Debug/GNU-Linux-x86 -lsam_manip -Wl,-rpath,../../utils/dist/Debug/GNU-Linux-x86 -L../../utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -60,7 +60,7 @@ LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../man
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../manipulation/dist/Debug/GNU-Linux-x86/libsam_manip.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86/libgoon_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../utils/dist/Debug/GNU-Linux-x86/libgoon_utils.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -69,12 +69,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ${OBJECTFILES}
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../manipulation/src -I../../../../Dropbox/DEV/goon/utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -I../../manipulation/src -I../../utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../../manipulation && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../../../Dropbox/DEV/goon/utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../utils && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -84,7 +84,7 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../../manipulation && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../../../Dropbox/DEV/goon/utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../utils && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

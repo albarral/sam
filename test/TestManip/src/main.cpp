@@ -13,8 +13,6 @@
 
 void testManipulation();
 
-//using namespace log4cxx;
-
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.manipulation"));
 
 // main program

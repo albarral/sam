@@ -65,13 +65,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -L../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../utils/dist/Debug/GNU-Linux-x86 -L../utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ../../../Dropbox/DEV/goon/utils/dist/Debug/GNU-Linux-x86/libgoon_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ../utils/dist/Debug/GNU-Linux-x86/libgoon_utils.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -80,76 +80,76 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ${OBJEC
 ${OBJECTDIR}/src/sam/manipulation/ArmManager.o: src/sam/manipulation/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmManager.o src/sam/manipulation/ArmManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmManager.o src/sam/manipulation/ArmManager.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o: src/sam/manipulation/bus/Bus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o src/sam/manipulation/bus/Bus.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o src/sam/manipulation/bus/Bus.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/Config.o: src/sam/manipulation/bus/Config.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Config.o src/sam/manipulation/bus/Config.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Config.o src/sam/manipulation/bus/Config.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/Connections.o: src/sam/manipulation/bus/Connections.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Connections.o src/sam/manipulation/bus/Connections.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Connections.o src/sam/manipulation/bus/Connections.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o: src/sam/manipulation/bus/ConnectionsJoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o src/sam/manipulation/bus/ConnectionsJoint.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o src/sam/manipulation/bus/ConnectionsJoint.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o: src/sam/manipulation/bus/ParamsJoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o src/sam/manipulation/bus/ParamsJoint.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o src/sam/manipulation/bus/ParamsJoint.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o: src/sam/manipulation/bus/ParamsJointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o src/sam/manipulation/bus/ParamsJointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o src/sam/manipulation/bus/ParamsJointMover.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/data/Arm.o: src/sam/manipulation/data/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Arm.o src/sam/manipulation/data/Arm.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Arm.o src/sam/manipulation/data/Arm.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/data/Joint.o: src/sam/manipulation/data/Joint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Joint.o src/sam/manipulation/data/Joint.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Joint.o src/sam/manipulation/data/Joint.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o: src/sam/manipulation/modules/ComsManip.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o src/sam/manipulation/modules/ComsManip.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o src/sam/manipulation/modules/ComsManip.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o: src/sam/manipulation/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o src/sam/manipulation/modules/JointControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o src/sam/manipulation/modules/JointControl.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o: src/sam/manipulation/modules/JointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/Responder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o src/sam/manipulation/utils/Responder.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o src/sam/manipulation/utils/Responder.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/utils/module2.o: src/sam/manipulation/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../../Dropbox/DEV/goon/utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/module2.o src/sam/manipulation/utils/module2.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/module2.o src/sam/manipulation/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../../../Dropbox/DEV/goon/utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utils && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -158,7 +158,7 @@ ${OBJECTDIR}/src/sam/manipulation/utils/module2.o: src/sam/manipulation/utils/mo
 
 # Subprojects
 .clean-subprojects:
-	cd ../../../Dropbox/DEV/goon/utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utils && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -3,14 +3,12 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>manipulation</name>
+            <name>utils</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects>
-                <make-dep-project>../utils</make-dep-project>
-            </make-dep-projects>
+            <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>
             </sourceRootList>

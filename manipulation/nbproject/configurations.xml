@@ -85,19 +85,19 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../../../Dropbox/DEV/goon/utils/src</pElem>
+            <pElem>../utils/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}</output>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../../Dropbox/DEV/goon/utils"
+              <makeArtifact PL="../utils"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../../../Dropbox/DEV/goon/utils"
+                            WD="../utils"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgoon_utils.${CND_DLIB_EXT}">
