@@ -33,6 +33,8 @@ class ArmManager
         JointControl oJointControl[SAM_MAX_JOINTS];
         //ArmMover oArmMover;
         ComsManip* oComsManip;
+        // system's output
+        std::vector<float> listSollAngles;
 
     public:
         ArmManager();
@@ -44,6 +46,9 @@ class ArmManager
         void startModules();        
         // stops the tasks' modules
         void stopModules();        
+        
+        // returns commanded positions for all arm joints (in degrees)
+        std::vector<float>& getMoves();
         
 private:
     void initArm(std::vector<std::string>& listJointNames);

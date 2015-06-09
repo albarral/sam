@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <vector>
+
 #include "sam/manipulation/bus/Config.h"
 #include "sam/manipulation/bus/Connections.h"
 
@@ -19,6 +21,7 @@ class Bus
     private:
         Config oConfig;
         Connections oConnections;
+        int numJoints;
 
     public:
         Bus();
@@ -26,6 +29,9 @@ class Bus
 
         Config& getConfig() {return oConfig;};
         Connections& getConnections() {return oConnections;};
+        
+        // returns list of commanded joint angles (degrees)
+        void getSollAngles(std::vector<float>& listSollAngles);
 };
 
 }

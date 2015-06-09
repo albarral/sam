@@ -53,6 +53,8 @@ private:
     goon::Click oClick;   
     float accel_ms;    // (degres/s)/ms
     float deaccel_ms;    // (degres/s)/ms
+    // aux
+    float lastOutput;
 
 public:
         JointMover();

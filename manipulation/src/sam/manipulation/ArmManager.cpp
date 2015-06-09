@@ -23,7 +23,9 @@ ArmManager::ArmManager ()
 
 // Destructor
 ArmManager::~ArmManager ()
-{        
+{
+    if (oComsManip != 0)
+        delete(oComsManip);
 }
 
 void ArmManager::init()
@@ -106,7 +108,7 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     for (int i=0; i<listJointNames.size(); i++)
     {        
         std::string jointName = listJointNames.at(i);        
-        LOG4CXX_INFO(logger, "joint " << jointName);
+        LOG4CXX_INFO(logger, "modules for joint " << jointName << " ... ");
         
         // bus connections for this joint
         manipulation::ConnectionsJoint& mConnections4Joint = mConnections.getConnectionsJoint(jointName);
@@ -132,13 +134,17 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "Arm manager: starting modules ...");
 
-    if (oJointControl[0].isEnabled() && oJointControl[0].isConnected())
-        oJointControl[0].on();
-    
-    if (oJointMover[0].isEnabled() && oJointMover[0].isConnected())
-        oJointMover[0].on();
-    
-    if (oComsManip->isEnabled() && oComsManip->isConnected())
+    int numJoints = oBus.getConfig().getNumJoints();    
+    for (int i=0; i<numJoints; i++)
+    {
+        if (oJointControl[i].isEnabled() && oJointControl[i].isConnected())
+            oJointControl[i].on();
+
+        if (oJointMover[i].isEnabled() && oJointMover[i].isConnected())
+            oJointMover[i].on();
+    }
+
+    if (oComsManip->isEnabled() && oComsManip->isConnected())    
         oComsManip->on();
 }
 
@@ -146,16 +152,28 @@ void ArmManager::stopModules()
 {    
     LOG4CXX_INFO(logger, "Arm manager: stopping modules ...");
 
-    // stop & wait for modules 
-    oJointMover[0].off();
-    oJointMover[0].wait();
-    
-    oJointControl[0].off();
-    oJointControl[0].wait();
+    int numJoints = oBus.getConfig().getNumJoints();    
+    for (int i=0; i<numJoints; i++)
+    {
+        // stop & wait for modules 
+        oJointMover[i].off();
+        oJointMover[i].wait();
+
+        oJointControl[i].off();
+        oJointControl[i].wait();
+    }
 
     oComsManip->off();
     oComsManip->wait();    
+
 }
+
+std::vector<float>& ArmManager::getMoves()
+{
+    oBus.getSollAngles(listSollAngles);
+    return listSollAngles;
+}
+
 }
 
 

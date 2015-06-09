@@ -45,6 +45,15 @@ ConnectionsJoint& Connections::getConnectionsJoint(std::string jointName)
     return oConnectionsJoint[0];        
 }
 
+ConnectionsJoint& Connections::getConnectionsJointByIndex(int index)
+{
+    if (index < SAM_MAX_JOINTS)
+        return oConnectionsJoint[index];
+    
+    // if not found return the first joint (should use lists)
+    return oConnectionsJoint[0];        
+}
+
 bool Connections::checkExistingJoint(std::string jointName)
 {
     for (int i=0; i<SAM_MAX_JOINTS; i++)

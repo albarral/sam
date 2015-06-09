@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-
+#include <vector>
 #include "log4cxx/ndc.h"
 
 #include "ComsManip.h"
@@ -30,13 +30,13 @@ ComsManip::~ComsManip ()
 void ComsManip::init ()
 {
     // build command list
-    // important:same order as in eCommands enum
-    oResponder.addWord("mover");
-    oResponder.addWord("movel");
-    oResponder.addWord("brake");
-    oResponder.addWord("keep");
-    oResponder.addWord("stop");
+    std::vector<std::string>& listCommands = oCommands.getListCommands();
+    for (int i=0; i<listCommands.size(); i++)
+    {
+        oResponder.addWord(listCommands.at(i));
+    }
 
+    activeJointName = "shoulderH";
     benabled = true;    
     LOG4CXX_INFO(logger, "ComsManip initialized");          
 };
@@ -75,17 +75,30 @@ void ComsManip::loop ()
 void ComsManip::sendManipCommand(int reqCommand)
 {
     switch (reqCommand)
-    {
-        case manipulation::Commands::eMOVER_MOVE_R:
-        case manipulation::Commands::eMOVER_MOVE_L:
+    {        
+        case manipulation::Commands::eMOVER_RIGHT:
+        case manipulation::Commands::eMOVER_LEFT:
         case manipulation::Commands::eMOVER_BRAKE:
         case manipulation::Commands::eMOVER_KEEP:
-        case manipulation::Commands::eMOVER_STOP:
-            
-            pBus->getConnections().getConnectionsJoint("shoulderH").getCOAction().request(reqCommand);
-            
+        case manipulation::Commands::eMOVER_STOP:            
+            pBus->getConnections().getConnectionsJoint(activeJointName).getCOAction().request(reqCommand);            
             break;
  
+        case manipulation::Commands::eMOVER_USE1:
+            activeJointName = "shoulderH";
+            LOG4CXX_INFO(logger, "active joint = " << activeJointName);
+            break;
+
+        case manipulation::Commands::eMOVER_USE2:
+            activeJointName = "shoulderV";
+            LOG4CXX_INFO(logger, "active joint = " << activeJointName);
+            break;
+
+        case manipulation::Commands::eMOVER_USE3:
+            activeJointName = "elbow";
+            LOG4CXX_INFO(logger, "active joint = " << activeJointName);
+            break;
+
         default:
             LOG4CXX_INFO(logger, "> nothing requested");
             break;

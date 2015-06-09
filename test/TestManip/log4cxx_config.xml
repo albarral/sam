@@ -23,7 +23,7 @@
 
   <!-- Specify the level for some specific categories -->
   <category name="sam" >
-        <priority value ="debug" />
+        <priority value ="info" />
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="dailyAppender"/>
   </category>

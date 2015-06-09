@@ -6,11 +6,13 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
 #include <log4cxx/logger.h>
 
 #include <sam/manipulation/utils/module2.h>
 #include <sam/manipulation/utils/Responder.h>
 #include "sam/manipulation/bus/Bus.h"
+#include "Commands.h"
 
 namespace sam 
 {
@@ -23,7 +25,10 @@ private:
     bool bconnected;        // connected to bus
     manipulation::Bus* pBus;
     // logic
+    manipulation::Commands oCommands;
     Responder oResponder;    
+    std::string activeJointName;    // name of controlled joint
+    
 
 public:
     ComsManip ();

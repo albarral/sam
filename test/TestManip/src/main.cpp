@@ -33,7 +33,7 @@ void testManipulation()
     
     oArmManager.startModules();
     
-    sleep(15);
+    sleep(25);
     
     oArmManager.stopModules();
 

@@ -44,7 +44,7 @@ void JointMover::init(std::string jointName, manipulation::ParamsJointMover& oPa
     deaccel_ms = (float)this->deaccel/1000;
     benabled = true;
 
-    LOG4CXX_INFO(logger, "JointMover " << modName << " initialized");      
+    LOG4CXX_INFO(logger, "JointMover: " << modName << " initialized");      
     LOG4CXX_INFO(logger, "a=" << accel << ", maxSpeed=" << maxSpeed << ", deaccel=" << deaccel);      
 };
 
@@ -53,7 +53,7 @@ void JointMover::connect(manipulation::ConnectionsJoint& oConnectionsJoint)
     pConnectionsJoint = &oConnectionsJoint;
     bconnected = true;
 
-    LOG4CXX_INFO(logger, "JointMover " << modName << " connected to bus");      
+    LOG4CXX_INFO(logger, "JointMover: " << modName << " connected to bus");      
 }
 
 void JointMover::first()
@@ -78,13 +78,13 @@ void JointMover::processActionRequest(int reqCommand)
     switch (reqCommand)
     {
         // start movement to the right (or up if vertical) 
-        case manipulation::Commands::eMOVER_MOVE_R:
+        case manipulation::Commands::eMOVER_RIGHT:
             this->direction = 1;
             setNextState(eSTATE_ACCEL);
             break;
             
         // start movement to the left (or down if vertical) 
-        case manipulation::Commands::eMOVER_MOVE_L:
+        case manipulation::Commands::eMOVER_LEFT:
             this->direction = -1;
             setNextState(eSTATE_ACCEL);
             break;
@@ -190,7 +190,12 @@ void JointMover::doBrake()
 void JointMover::writeBus()
 {
     pConnectionsJoint->getCOSpeed().request(speed);
-    LOG4CXX_INFO(logger, "speed = " << speed);
+    
+    if(speed != lastOutput)
+    {
+        LOG4CXX_INFO(logger, "speed = " << speed);
+        lastOutput = speed;    
+    }
 }
 
 void JointMover::showState()

@@ -33,7 +33,7 @@ void JointControl::init(std::string jointName, Joint& oJoint)
     mJoint = &oJoint;
     benabled = true;
 
-    LOG4CXX_INFO(logger, "JointControl " << modName << " initialized");      
+    LOG4CXX_INFO(logger, "JointControl: " << modName << " initialized");      
     LOG4CXX_INFO(logger, "joint range= " << mJoint->getLowerLimit() << ", " << mJoint->getUpperLimit());
 };
 
@@ -42,7 +42,7 @@ void JointControl::connect(manipulation::ConnectionsJoint& oConnectionsJoint)
     pConnectionsJoint = &oConnectionsJoint;
     bconnected = true;
 
-    LOG4CXX_INFO(logger, "JointControl " << modName << " connected to bus");      
+    LOG4CXX_INFO(logger, "JointControl: " << modName << " connected to bus");      
 }
 
 void JointControl::first()
@@ -105,9 +105,8 @@ void JointControl::doSpeed2Angle()
 
 void JointControl::writeBus()
 {
-    int iAngle = angle;
-    pConnectionsJoint->getCOAngle().request(iAngle);
-    LOG4CXX_INFO(logger, "angle=" << angle);
+    pConnectionsJoint->getCOAngle().request(angle);
+    LOG4CXX_DEBUG(logger, "angle=" << angle);
 }
 
 

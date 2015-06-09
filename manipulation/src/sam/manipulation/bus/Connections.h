@@ -30,8 +30,10 @@ class Connections
         bool add4Joint(std::string jointName);
         bool isEnabled() {return benabled;};
         
-        // gets the connections set for the specified joint 
+        // gets the connections set for the specified joint name
         ConnectionsJoint& getConnectionsJoint(std::string jointName);
+        // gets the connections set for the specified joint index        
+        ConnectionsJoint& getConnectionsJointByIndex(int index);
         
       
 private:

@@ -28,7 +28,7 @@ class ConnectionsJoint
         // JointControl module
         goon::SensorT<float> soRealSpeed;     // real joint speed (degrees/s)
         goon::SensorT<int> soLimitReached;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
-        goon::ControlT<int> coAngle;         // desired joint angle (degrees)
+        goon::ControlT<float> coAngle;         // desired joint angle (degrees)
         // external sensing
         goon::SensorT<int> soIst;            // real joint angle (degrees)
         
@@ -48,7 +48,7 @@ class ConnectionsJoint
         // JointControl module
         goon::SensorT<float>& getSORealSpeed() {return soRealSpeed;}; 
         goon::SensorT<int>& getSOLimitReached() {return soLimitReached;}; 
-        goon::ControlT<int>& getCOAngle() {return coAngle;};                
+        goon::ControlT<float>& getCOAngle() {return coAngle;};                
 
         // external sensing
         goon::SensorT<int>& getSOIst() {return soIst;}; 
