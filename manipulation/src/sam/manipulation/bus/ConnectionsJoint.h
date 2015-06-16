@@ -30,7 +30,7 @@ class ConnectionsJoint
         goon::SensorT<int> soLimitReached;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
         goon::ControlT<float> coAngle;         // desired joint angle (degrees)
         // external sensing
-        goon::SensorT<int> soIst;            // real joint angle (degrees)
+        goon::SensorT<float> soIst;            // real joint angle (degrees)
         
     public:
         ConnectionsJoint();
@@ -51,7 +51,7 @@ class ConnectionsJoint
         goon::ControlT<float>& getCOAngle() {return coAngle;};                
 
         // external sensing
-        goon::SensorT<int>& getSOIst() {return soIst;}; 
+        goon::SensorT<float>& getSOIst() {return soIst;}; 
 };
 
 }

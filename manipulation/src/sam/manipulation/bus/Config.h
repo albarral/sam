@@ -19,6 +19,14 @@ namespace manipulation
 {
 class Config 
 {
+public:
+    enum eROBOT
+    {
+        eROBOT_YOUBOT,
+        eROBOT_OWI,
+        eROBOT_UNKNOWN
+    };
+    
     private:                
         std::string configFile;     // name of config file  (not used yet)
         int numJoints;
@@ -32,14 +40,23 @@ class Config
     public:
         Config();
 
+        // initializes the configuration for the given robot
+        void init (int robot);
+        
         int getNumJoints() {return numJoints;};
+        
         std::vector<std::string>& getListJointNames() {return listJointNames;};
+        
         float getModulesFreq () {return modulesFreq;}        
         
         // gets the Joint module paramaters for the given joint name
         ParamsJoint& getParamsJoint(std::string jointName);
         // gets the JointMover module paramaters for the given joint name
         ParamsJointMover& getParamsJointMover(std::string jointName);
+        
+private:
+    void loadYoubot();
+    // void loadOwi();
 };
 
 }

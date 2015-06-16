@@ -50,8 +50,11 @@ private:
     // executes the behaviour
     void loop ();
     
-    // performs the proper request to the goon system modules
+    // performs the proper request to the sam system modules
     void sendManipCommand(int reqCommand);    
+
+    // directly requests an angle position
+    void sendManipCommandAngle(int angleCommand);    
     
     void showResponderWords();
 };

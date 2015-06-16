@@ -33,8 +33,9 @@ class ArmManager
         JointControl oJointControl[SAM_MAX_JOINTS];
         //ArmMover oArmMover;
         ComsManip* oComsManip;
-        // system's output
-        std::vector<float> listSollAngles;
+        // system's IO
+        std::vector<float> listIstAngles;     // ist (sensed) joint angles
+        std::vector<float> listSollAngles;  // soll (commanded) joint angles
 
     public:
         ArmManager();
@@ -47,8 +48,13 @@ class ArmManager
         // stops the tasks' modules
         void stopModules();        
         
-        // returns commanded positions for all arm joints (in degrees)
-        std::vector<float>& getMoves();
+        // writes sensed joints positions to bus
+        void setIstAngles (std::vector<float>& listAngles);
+        // reads commanded joints positions from bus
+        void readSollAngles();
+
+        // returns the last read commanded angles for all arm joints (in degrees)
+        std::vector<float>& getSollAngles() {return listSollAngles;};
         
 private:
     void initArm(std::vector<std::string>& listJointNames);

@@ -38,7 +38,8 @@ private:
     manipulation::ConnectionsJoint* pConnectionsJoint;    // the bus connections corresponding to a given joint
     // logic
     float reqSpeed;     // requested speed
-    float angle;            // output: degrees (must be float to grant continuity)
+    float angle;            // output: degrees (float to grant continuity)
+    float lastAngle;       
     goon::Click oClick;   
     float speed_ms;     // requested speed (deg/ms))
     int limitBroken;    // commanded angle out of joint's range  

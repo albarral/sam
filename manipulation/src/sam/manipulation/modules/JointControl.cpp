@@ -78,12 +78,19 @@ void JointControl::loop()
             break;
     }   // end switch    
     
-    writeBus();
+    if (angle != lastAngle)
+    {
+        writeBus();
+        lastAngle = angle;
+    }
 }
 
 
 void JointControl::doSpeed2Angle()
 {
+    if (speed_ms == 0)
+        return;
+    
     angle += (float)(speed_ms*oClick.getMillis());      
     
     // limit angle to joint's range
@@ -106,7 +113,7 @@ void JointControl::doSpeed2Angle()
 void JointControl::writeBus()
 {
     pConnectionsJoint->getCOAngle().request(angle);
-    LOG4CXX_DEBUG(logger, "angle=" << angle);
+    LOG4CXX_INFO(logger, "angle=" << (int)angle);
 }
 
 

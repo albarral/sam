@@ -28,6 +28,7 @@ public:
          eMOVER_USE1,
          eMOVER_USE2,
          eMOVER_USE3,
+         eMOVER_USE4,
          eMOVER_DIM
     };
     
@@ -43,9 +44,10 @@ public:
         listCommands.push_back("b");    // brake
         listCommands.push_back("k");    // keep
         listCommands.push_back("s");    // stop
-        listCommands.push_back("1");    // shoulderH
-        listCommands.push_back("2");    // shoulderV
-        listCommands.push_back("3");    // elbow
+        listCommands.push_back("j1");    // shoulderH
+        listCommands.push_back("j2");    // shoulderV
+        listCommands.push_back("j3");    // elbow
+        listCommands.push_back("j4");    // wrist
     };
     
     std::vector<std::string>& getListCommands() {return listCommands;}    

@@ -56,7 +56,6 @@ bool ControlT<T>::isRequested(T& value)
     std::lock_guard<std::mutex> locker(mutex2);
     
     if (Control::isRequested())
-    if (true)
     {
         value = this->value;
         return true;

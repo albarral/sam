@@ -193,7 +193,7 @@ void JointMover::writeBus()
     
     if(speed != lastOutput)
     {
-        LOG4CXX_INFO(logger, "speed = " << speed);
+        LOG4CXX_DEBUG(logger, "speed = " << speed);
         lastOutput = speed;    
     }
 }

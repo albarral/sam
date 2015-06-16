@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include <iostream>
+#include <stdexcept>      // std::invalid_argument
 
 #include "Responder.h"
 
@@ -12,19 +13,13 @@ namespace sam
 // Constructor 
 Responder::Responder ()
 {
-    reset();
+    numRequests = 0;
+    command = "";    
 }
 
 // Destructor
 Responder::~Responder ()
 {
-}
-
-void Responder::reset()
-{
-    command = "";
-    commandID = Responder::INVALID_WORD;
-    brequested = false;    
 }
 
 void Responder::addWord(std::string command)
@@ -34,34 +29,53 @@ void Responder::addWord(std::string command)
 
 void Responder::listen()
 {
-    reset();
-    
     std::string buffer;        
-    std::getline(std::cin, buffer);
-    brequested = true;    
+    std::getline(std::cin, buffer);    
         
-    // check if the input is a valid command
+    // stores entered command & checks if it recognizes it 
     if (!buffer.empty())
     {        
+        numRequests++;
         command = buffer;
-        std::vector<std::string>::iterator it_word = listWords.begin();
-        int pos = 0;
-
-        while (it_word != listWords.end())
-        {
-            // if command is a valid one, finish checking
-            if (buffer.compare(*it_word) == 0) 
-            {
-                command = *it_word;
-                commandID = pos;                
-                break;
-            }
-            it_word++;
-            pos++;
-        }        
+        checkRecognized();
     }    
 }
 
+// Compares entered command with list of recognized words
+void Responder::checkRecognized()
+{
+    commandID = Responder::UNRECOGNIZED_WORD;
+            
+    // check if the input is a valid command
+    std::vector<std::string>::iterator it_word = listWords.begin();
+    int pos = 0;
+
+    while (it_word != listWords.end())
+    {
+        // if command is a valid one, finish checking
+        if (command.compare(*it_word) == 0) 
+        {
+            commandID = pos;                
+            break;
+        }
+        it_word++;
+        pos++;
+    }        
+}
+
+
+bool Responder::isNumericCommand(int& numCommand)
+{
+    try
+    {
+        numCommand = std::stoi(command);
+        return true;
+    }
+    catch (std::invalid_argument) 
+    {
+        return false;        
+    }
+}
 
 void Responder::clearWords()
 {

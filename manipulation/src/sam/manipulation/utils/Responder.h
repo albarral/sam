@@ -15,13 +15,13 @@ namespace sam
 class Responder
 {
 public:
-    static const int INVALID_WORD = -1;    
+    static const int UNRECOGNIZED_WORD = -1;    
 
 private:
     std::vector<std::string> listWords;        // list of accepted words 
-    bool brequested;                                // indicates a command has been requested
+    int numRequests;                                // number of requests received since start
     std::string command;                          // requested command (null if not valid)      
-    int commandID;                                  // ID of requested command (0 if not valid)   
+    int commandID;                                  // ID of requested command (if recognized)
 
 public:
     Responder ();
@@ -33,21 +33,24 @@ public:
     // analyzes the commands requested through the console
     void listen();
     
-    // checks if a command has been requested
-    bool isCommandRequested() {return brequested;};    
-    std::string& getCommandString() {return command;};
+    // checks number of command requests
+    int getNumRequest() {return numRequests;};
+    
+    std::string& getRawCommand() {return command;};
+
     int getCommandID() {return commandID;};
+        
+    // checks if the requested command is numeric, and returns its numeric value
+    bool isNumericCommand(int& numCommand);
 
     // return list of accepted words
-    std::vector<std::string>& getListWords() {return listWords;};
-    
+    std::vector<std::string>& getListWords() {return listWords;};        
     // reset list of accepted words
     void clearWords();
-    
+
 private:
-    // resets Responder state
-    void reset();
-    
+    // checks if last entered command is one of the recognized ones
+    void checkRecognized();    
 };
 }		
 #endif

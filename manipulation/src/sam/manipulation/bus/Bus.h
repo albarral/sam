@@ -21,17 +21,13 @@ class Bus
     private:
         Config oConfig;
         Connections oConnections;
-        int numJoints;
 
     public:
         Bus();
         ~Bus();
 
         Config& getConfig() {return oConfig;};
-        Connections& getConnections() {return oConnections;};
-        
-        // returns list of commanded joint angles (degrees)
-        void getSollAngles(std::vector<float>& listSollAngles);
+        Connections& getConnections() {return oConnections;};        
 };
 
 }

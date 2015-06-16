@@ -55,25 +55,41 @@ void ComsManip::first()
     showResponderWords();
 }
 
-void ComsManip::loop ()
+void ComsManip::loop()
 {
+    bool bvalid = false;
+    
     LOG4CXX_INFO(logger, "> ?");    
     oResponder.listen();
 
     int reqCommand = oResponder.getCommandID();
     
-    if (reqCommand != Responder::INVALID_WORD)
+    if (reqCommand != Responder::UNRECOGNIZED_WORD)
     {
-        LOG4CXX_INFO(logger, oResponder.getCommandString());      
+        bvalid = true;
+        LOG4CXX_INFO(logger, oResponder.getRawCommand());      
         sendManipCommand(reqCommand);
     }
     else
+    {
+        int numCommand = 0;        
+        LOG4CXX_INFO(logger, oResponder.getRawCommand());      
+
+        if (oResponder.isNumericCommand(numCommand))
+        {
+            bvalid = true;
+            sendManipCommandAngle(numCommand);
+        }
+    }
+      
+    if (!bvalid)
         LOG4CXX_ERROR(logger, "Invalid command!");
 }
 
 
 void ComsManip::sendManipCommand(int reqCommand)
 {
+    
     switch (reqCommand)
     {        
         case manipulation::Commands::eMOVER_RIGHT:
@@ -85,25 +101,32 @@ void ComsManip::sendManipCommand(int reqCommand)
             break;
  
         case manipulation::Commands::eMOVER_USE1:
-            activeJointName = "shoulderH";
-            LOG4CXX_INFO(logger, "active joint = " << activeJointName);
-            break;
-
         case manipulation::Commands::eMOVER_USE2:
-            activeJointName = "shoulderV";
-            LOG4CXX_INFO(logger, "active joint = " << activeJointName);
-            break;
-
         case manipulation::Commands::eMOVER_USE3:
-            activeJointName = "elbow";
+        case manipulation::Commands::eMOVER_USE4:
+        {
+            // sets the name of the active joint
+            std::vector<std::string> listJointNames = pBus->getConfig().getListJointNames();
+            int index = reqCommand - manipulation::Commands::eMOVER_USE1;
+            activeJointName = listJointNames.at(index);
             LOG4CXX_INFO(logger, "active joint = " << activeJointName);
             break;
+        }
 
         default:
             LOG4CXX_INFO(logger, "> nothing requested");
             break;
     }    
 }
+
+
+void ComsManip::sendManipCommandAngle(int angleCommand)
+{
+    float angle = angleCommand;
+    pBus->getConnections().getConnectionsJoint(activeJointName).getCOAngle().request(angle);
+    LOG4CXX_INFO(logger, "angle=" << angleCommand);
+}
+
 
 void ComsManip::showResponderWords()
 {    
