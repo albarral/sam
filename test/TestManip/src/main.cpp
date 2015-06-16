@@ -5,7 +5,9 @@
 
 // TEST: SAM MANIPULATION
 
+#include <vector>
 #include <unistd.h> // for sleep() 
+
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
@@ -29,11 +31,28 @@ void testManipulation()
 {
     LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST MANIPULATION >>>>>>>>>>>>>>");      
     
-    sam::ArmManager oArmManager;
+    bool bfinish = false;
+    std::vector<float> listPrevAngles;
     
+    sam::ArmManager oArmManager;    
     oArmManager.startModules();
     
-    sleep(25);
+    while (!bfinish) 
+    {
+        oArmManager.readSollAngles();
+        std::vector<float>& listSollAngles = oArmManager.getSollAngles();
+        
+        if (listSollAngles != listPrevAngles)
+        {
+            LOG4CXX_INFO(logger,"moved angles: " << listSollAngles.at(0) << ", " << listSollAngles.at(1) << ", " << listSollAngles.at(2));      
+
+            listPrevAngles = listSollAngles;            
+            
+            bfinish = (listSollAngles.at(0) == 555.0);
+        }
+
+        sleep(1);
+    }    
     
     oArmManager.stopModules();
 
