@@ -114,6 +114,10 @@ void JointControl::writeBus()
 {
     pConnectionsJoint->getCOAngle().request(angle);
     LOG4CXX_INFO(logger, "angle=" << (int)angle);
+    
+    // TEMPORAL: real speed should be obtained from changes in real joint positions
+    // for now we put the requested speed
+    pConnectionsJoint->getSORealSpeed().setValue(reqSpeed);
 }
 
 
