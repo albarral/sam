@@ -13,12 +13,12 @@
 #include "sam/manipulation/data/defines.h"
 #include "sam/manipulation/bus/Bus.h"
 #include "sam/manipulation/data/Arm.h"
-//#include "sam/manipulation/modules/ArmMover.h"
+#include "sam/manipulation/modules/ArmMover.h"
 #include "sam/manipulation/modules/JointMover.h"
 #include "sam/manipulation/modules/JointControl.h"
 #include "sam/manipulation/modules/ComsManip.h"
 
-namespace sam 
+namespace sam
 {
 // This class manages a robot's arm.
 // It is composed of various modules, each running its own thread.     
@@ -31,7 +31,7 @@ class ArmManager
         // modules ...
         JointMover oJointMover[SAM_MAX_JOINTS];
         JointControl oJointControl[SAM_MAX_JOINTS];
-        //ArmMover oArmMover;
+        ArmMover oArmMover;
         ComsManip* oComsManip;
         // system's IO
         std::vector<float> listIstAngles;     // ist (sensed) joint angles

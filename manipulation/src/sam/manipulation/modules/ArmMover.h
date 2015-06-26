@@ -53,7 +53,7 @@ public:
         //~ArmMover();
                 
        // module params
-       void init (int timeChange);       
+       void init (int timeChange);
        bool isEnabled() {return benabled;};
 
        // bus connection 

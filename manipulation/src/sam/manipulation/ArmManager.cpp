@@ -134,7 +134,13 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
         Joint& mJoint = oArm.getJointByName(jointName);
         oJointControl[i].init(jointName, mJoint);  
         oJointControl[i].connect(mConnections4Joint);
-        oJointControl[i].setFrequency(freq);
+        oJointControl[i].setFrequency(freq);           
+        
+        // arm mover module
+        manipulation::Connections& mConnections4Arm = mConnections;
+        oArmMover.init(3000);
+        oArmMover.connect(mConnections4Arm);
+        oArmMover.setFrequency(freq);
     }
     
     LOG4CXX_INFO(logger, "modules ok!");
@@ -157,6 +163,9 @@ void ArmManager::startModules()
 
     if (oComsManip->isEnabled() && oComsManip->isConnected())    
         oComsManip->on();
+    
+    if (oArmMover.isEnabled() && oArmMover.isConnected())
+        oArmMover.on();
 }
 
 void ArmManager::stopModules()
@@ -181,7 +190,10 @@ void ArmManager::stopModules()
     }
 
     oComsManip->off();
-    oComsManip->wait();    
+    oComsManip->wait();
+    
+    oArmMover.off();
+    oArmMover.wait();
 
 }
 

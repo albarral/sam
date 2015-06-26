@@ -114,12 +114,12 @@ void ArmMover::loop()
 
 void ArmMover::senseSpeed()
 {
-    realSpeed = pConnections->getConnectionsJoint("shoulderH").getSORealSpeed().getValue();
+    realSpeed = pConnections->getConnectionsJoint("shoulderV").getSORealSpeed().getValue();
 }
 
 void ArmMover::writeBus(int command)
 {
-    pConnections->getConnectionsJoint("shoulderH").getCOAction().request(command);
+    pConnections->getConnectionsJoint("shoulderV").getCOAction().request(command);
     
     LOG4CXX_DEBUG(logger, "command = " << command);
 }
