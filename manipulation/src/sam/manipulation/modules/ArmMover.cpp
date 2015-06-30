@@ -50,11 +50,10 @@ void ArmMover::connect(manipulation::Connections& oConnections)
 
 void ArmMover::first()
 {
-    setState(eSTATE_STOP);
-    setNextState(eSTATE_STOP);
-    oClick.start();
+    setState(eSTATE_WAIT);
+    setNextState(eSTATE_WAIT);
     
-    log4cxx::NDC::push(modName + "-stop");   	
+    log4cxx::NDC::push(modName + "-wait");   	
 }
                     
 void ArmMover::loop()
@@ -107,6 +106,8 @@ void ArmMover::loop()
 
             if (realSpeed != 0)
                 writeBus(manipulation::Commands::eJOINT_STOP);
+            // after stopping, new wait stage
+            setNextState(eSTATE_WAIT);
             break;
     }   // end switch        
 }
@@ -114,6 +115,12 @@ void ArmMover::loop()
 void ArmMover::senseBus()
 {
     realSpeed = pConnections->getConnectionsJoint("shoulderV").getSORealSpeed().getValue();
+    
+    if (pConnections->getCOArmMoverStart().isRequested())
+        start();
+    
+    if (pConnections->getCOArmMoverStop().isRequested())
+        stop();    
 }
 
 void ArmMover::writeBus(int command)
@@ -127,25 +134,21 @@ void ArmMover::start()
 {
     setNextState(eSTATE_RIGHT);
     oClick.start();
-    
-    log4cxx::NDC::push(modName + "-start");   	
 }
 
 void ArmMover::stop()
 {
     setNextState(eSTATE_STOP);
-    
-    log4cxx::NDC::push(modName + "-stop");   	
 }
 
 void ArmMover::showState()
 {
     switch (getState())
     {
-        case eSTATE_STOP:
-            LOG4CXX_INFO(logger, ">> stop");
+        case eSTATE_WAIT:
+            LOG4CXX_INFO(logger, ">> wait");
             log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "-stop");   	
+            log4cxx::NDC::push(modName + "-wait");   	
             break;
             
         case eSTATE_RIGHT:
@@ -164,6 +167,12 @@ void ArmMover::showState()
             LOG4CXX_INFO(logger, ">> left");
             log4cxx::NDC::pop();	          
             log4cxx::NDC::push(modName + "-left");   	
+            break;
+
+        case eSTATE_STOP:
+            LOG4CXX_INFO(logger, ">> stop");
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push(modName + "-stop");   	
             break;
     }   // end switch    
 }

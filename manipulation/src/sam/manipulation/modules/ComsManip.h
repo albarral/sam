@@ -49,10 +49,13 @@ private:
     void first();
     // executes the behaviour
     void loop ();
-    
-    // performs the proper request to the sam system modules
-    void sendJointCommand(int reqCommand);    
 
+    // performs a request to the arm mover module
+    void sendArmMoverCommand(int reqCommand);    
+    
+    // performs a request to the individual joint modules
+    void sendJointCommand(int reqCommand);    
+    
     // directly requests an angle position
     void sendJointAngle(int angleCommand);    
     

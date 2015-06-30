@@ -69,7 +69,14 @@ void ComsManip::loop()
     {
         bvalid = true;
         LOG4CXX_INFO(logger, oResponder.getRawCommand());      
-        sendJointCommand(commandID);
+        
+        // finish all?
+        if (commandID == manipulation::Commands::eFINISH_ALL)
+            pBus->getConnections().getCOFinish().request();            
+        else if (manipulation::Commands::isArmMoverCommand(oResponder.getRawCommand()))        
+            sendArmMoverCommand(commandID);
+        else
+            sendJointCommand(commandID);
     }
     // not in the list (numerics accepted)
     else
@@ -89,9 +96,27 @@ void ComsManip::loop()
 }
 
 
+void ComsManip::sendArmMoverCommand(int reqCommand)
+{    
+    switch (reqCommand)
+    {        
+        case manipulation::Commands::eARMOVER_START:
+            pBus->getConnections().getCOArmMoverStart().request();            
+            break;
+ 
+        case manipulation::Commands::eARMOVER_STOP:
+            pBus->getConnections().getCOArmMoverStop().request();            
+            break;
+
+        default:
+            LOG4CXX_INFO(logger, "> wrong arm mover command requested");
+            break;
+    }    
+}
+
+
 void ComsManip::sendJointCommand(int reqCommand)
-{
-    
+{    
     switch (reqCommand)
     {        
         case manipulation::Commands::eJOINT_RIGHT:
@@ -116,7 +141,7 @@ void ComsManip::sendJointCommand(int reqCommand)
         }
 
         default:
-            LOG4CXX_INFO(logger, "> nothing requested");
+            LOG4CXX_INFO(logger, "> wrong joint command requested");
             break;
     }    
 }

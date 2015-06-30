@@ -40,6 +40,7 @@
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
             <itemPath>src/sam/manipulation/modules/ArmMover.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/ArmMover.h</itemPath>
+            <itemPath>src/sam/manipulation/modules/Commands.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/Commands.h</itemPath>
             <itemPath>src/sam/manipulation/modules/ComsManip.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/ComsManip.h</itemPath>
@@ -191,6 +192,11 @@
       <item path="src/sam/manipulation/modules/ArmMover.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/Commands.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/Commands.h"
@@ -351,6 +357,11 @@
       <item path="src/sam/manipulation/modules/ArmMover.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/Commands.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/Commands.h"

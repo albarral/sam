@@ -29,6 +29,9 @@ public:
          eJOINT_BRAKE,
          eJOINT_KEEP,
          eJOINT_STOP,
+         eARMOVER_START,
+         eARMOVER_STOP,
+         eFINISH_ALL,
          eJOINT_DIM
     };
     
@@ -43,14 +46,20 @@ public:
         listCommands.push_back("j2");    // shoulderV
         listCommands.push_back("j3");    // elbow
         listCommands.push_back("j4");    // wrist
-        listCommands.push_back("r");    // move right
-        listCommands.push_back("l");    // mover left
-        listCommands.push_back("b");    // brake
-        listCommands.push_back("k");    // keep
-        listCommands.push_back("s");    // stop
+        listCommands.push_back("r");    // joint move right
+        listCommands.push_back("l");    // joint move left
+        listCommands.push_back("b");    // joint brake
+        listCommands.push_back("k");    // joint keep
+        listCommands.push_back("s");    // joint stop
+        listCommands.push_back("mov1");    // arm mover start
+        listCommands.push_back("mov2");    // arm mover stop
+        listCommands.push_back("off");    // arm mover stop
     };
     
     std::vector<std::string>& getListCommands() {return listCommands;}    
+    
+    // checks if it's an ArmMover command
+    static bool isArmMoverCommand(std::string command);
 };
 }
 }

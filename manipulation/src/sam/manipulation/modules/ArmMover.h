@@ -18,20 +18,22 @@ namespace sam
 // Module that performs a cyclic horizontal arm movement
 // It derives from base class Module2
 // It has 5 states:
-// STOP
+// WAIT
 // RIGHT
 // CHANGE
 // LEFT
+// STOP
 class ArmMover : public Module2
 {
 public:
     // states of ArmMover module
     enum eType
     {
-         eSTATE_STOP,
+         eSTATE_WAIT,
          eSTATE_RIGHT, 
          eSTATE_CHANGE, 
-         eSTATE_LEFT
+         eSTATE_LEFT,
+         eSTATE_STOP
     };
 
 private:

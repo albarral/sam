@@ -10,6 +10,7 @@
 
 #include "sam/manipulation/data/defines.h"
 #include "sam/manipulation/bus/ConnectionsJoint.h"
+#include "goon/utils/brooks/control.h"
 
 namespace sam 
 {
@@ -19,6 +20,12 @@ class Connections
 {
     private:        
         bool benabled;
+        // general commands
+        goon::Control coFinish;    // finish all modules 
+        // ArmMover module
+        goon::Control coArmMoverStart;       // ArmMover command: start 
+        goon::Control coArmMoverStop;       // ArmMover command: stop
+        // modules for individual joints 
         ConnectionsJoint oConnectionsJoint[SAM_MAX_JOINTS];
         int numJoints;   // number of active joints
         
@@ -29,6 +36,12 @@ class Connections
         // initializes a ConnectionsJoint object for the given joint name. Returns true if ok, false otherwise.
         bool add4Joint(std::string jointName);
         bool isEnabled() {return benabled;};
+        
+        goon::Control& getCOFinish() {return coFinish;};   
+        
+        // ArmMover module
+        goon::Control& getCOArmMoverStart() {return coArmMoverStart;};        
+        goon::Control& getCOArmMoverStop() {return coArmMoverStop;};        
         
         // gets the connections set for the specified joint name
         ConnectionsJoint& getConnectionsJoint(std::string jointName);

@@ -36,7 +36,7 @@ void JointMover::init(std::string jointName, manipulation::ParamsJointMover& oPa
        oParamsJointMover.getDeaccel() <= 0)
         return;
 
-    modName = "mov." + jointName;
+    modName = jointName + ".mover";
     accel = oParamsJointMover.getAccel();
     maxSpeed = oParamsJointMover.getMaxSpeed();
     deaccel = oParamsJointMover.getDeaccel();
@@ -127,7 +127,7 @@ void JointMover::writeBus()
     
     if(speed != lastOutput)
     {
-        LOG4CXX_DEBUG(logger, "speed = " << speed);
+        LOG4CXX_INFO(logger, "speed = " << (int)speed);
         lastOutput = speed;    
     }
 }

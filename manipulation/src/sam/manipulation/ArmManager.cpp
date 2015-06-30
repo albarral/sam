@@ -135,13 +135,12 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
         oJointControl[i].init(jointName, mJoint);  
         oJointControl[i].connect(mConnections4Joint);
         oJointControl[i].setFrequency(freq);           
-        
-        // arm mover module
-        manipulation::Connections& mConnections4Arm = mConnections;
-        oArmMover.init(3000);
-        oArmMover.connect(mConnections4Arm);
-        oArmMover.setFrequency(freq);
     }
+        
+    // arm mover module
+    oArmMover.init(3000);
+    oArmMover.connect(mConnections);
+    oArmMover.setFrequency(freq);
     
     LOG4CXX_INFO(logger, "modules ok!");
 }
@@ -194,7 +193,6 @@ void ArmManager::stopModules()
     
     oArmMover.off();
     oArmMover.wait();
-
 }
 
 // Writes to bus
@@ -224,6 +222,11 @@ void ArmManager::readSollAngles()
         if (mConnections.getConnectionsJointByIndex(i).getCOAngle().isRequested(jointAngle))
             listSollAngles[i] = jointAngle;
     }
+}
+
+bool ArmManager::checkEndRequested()
+{
+    return oBus.getConnections().getCOFinish().isRequested();
 }
 
 }

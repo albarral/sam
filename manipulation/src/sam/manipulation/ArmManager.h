@@ -56,6 +56,9 @@ class ArmManager
         // returns the last read commanded angles for all arm joints (in degrees)
         std::vector<float>& getSollAngles() {return listSollAngles;};
         
+        // checks if finish command has been requested from console
+        bool checkEndRequested();
+        
 private:
     void initArm(std::vector<std::string>& listJointNames);
     void initBus(std::vector<std::string>& listJointNames);

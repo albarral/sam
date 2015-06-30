@@ -31,13 +31,12 @@ void testManipulation()
 {
     LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST MANIPULATION >>>>>>>>>>>>>>");      
     
-    bool bfinish = false;
     std::vector<float> listPrevAngles;
     
     sam::ArmManager oArmManager;    
     oArmManager.startModules();
     
-    while (!bfinish) 
+    while (!oArmManager.checkEndRequested()) 
     {
         oArmManager.readSollAngles();
         std::vector<float>& listSollAngles = oArmManager.getSollAngles();
@@ -45,10 +44,7 @@ void testManipulation()
         if (listSollAngles != listPrevAngles)
         {
             LOG4CXX_INFO(logger,"moved angles: " << listSollAngles.at(0) << ", " << listSollAngles.at(1) << ", " << listSollAngles.at(2));      
-
             listPrevAngles = listSollAngles;            
-            
-            bfinish = (listSollAngles.at(0) == 555.0);
         }
 
         sleep(1);
