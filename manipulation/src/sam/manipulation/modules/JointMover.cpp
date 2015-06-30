@@ -137,29 +137,29 @@ void JointMover::processActionRequest(int reqCommand)
     switch (reqCommand)
     {
         // start movement to the right (or up if vertical) 
-        case manipulation::Commands::eMOVER_RIGHT:
+        case manipulation::Commands::eJOINT_RIGHT:
             this->direction = 1;
             setNextState(eSTATE_ACCEL);
             break;
             
         // start movement to the left (or down if vertical) 
-        case manipulation::Commands::eMOVER_LEFT:
+        case manipulation::Commands::eJOINT_LEFT:
             this->direction = -1;
             setNextState(eSTATE_ACCEL);
             break;
 
         // start braking until the joint stops        
-        case manipulation::Commands::eMOVER_BRAKE:
+        case manipulation::Commands::eJOINT_BRAKE:
             setNextState(eSTATE_BRAKE);    
             break;
             
         // keeps the present speed
-        case manipulation::Commands::eMOVER_KEEP:
+        case manipulation::Commands::eJOINT_KEEP:
             setNextState(eSTATE_KEEP);
             break;
             
         // suddenly stops the joint
-        case manipulation::Commands::eMOVER_STOP:
+        case manipulation::Commands::eJOINT_STOP:
             setNextState(eSTATE_STOP);    
             break;
 

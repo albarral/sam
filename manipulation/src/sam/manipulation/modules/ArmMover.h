@@ -70,12 +70,12 @@ private:
         virtual void loop();            
         
         // read bus data
-        void senseSpeed();
+        void senseBus();
         // write action commands to bus
         void writeBus(int command);
 
-        // (TO DO) shows the present state name
-        //void showState();
+        // shows the present state name
+        void showState();
 };
 }
 #endif

@@ -51,10 +51,10 @@ private:
     void loop ();
     
     // performs the proper request to the sam system modules
-    void sendManipCommand(int reqCommand);    
+    void sendJointCommand(int reqCommand);    
 
     // directly requests an angle position
-    void sendManipCommandAngle(int angleCommand);    
+    void sendJointAngle(int angleCommand);    
     
     void showResponderWords();
 };

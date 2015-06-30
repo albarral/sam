@@ -59,11 +59,10 @@ void ArmMover::first()
                     
 void ArmMover::loop()
 {
-    senseSpeed();
+    senseBus();
 
-    updateState();
-//    if (updateState())
-//        showState();
+    if (updateState())
+        showState();
     
     oClick.read();
       
@@ -73,7 +72,7 @@ void ArmMover::loop()
             
             if (oClick.getMillis() > timeChange)
             {
-                writeBus(manipulation::Commands::eMOVER_LEFT);
+                writeBus(manipulation::Commands::eJOINT_LEFT);
                 prevState = eSTATE_RIGHT;
                 setNextState(eSTATE_CHANGE);
             }
@@ -98,7 +97,7 @@ void ArmMover::loop()
             
             if (oClick.getMillis() > timeChange)
             {
-                writeBus(manipulation::Commands::eMOVER_RIGHT);
+                writeBus(manipulation::Commands::eJOINT_RIGHT);
                 prevState = eSTATE_LEFT;
                 setNextState(eSTATE_CHANGE);
             }
@@ -107,12 +106,12 @@ void ArmMover::loop()
         case eSTATE_STOP:
 
             if (realSpeed != 0)
-                writeBus(manipulation::Commands::eMOVER_STOP);
+                writeBus(manipulation::Commands::eJOINT_STOP);
             break;
     }   // end switch        
 }
 
-void ArmMover::senseSpeed()
+void ArmMover::senseBus()
 {
     realSpeed = pConnections->getConnectionsJoint("shoulderV").getSORealSpeed().getValue();
 }
@@ -139,34 +138,34 @@ void ArmMover::stop()
     log4cxx::NDC::push(modName + "-stop");   	
 }
 
-//void ArmMover::showState()
-//{
-//    switch (getState())
-//    {
-//        case eSTATE_ACCEL:
-//            LOG4CXX_INFO(logger, ">> accel");
-//            log4cxx::NDC::pop();	          
-//            log4cxx::NDC::push(modName + "-accel");   	
-//            break;
-//            
-//        case eSTATE_BRAKE:
-//            LOG4CXX_INFO(logger, ">> brake");
-//            log4cxx::NDC::pop();	          
-//            log4cxx::NDC::push(modName + "-brake");   	
-//            break;
-//                    
-//        case eSTATE_KEEP:
-//            LOG4CXX_INFO(logger, ">> keep");
-//            log4cxx::NDC::pop();	          
-//            log4cxx::NDC::push(modName + "-keep");   	
-//            break;
-//            
-//        case eSTATE_STOP:
-//            LOG4CXX_INFO(logger, ">> stop");
-//            log4cxx::NDC::pop();	          
-//            log4cxx::NDC::push(modName + "-stop");   	
-//            break;
-//    }   // end switch    
-//}
+void ArmMover::showState()
+{
+    switch (getState())
+    {
+        case eSTATE_STOP:
+            LOG4CXX_INFO(logger, ">> stop");
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push(modName + "-stop");   	
+            break;
+            
+        case eSTATE_RIGHT:
+            LOG4CXX_INFO(logger, ">> right");
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push(modName + "-right");   	
+            break;
+            
+        case eSTATE_CHANGE:
+            LOG4CXX_INFO(logger, ">> change");
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push(modName + "-change");   	
+            break;
+            
+        case eSTATE_LEFT:
+            LOG4CXX_INFO(logger, ">> left");
+            log4cxx::NDC::pop();	          
+            log4cxx::NDC::push(modName + "-left");   	
+            break;
+    }   // end switch    
+}
 
 }

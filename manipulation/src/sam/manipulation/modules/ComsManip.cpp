@@ -62,14 +62,16 @@ void ComsManip::loop()
     LOG4CXX_INFO(logger, "> ?");    
     oResponder.listen();
 
-    int reqCommand = oResponder.getCommandID();
+    int commandID = oResponder.getCommandID();
     
-    if (reqCommand != Responder::UNRECOGNIZED_WORD)
+    // list of expected words
+    if (commandID != Responder::UNRECOGNIZED_WORD)
     {
         bvalid = true;
         LOG4CXX_INFO(logger, oResponder.getRawCommand());      
-        sendManipCommand(reqCommand);
+        sendJointCommand(commandID);
     }
+    // not in the list (numerics accepted)
     else
     {
         int numCommand = 0;        
@@ -78,7 +80,7 @@ void ComsManip::loop()
         if (oResponder.isNumericCommand(numCommand))
         {
             bvalid = true;
-            sendManipCommandAngle(numCommand);
+            sendJointAngle(numCommand);
         }
     }
       
@@ -87,27 +89,27 @@ void ComsManip::loop()
 }
 
 
-void ComsManip::sendManipCommand(int reqCommand)
+void ComsManip::sendJointCommand(int reqCommand)
 {
     
     switch (reqCommand)
     {        
-        case manipulation::Commands::eMOVER_RIGHT:
-        case manipulation::Commands::eMOVER_LEFT:
-        case manipulation::Commands::eMOVER_BRAKE:
-        case manipulation::Commands::eMOVER_KEEP:
-        case manipulation::Commands::eMOVER_STOP:            
+        case manipulation::Commands::eJOINT_RIGHT:
+        case manipulation::Commands::eJOINT_LEFT:
+        case manipulation::Commands::eJOINT_BRAKE:
+        case manipulation::Commands::eJOINT_KEEP:
+        case manipulation::Commands::eJOINT_STOP:            
             pBus->getConnections().getConnectionsJoint(activeJointName).getCOAction().request(reqCommand);            
             break;
  
-        case manipulation::Commands::eMOVER_USE1:
-        case manipulation::Commands::eMOVER_USE2:
-        case manipulation::Commands::eMOVER_USE3:
-        case manipulation::Commands::eMOVER_USE4:
+        case manipulation::Commands::eJOINT_USE1:
+        case manipulation::Commands::eJOINT_USE2:
+        case manipulation::Commands::eJOINT_USE3:
+        case manipulation::Commands::eJOINT_USE4:
         {
             // sets the name of the active joint
             std::vector<std::string> listJointNames = pBus->getConfig().getListJointNames();
-            int index = reqCommand - manipulation::Commands::eMOVER_USE1;
+            int index = reqCommand - manipulation::Commands::eJOINT_USE1;
             activeJointName = listJointNames.at(index);
             LOG4CXX_INFO(logger, "active joint = " << activeJointName);
             break;
@@ -120,7 +122,7 @@ void ComsManip::sendManipCommand(int reqCommand)
 }
 
 
-void ComsManip::sendManipCommandAngle(int angleCommand)
+void ComsManip::sendJointAngle(int angleCommand)
 {
     float angle = angleCommand;
     pBus->getConnections().getConnectionsJoint(activeJointName).getCOAngle().request(angle);
