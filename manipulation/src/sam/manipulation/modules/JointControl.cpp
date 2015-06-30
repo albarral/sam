@@ -55,12 +55,6 @@ void JointControl::first()
     log4cxx::NDC::push(modName + "-on");   	
 }
                     
-void JointControl::senseBus()
-{
-    pConnectionsJoint->getCOSpeed().isRequested(reqSpeed);
-    speed_ms = reqSpeed/1000.0;
-}
-
 void JointControl::loop()
 {
     senseBus();
@@ -85,6 +79,21 @@ void JointControl::loop()
     }
 }
 
+void JointControl::senseBus()
+{
+    pConnectionsJoint->getCOSpeed().isRequested(reqSpeed);
+    speed_ms = reqSpeed/1000.0;
+}
+
+void JointControl::writeBus()
+{
+    pConnectionsJoint->getCOAngle().request(angle);
+    LOG4CXX_INFO(logger, "angle=" << (int)angle);
+    
+    // TEMPORAL: real speed should be obtained from changes in real joint positions
+    // for now we put the requested speed
+    pConnectionsJoint->getSORealSpeed().setValue(reqSpeed);
+}
 
 void JointControl::doSpeed2Angle()
 {
@@ -108,16 +117,6 @@ void JointControl::doSpeed2Angle()
     }
     else
         limitBroken = 0;
-}
-
-void JointControl::writeBus()
-{
-    pConnectionsJoint->getCOAngle().request(angle);
-    LOG4CXX_INFO(logger, "angle=" << (int)angle);
-    
-    // TEMPORAL: real speed should be obtained from changes in real joint positions
-    // for now we put the requested speed
-    pConnectionsJoint->getSORealSpeed().setValue(reqSpeed);
 }
 
 

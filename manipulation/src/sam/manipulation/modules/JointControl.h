@@ -69,6 +69,7 @@ private:
         void senseBus();
         // write data to bus (speed)
         void writeBus();
+        
         // translate commanded speed into next joint angle
         void doSpeed2Angle();
 };
