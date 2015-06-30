@@ -82,19 +82,18 @@ private:
         
         // read bus data
         void senseBus();
-        // process request received from bus
-        void processActionRequest(int reqCommand);
         // write data to bus (speed)
         void writeBus();
 
-        //void setSpeed(int value) {speed = value;};
+        // process request received from bus
+        void processActionRequest(int reqCommand);
 
-        // shows the present state name
-        void showState();
         // softly increases speed till max value
         bool doAccel();
         // softly reduces speed to 0
         void doBrake();
+        // shows the present state name
+        void showState();
 };
 }
 #endif

@@ -64,52 +64,6 @@ void JointMover::first()
     log4cxx::NDC::push(modName + "-stop");   	
 }
                     
-void JointMover::senseBus()
-{
-    int reqCommand;
-    if (pConnectionsJoint->getCOAction().isRequested(reqCommand))
-    {
-        processActionRequest(reqCommand);
-    }    
-}
-
-void JointMover::processActionRequest(int reqCommand)
-{
-    switch (reqCommand)
-    {
-        // start movement to the right (or up if vertical) 
-        case manipulation::Commands::eMOVER_RIGHT:
-            this->direction = 1;
-            setNextState(eSTATE_ACCEL);
-            break;
-            
-        // start movement to the left (or down if vertical) 
-        case manipulation::Commands::eMOVER_LEFT:
-            this->direction = -1;
-            setNextState(eSTATE_ACCEL);
-            break;
-
-        // start braking until the joint stops        
-        case manipulation::Commands::eMOVER_BRAKE:
-            setNextState(eSTATE_BRAKE);    
-            break;
-            
-        // keeps the present speed
-        case manipulation::Commands::eMOVER_KEEP:
-            setNextState(eSTATE_KEEP);
-            break;
-            
-        // suddenly stops the joint
-        case manipulation::Commands::eMOVER_STOP:
-            setNextState(eSTATE_STOP);    
-            break;
-
-        default:
-            LOG4CXX_INFO(logger, "> unkown request");
-            break;
-    }    
-}
-
 void JointMover::loop()
 {
     senseBus();
@@ -158,6 +112,63 @@ void JointMover::loop()
     writeBus();
 }
 
+void JointMover::senseBus()
+{
+    int reqCommand;
+    if (pConnectionsJoint->getCOAction().isRequested(reqCommand))
+    {
+        processActionRequest(reqCommand);
+    }    
+}
+
+void JointMover::writeBus()
+{
+    pConnectionsJoint->getCOSpeed().request(speed);
+    
+    if(speed != lastOutput)
+    {
+        LOG4CXX_DEBUG(logger, "speed = " << speed);
+        lastOutput = speed;    
+    }
+}
+
+void JointMover::processActionRequest(int reqCommand)
+{
+    switch (reqCommand)
+    {
+        // start movement to the right (or up if vertical) 
+        case manipulation::Commands::eMOVER_RIGHT:
+            this->direction = 1;
+            setNextState(eSTATE_ACCEL);
+            break;
+            
+        // start movement to the left (or down if vertical) 
+        case manipulation::Commands::eMOVER_LEFT:
+            this->direction = -1;
+            setNextState(eSTATE_ACCEL);
+            break;
+
+        // start braking until the joint stops        
+        case manipulation::Commands::eMOVER_BRAKE:
+            setNextState(eSTATE_BRAKE);    
+            break;
+            
+        // keeps the present speed
+        case manipulation::Commands::eMOVER_KEEP:
+            setNextState(eSTATE_KEEP);
+            break;
+            
+        // suddenly stops the joint
+        case manipulation::Commands::eMOVER_STOP:
+            setNextState(eSTATE_STOP);    
+            break;
+
+        default:
+            LOG4CXX_INFO(logger, "> unkown request");
+            break;
+    }    
+}
+
 
 // Increase speed in the proper direction. Returns true if max speed reached.
 bool JointMover::doAccel()
@@ -184,17 +195,6 @@ void JointMover::doBrake()
         (direction < 0 && speed > 0))
     {
         speed = 0;
-    }
-}
-
-void JointMover::writeBus()
-{
-    pConnectionsJoint->getCOSpeed().request(speed);
-    
-    if(speed != lastOutput)
-    {
-        LOG4CXX_DEBUG(logger, "speed = " << speed);
-        lastOutput = speed;    
     }
 }
 
