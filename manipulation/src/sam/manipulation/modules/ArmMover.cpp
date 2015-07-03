@@ -34,6 +34,7 @@ void ArmMover::init(int timeChange)
 
     modName = "ArmMover";
     this->timeChange = timeChange;
+    jointName = "shoulderV";    
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
@@ -114,18 +115,18 @@ void ArmMover::loop()
 
 void ArmMover::senseBus()
 {
-    realSpeed = pConnections->getConnectionsJoint("shoulderV").getSORealSpeed().getValue();
+    realSpeed = pConnections->getConnectionsJoint(jointName).getSORealSpeed().getValue();
     
-    if (pConnections->getCOArmMoverStart().isRequested())
+    if (pConnections->getCOArmMoverStart().checkRequested())
         start();
     
-    if (pConnections->getCOArmMoverStop().isRequested())
+    if (pConnections->getCOArmMoverStop().checkRequested())
         stop();    
 }
 
 void ArmMover::writeBus(int command)
 {
-    pConnections->getConnectionsJoint("shoulderV").getCOAction().request(command);
+    pConnections->getConnectionsJoint(jointName).getCOAction().request(command);
     
     LOG4CXX_DEBUG(logger, "command = " << command);
 }

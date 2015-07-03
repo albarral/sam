@@ -34,7 +34,7 @@ class SuppressControl : public Control
        // Checks if a command request is pending to be executed.
        // After the check, the request is considered not pending anymore.
        // The priority is also cleared after the ckeck.
-       virtual bool isRequested();
+       virtual bool checkRequested();
         
     private:
         // Checks if the new request priority is higher than the active one.

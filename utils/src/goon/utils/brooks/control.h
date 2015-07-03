@@ -28,7 +28,7 @@ class Control
 
         // Checks if a command request is pending to be executed.
         // After the check, the request is considered not pending anymore.
-        virtual bool isRequested();
+        virtual bool checkRequested();
 };
 }    
 #endif

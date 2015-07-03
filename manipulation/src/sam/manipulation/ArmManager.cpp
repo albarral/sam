@@ -219,14 +219,14 @@ void ArmManager::readSollAngles()
     // for each joint, check if the commanded angle has changed & insert it into the soll list
     for (int i=0; i<numJoints; i++)
     {        
-        if (mConnections.getConnectionsJointByIndex(i).getCOAngle().isRequested(jointAngle))
+        if (mConnections.getConnectionsJointByIndex(i).getCOAngle().checkRequested(jointAngle))
             listSollAngles[i] = jointAngle;
     }
 }
 
 bool ArmManager::checkEndRequested()
 {
-    return oBus.getConnections().getCOFinish().isRequested();
+    return oBus.getConnections().getCOFinish().checkRequested();
 }
 
 }

@@ -35,7 +35,7 @@ class SuppressControlT : public ControlT<T>
         // Checks if a command request is pending to be executed, giving access to the stored input parameter.
         // After the check, the request is considered not pending anymore.
         // The priority is also cleared after the ckeck.
-        bool isRequested (T& value);
+        bool checkRequested (T& value);
 
     private:
         // Checks if the new request priority is higher than the active one.
@@ -64,12 +64,12 @@ void SuppressControlT<T>::request(T& value, int priority)
 }
 
 template <typename T>
-bool SuppressControlT<T>::isRequested(T& value)
+bool SuppressControlT<T>::checkRequested(T& value)
 {
     std::lock_guard<std::mutex> locker(mutex3);
     
     clearPriority();    
-    return ControlT<T>::isRequested(value);
+    return ControlT<T>::checkRequested(value);
 }
 
 template <typename T>

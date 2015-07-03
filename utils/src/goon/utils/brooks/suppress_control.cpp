@@ -20,12 +20,12 @@ void SuppressControl::request(int priority)
         Control::request();
 }
 
-bool SuppressControl::isRequested()
+bool SuppressControl::checkRequested()
 {
     std::lock_guard<std::mutex> locker(mutex2);
     
     clearPriority();    
-    return Control::isRequested();
+    return Control::checkRequested();
 }
 
 bool SuppressControl::checkPriority(int priority)

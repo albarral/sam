@@ -30,7 +30,10 @@ class ControlT : public Control
                 
         // Checks if a command request is pending to be executed, giving access to the stored input parameter.
         // After the check, the request is considered not pending anymore.
-        virtual bool isRequested (T& value);
+        virtual bool checkRequested (T& value);
+        
+        // just gets the last requested value
+        void getValue (T& value);
 };
 
 // note: DEFINITIONS OF TEMPLATE CLASSES MUST BE PLACED IN HEADER
@@ -51,17 +54,25 @@ void ControlT<T>::request(T& value)
 }
 
 template <typename T>
-bool ControlT<T>::isRequested(T& value)
+bool ControlT<T>::checkRequested(T& value)
 {
     std::lock_guard<std::mutex> locker(mutex2);
     
-    if (Control::isRequested())
+    if (Control::checkRequested())
     {
         value = this->value;
         return true;
     }
     else
         return false;
+}
+
+template <typename T>
+void ControlT<T>::getValue(T& value)
+{
+    std::lock_guard<std::mutex> locker(mutex2);
+    
+    value = this->value;
 }
 
 }    

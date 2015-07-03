@@ -29,7 +29,7 @@ JointControl::JointControl()
 
 void JointControl::init(std::string jointName, Joint& oJoint)
 {
-    modName = jointName + ".control";
+    modName = jointName + "-pos";
     mJoint = &oJoint;
     benabled = true;
 
@@ -52,7 +52,7 @@ void JointControl::first()
     
     // angle = read from ist angle
     
-    log4cxx::NDC::push(modName + "-on");   	
+    log4cxx::NDC::push(modName);   	
 }
                     
 void JointControl::loop()
@@ -81,8 +81,11 @@ void JointControl::loop()
 
 void JointControl::senseBus()
 {
-    pConnectionsJoint->getCOSpeed().isRequested(reqSpeed);
-    speed_ms = reqSpeed/1000.0;
+    // read the system's last requested angle
+    pConnectionsJoint->getCOAngle().getValue(angle);
+    // check for new speed requests
+    if (pConnectionsJoint->getCOSpeed().checkRequested(reqSpeed))
+        speed_ms = reqSpeed/1000.0;
 }
 
 void JointControl::writeBus()

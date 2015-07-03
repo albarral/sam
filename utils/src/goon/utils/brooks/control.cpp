@@ -19,7 +19,7 @@ void Control::request()
     brequested = true;
 }
 
-bool Control::isRequested()
+bool Control::checkRequested()
 {
     std::lock_guard<std::mutex> locker(mutex1);
     if (brequested)

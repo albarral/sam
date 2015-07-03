@@ -42,6 +42,7 @@ private:
     // params
     std::string modName;   // module name
     int timeChange;     // milliseconds
+    std::string jointName;  // target joint
     // bus
     bool bconnected;        // connected to bus
     manipulation::Connections* pConnections;    // the bus connections

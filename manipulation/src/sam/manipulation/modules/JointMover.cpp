@@ -36,7 +36,7 @@ void JointMover::init(std::string jointName, manipulation::ParamsJointMover& oPa
        oParamsJointMover.getDeaccel() <= 0)
         return;
 
-    modName = jointName + ".mover";
+    modName = jointName;
     accel = oParamsJointMover.getAccel();
     maxSpeed = oParamsJointMover.getMaxSpeed();
     deaccel = oParamsJointMover.getDeaccel();
@@ -115,7 +115,7 @@ void JointMover::loop()
 void JointMover::senseBus()
 {
     int reqCommand;
-    if (pConnectionsJoint->getCOAction().isRequested(reqCommand))
+    if (pConnectionsJoint->getCOAction().checkRequested(reqCommand))
     {
         processActionRequest(reqCommand);
     }    
