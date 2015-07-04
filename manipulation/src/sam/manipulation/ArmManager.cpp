@@ -18,7 +18,10 @@ LoggerPtr ArmManager::logger(Logger::getLogger("sam.manipulation"));
 // Constructor
 ArmManager::ArmManager ()
 {    
-    init();
+    benabled = false;
+
+    // communications module (listens to console)
+    oComsManip = new ComsManip();
 }
 
 // Destructor
@@ -28,12 +31,13 @@ ArmManager::~ArmManager ()
         delete(oComsManip);
 }
 
-void ArmManager::init()
+void ArmManager::init(std::string robotName)
 {
     log4cxx::NDC::push("Arm Manager");   	
     LOG4CXX_INFO(logger, "init ...");
     
-    oBus.getConfig().init(manipulation::Config::eROBOT_YOUBOT);
+    if (oBus.getConfig().loadRobot(robotName) == false)
+        LOG4CXX_ERROR(logger, "Not enabled !!! Robot not supported: " + robotName);
     
     // obtain (from config file) the list of joints to be controlled 
     std::vector<std::string> listJointNames = oBus.getConfig().getListJointNames();
@@ -45,13 +49,9 @@ void ArmManager::init()
     // TEMP: first soll angles are 0 (should be the ist)
     int numJoints = listJointNames.size();
     for (int i=0; i<numJoints; i++ )
-        listSollAngles.push_back(0);
-    
-    // communications module (listens to console)
-    oComsManip = new ComsManip();
-    oComsManip->init();
-    oComsManip->setFrequency(1); // 1Hz
-    oComsManip->connect(oBus);    
+        listSollAngles.push_back(0);    
+   
+    benabled = true;    
 }
 
 
@@ -142,6 +142,10 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     oArmMover.connect(mConnections);
     oArmMover.setFrequency(freq);
     
+    oComsManip->init();
+    oComsManip->setFrequency(1); // 1Hz
+    oComsManip->connect(oBus);    
+
     LOG4CXX_INFO(logger, "modules ok!");
 }
 
@@ -150,6 +154,9 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "Arm manager: starting modules ...");
 
+    if (!benabled)
+        return;
+    
     int numJoints = oBus.getConfig().getNumJoints();    
     for (int i=0; i<numJoints; i++)
     {
@@ -170,6 +177,9 @@ void ArmManager::startModules()
 void ArmManager::stopModules()
 {    
     LOG4CXX_INFO(logger, "Arm manager: stopping modules ...");
+
+    if (!benabled)
+        return;
 
     int numJoints = oBus.getConfig().getNumJoints();    
     for (int i=0; i<numJoints; i++)
@@ -194,6 +204,7 @@ void ArmManager::stopModules()
     oArmMover.off();
     oArmMover.wait();
 }
+
 
 // Writes to bus
 void ArmManager::setIstAngles(std::vector<float>& listAngles)

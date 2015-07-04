@@ -33,7 +33,11 @@ void testManipulation()
     
     std::vector<float> listPrevAngles;
     
-    sam::ArmManager oArmManager;    
+    sam::ArmManager oArmManager; 
+    oArmManager.init("UR5");
+    if (!oArmManager.isEnabled())
+        return;
+    
     oArmManager.startModules();
     
     while (!oArmManager.checkEndRequested()) 
@@ -43,7 +47,7 @@ void testManipulation()
         
         if (listSollAngles != listPrevAngles)
         {
-            LOG4CXX_INFO(logger,"moved angles: " << listSollAngles.at(0) << ", " << listSollAngles.at(1) << ", " << listSollAngles.at(2));      
+            LOG4CXX_INFO(logger,"moved angles: " << (int)listSollAngles.at(0) << ", " << (int)listSollAngles.at(1) << ", " << (int)listSollAngles.at(2) << ", " << (int)listSollAngles.at(3));      
             listPrevAngles = listSollAngles;            
         }
 

@@ -19,16 +19,9 @@ namespace manipulation
 {
 class Config 
 {
-public:
-    enum eROBOT
-    {
-        eROBOT_YOUBOT,
-        eROBOT_OWI,
-        eROBOT_UNKNOWN
-    };
-    
     private:                
         std::string configFile;     // name of config file  (not used yet)
+        std::vector<std::string> listRobotNames;
         int numJoints;
         std::vector<std::string> listJointNames;
         float modulesFreq;  // execution frequency for all modules (loops/sec)
@@ -41,7 +34,10 @@ public:
         Config();
 
         // initializes the configuration for the given robot
-        void init (int robot);
+        bool loadRobot (std::string& robotName);
+        
+        // checks if robot is supported
+        bool checkRobotSupported(std::string& robotName);
         
         int getNumJoints() {return numJoints;};
         
@@ -56,6 +52,7 @@ public:
         
 private:
     void loadYoubot();
+    void loadUR5();
     // void loadOwi();
 };
 

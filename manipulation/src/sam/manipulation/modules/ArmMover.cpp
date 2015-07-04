@@ -34,7 +34,7 @@ void ArmMover::init(int timeChange)
 
     modName = "ArmMover";
     this->timeChange = timeChange;
-    jointName = "shoulderV";    
+    jointName = "elbow";    
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      

@@ -26,6 +26,7 @@ class ArmManager
 {
     private:
         static log4cxx::LoggerPtr logger;
+        bool benabled;
         manipulation::Bus oBus;
         Arm oArm;
         // modules ...
@@ -41,9 +42,11 @@ class ArmManager
         ArmManager();
         ~ArmManager();
 
-        // initializes everything (arm, bus & modules)
-        void init();        
-        // starts the task's modules 
+        // initializes everything (arm, bus & modules). 
+       void init(std::string robotName);        
+       bool isEnabled() {return benabled;};
+
+       // starts the task's modules 
         void startModules();        
         // stops the tasks' modules
         void stopModules();        

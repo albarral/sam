@@ -150,6 +150,7 @@ void ComsManip::sendJointCommand(int reqCommand)
 void ComsManip::sendJointAngle(int angleCommand)
 {
     float angle = angleCommand;
+        
     pBus->getConnections().getConnectionsJoint(activeJointName).getCOAngle().request(angle);
     LOG4CXX_INFO(logger, "angle=" << angleCommand);
 }
