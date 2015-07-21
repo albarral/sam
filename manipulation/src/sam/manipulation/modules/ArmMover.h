@@ -9,9 +9,9 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "sam/manipulation/utils/module2.h"
+#include "sam/utils/module2.h"
+#include "sam/utils/Click.h"
 #include "sam/manipulation/bus/Connections.h"
-#include "goon/utils/Click.h"
 
 namespace sam 
 {

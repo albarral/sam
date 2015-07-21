@@ -49,8 +49,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o \
-	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o \
-	${OBJECTDIR}/src/sam/manipulation/utils/module2.o
+	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o
 
 
 # C Compiler Flags
@@ -67,13 +66,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../utils/dist/Debug/GNU-Linux-x86 -L../utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../utils/dist/Debug/GNU-Linux-x86 -L../utils/dist/Debug/GNU-Linux-x86 -lsam_utils -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ../utils/dist/Debug/GNU-Linux-x86/libgoon_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ../utils/dist/Debug/GNU-Linux-x86/libsam_utils.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -153,11 +152,6 @@ ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o src/sam/manipulation/utils/Responder.cpp
-
-${OBJECTDIR}/src/sam/manipulation/utils/module2.o: src/sam/manipulation/utils/module2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/module2.o src/sam/manipulation/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:

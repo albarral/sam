@@ -8,8 +8,8 @@
 
 #include <string>
 
-#include "goon/utils/brooks/controlT.h"
-#include "goon/utils/brooks/sensorT.h"
+#include "sam/utils/brooks/controlT.h"
+#include "sam/utils/brooks/sensorT.h"
 
 namespace sam 
 {

@@ -119,8 +119,8 @@ void ComsManip::sendJointCommand(int reqCommand)
 {    
     switch (reqCommand)
     {        
-        case manipulation::Commands::eJOINT_RIGHT:
-        case manipulation::Commands::eJOINT_LEFT:
+        case manipulation::Commands::eJOINT_POSITIVE:
+        case manipulation::Commands::eJOINT_NEGATIVE:
         case manipulation::Commands::eJOINT_BRAKE:
         case manipulation::Commands::eJOINT_KEEP:
         case manipulation::Commands::eJOINT_STOP:            

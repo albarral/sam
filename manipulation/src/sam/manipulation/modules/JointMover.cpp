@@ -136,14 +136,14 @@ void JointMover::processActionRequest(int reqCommand)
 {
     switch (reqCommand)
     {
-        // start movement to the right (or up if vertical) 
-        case manipulation::Commands::eJOINT_RIGHT:
+        // start movement to the positive direction (right or up) 
+        case manipulation::Commands::eJOINT_POSITIVE:
             this->direction = 1;
             setNextState(eSTATE_ACCEL);
             break;
             
-        // start movement to the left (or down if vertical) 
-        case manipulation::Commands::eJOINT_LEFT:
+        // start movement to the negative direction (left or down) 
+        case manipulation::Commands::eJOINT_NEGATIVE:
             this->direction = -1;
             setNextState(eSTATE_ACCEL);
             break;

@@ -70,9 +70,11 @@ void ArmMover::loop()
     {
         case eSTATE_RIGHT:
             
+            // if right period passed
             if (oClick.getMillis() > timeChange)
             {
-                writeBus(manipulation::Commands::eJOINT_LEFT);
+                // turn left
+                writeBus(manipulation::Commands::eJOINT_NEGATIVE);
                 prevState = eSTATE_RIGHT;
                 setNextState(eSTATE_CHANGE);
             }
@@ -95,9 +97,11 @@ void ArmMover::loop()
                     
         case eSTATE_LEFT:
             
+            // if left period passed
             if (oClick.getMillis() > timeChange)
             {
-                writeBus(manipulation::Commands::eJOINT_RIGHT);
+                // turn right
+                writeBus(manipulation::Commands::eJOINT_POSITIVE);
                 prevState = eSTATE_LEFT;
                 setNextState(eSTATE_CHANGE);
             }

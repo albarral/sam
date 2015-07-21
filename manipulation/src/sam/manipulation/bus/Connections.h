@@ -10,7 +10,7 @@
 
 #include "sam/manipulation/data/defines.h"
 #include "sam/manipulation/bus/ConnectionsJoint.h"
-#include "goon/utils/brooks/control.h"
+#include "sam/utils/brooks/control.h"
 
 namespace sam 
 {

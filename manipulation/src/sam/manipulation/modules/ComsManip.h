@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include <sam/manipulation/utils/module2.h>
+#include <sam/utils/module2.h>
 #include <sam/manipulation/utils/Responder.h>
 #include "sam/manipulation/bus/Bus.h"
 #include "Commands.h"

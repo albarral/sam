@@ -52,8 +52,6 @@
           <logicalFolder name="utils" displayName="utils" projectFiles="true">
             <itemPath>src/sam/manipulation/utils/Responder.cpp</itemPath>
             <itemPath>src/sam/manipulation/utils/Responder.h</itemPath>
-            <itemPath>src/sam/manipulation/utils/module2.cpp</itemPath>
-            <itemPath>src/sam/manipulation/utils/module2.h</itemPath>
           </logicalFolder>
           <itemPath>src/sam/manipulation/ArmManager.cpp</itemPath>
           <itemPath>src/sam/manipulation/ArmManager.h</itemPath>
@@ -103,7 +101,7 @@
                             WD="../utils"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgoon_utils.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
@@ -240,16 +238,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/utils/Responder.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/utils/module2.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/utils/module2.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -405,16 +393,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/utils/Responder.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/utils/module2.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/utils/module2.h"
             ex="false"
             tool="3"
             flavor2="0">

@@ -35,14 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/goon/utils/Click.o \
-	${OBJECTDIR}/src/goon/utils/Console.o \
-	${OBJECTDIR}/src/goon/utils/PID.o \
-	${OBJECTDIR}/src/goon/utils/brooks/control.o \
-	${OBJECTDIR}/src/goon/utils/brooks/inhibition.o \
-	${OBJECTDIR}/src/goon/utils/brooks/suppress_control.o \
-	${OBJECTDIR}/src/goon/utils/draw.o \
-	${OBJECTDIR}/src/goon/utils/module.o
+	${OBJECTDIR}/src/sam/utils/Click.o \
+	${OBJECTDIR}/src/sam/utils/Console.o \
+	${OBJECTDIR}/src/sam/utils/PID.o \
+	${OBJECTDIR}/src/sam/utils/brooks/control.o \
+	${OBJECTDIR}/src/sam/utils/brooks/inhibition.o \
+	${OBJECTDIR}/src/sam/utils/brooks/suppress_control.o \
+	${OBJECTDIR}/src/sam/utils/draw.o \
+	${OBJECTDIR}/src/sam/utils/module.o \
+	${OBJECTDIR}/src/sam/utils/module2.o
 
 
 # C Compiler Flags
@@ -69,45 +70,50 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.${CND_DLIB_EXT}: ${OBJECTFIL
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/goon/utils/Click.o: src/goon/utils/Click.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils
+${OBJECTDIR}/src/sam/utils/Click.o: src/sam/utils/Click.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/Click.o src/goon/utils/Click.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/Click.o src/sam/utils/Click.cpp
 
-${OBJECTDIR}/src/goon/utils/Console.o: src/goon/utils/Console.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils
+${OBJECTDIR}/src/sam/utils/Console.o: src/sam/utils/Console.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/Console.o src/goon/utils/Console.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/Console.o src/sam/utils/Console.cpp
 
-${OBJECTDIR}/src/goon/utils/PID.o: src/goon/utils/PID.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils
+${OBJECTDIR}/src/sam/utils/PID.o: src/sam/utils/PID.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/PID.o src/goon/utils/PID.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/PID.o src/sam/utils/PID.cpp
 
-${OBJECTDIR}/src/goon/utils/brooks/control.o: src/goon/utils/brooks/control.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils/brooks
+${OBJECTDIR}/src/sam/utils/brooks/control.o: src/sam/utils/brooks/control.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils/brooks
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/brooks/control.o src/goon/utils/brooks/control.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/brooks/control.o src/sam/utils/brooks/control.cpp
 
-${OBJECTDIR}/src/goon/utils/brooks/inhibition.o: src/goon/utils/brooks/inhibition.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils/brooks
+${OBJECTDIR}/src/sam/utils/brooks/inhibition.o: src/sam/utils/brooks/inhibition.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils/brooks
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/brooks/inhibition.o src/goon/utils/brooks/inhibition.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/brooks/inhibition.o src/sam/utils/brooks/inhibition.cpp
 
-${OBJECTDIR}/src/goon/utils/brooks/suppress_control.o: src/goon/utils/brooks/suppress_control.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils/brooks
+${OBJECTDIR}/src/sam/utils/brooks/suppress_control.o: src/sam/utils/brooks/suppress_control.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils/brooks
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/brooks/suppress_control.o src/goon/utils/brooks/suppress_control.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/brooks/suppress_control.o src/sam/utils/brooks/suppress_control.cpp
 
-${OBJECTDIR}/src/goon/utils/draw.o: src/goon/utils/draw.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils
+${OBJECTDIR}/src/sam/utils/draw.o: src/sam/utils/draw.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/draw.o src/goon/utils/draw.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/draw.o src/sam/utils/draw.cpp
 
-${OBJECTDIR}/src/goon/utils/module.o: src/goon/utils/module.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/goon/utils
+${OBJECTDIR}/src/sam/utils/module.o: src/sam/utils/module.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/goon/utils/module.o src/goon/utils/module.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/module.o src/sam/utils/module.cpp
+
+${OBJECTDIR}/src/sam/utils/module2.o: src/sam/utils/module2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/module2.o src/sam/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:

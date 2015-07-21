@@ -49,8 +49,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o \
-	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o \
-	${OBJECTDIR}/src/sam/manipulation/utils/module2.o
+	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o
 
 
 # C Compiler Flags
@@ -151,11 +150,6 @@ ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o src/sam/manipulation/utils/Responder.cpp
-
-${OBJECTDIR}/src/sam/manipulation/utils/module2.o: src/sam/manipulation/utils/module2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/module2.o src/sam/manipulation/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:
