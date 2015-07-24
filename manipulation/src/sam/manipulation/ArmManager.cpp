@@ -6,8 +6,8 @@
 #include "log4cxx/ndc.h"
 
 #include "ArmManager.h"
-#include "sam/manipulation/bus/Config.h"
-#include "sam/manipulation/bus/Connections.h"
+#include "sam/manipulation/config/Config.h"
+#include "sam/manipulation/bus/Bus.h"
 
 using namespace log4cxx;
 
@@ -36,11 +36,11 @@ void ArmManager::init(std::string robotName)
     log4cxx::NDC::push("Arm Manager");   	
     LOG4CXX_INFO(logger, "init ...");
     
-    if (oBus.getConfig().loadRobot(robotName) == false)
+    if (oConfig.loadRobot(robotName) == false)
         LOG4CXX_ERROR(logger, "Not enabled !!! Robot not supported: " + robotName);
     
     // obtain (from config file) the list of joints to be controlled 
-    std::vector<std::string> listJointNames = oBus.getConfig().getListJointNames();
+    std::vector<std::string> listJointNames = oConfig.getListJointNames();
 
     initArm(listJointNames);
     initBus(listJointNames);
@@ -59,9 +59,6 @@ void ArmManager::initArm(std::vector<std::string>& listJointNames)
 {
     LOG4CXX_INFO(logger, "init Arm ...");
     
-    // get config
-    manipulation::Config& mConfig = oBus.getConfig();
-
     // build arm with joints
     int numJoints = listJointNames.size();
     for (int i=0; i<numJoints; i++)
@@ -70,7 +67,7 @@ void ArmManager::initArm(std::vector<std::string>& listJointNames)
         LOG4CXX_INFO(logger, "joint " << jointName);
         
         // arm's joint
-        manipulation::ParamsJoint& mParamsJoint = mConfig.getParamsJoint(jointName);                        
+        manipulation::ParamsJoint& mParamsJoint = oConfig.getParamsJoint(jointName);                        
         Joint oJoint; 
         oJoint.init(mParamsJoint);    
         oArm.addJoint(oJoint);                
@@ -84,9 +81,6 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
 {
     LOG4CXX_INFO(logger, "init Bus ...");
     
-    // get bus connections
-    manipulation::Connections& mConnections = oBus.getConnections();
-
     // setup connections for each joint
     int numJoints = listJointNames.size();
     for (int i=0; i<numJoints; i++)
@@ -94,7 +88,7 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
         std::string jointName = listJointNames.at(i);        
         LOG4CXX_INFO(logger, "joint " << jointName);
         
-        if (mConnections.add4Joint(jointName) == false)
+        if (oBus.add4Joint(jointName) == false)
         {
             LOG4CXX_ERROR(logger, "Error adding bus connection for joint " << jointName);
             return;
@@ -108,13 +102,9 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
 {
     LOG4CXX_INFO(logger, "init modules ...");
     
-    // get config
-    manipulation::Config& mConfig = oBus.getConfig();
-    float freq = mConfig.getModulesFreq();
-    // get bus connections
-    manipulation::Connections& mConnections = oBus.getConnections();
+    float freq = oConfig.getModulesFreq();
 
-    // init modules for each joint
+    // init modules FOR each joint
     int numJoints = listJointNames.size();
     for (int i=0; i<numJoints; i++)
     {        
@@ -122,10 +112,10 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
         LOG4CXX_INFO(logger, "modules for joint " << jointName << " ... ");
         
         // bus connections for this joint
-        manipulation::ConnectionsJoint& mConnections4Joint = mConnections.getConnectionsJoint(jointName);
+        manipulation::ConnectionsJoint& mConnections4Joint = oBus.getConnectionsJoint(jointName);
 
         // joint mover module
-        manipulation::ParamsJointMover& mParamsJointMover = mConfig.getParamsJointMover(jointName);        
+        manipulation::ParamsJointMover& mParamsJointMover = oConfig.getParamsJointMover(jointName);        
         oJointMover[i].init(jointName, mParamsJointMover);  
         oJointMover[i].connect(mConnections4Joint);
         oJointMover[i].setFrequency(freq);
@@ -139,10 +129,10 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
         
     // arm mover module
     oArmMover.init(3000);
-    oArmMover.connect(mConnections);
+    oArmMover.connect(oBus);
     oArmMover.setFrequency(freq);
     
-    oComsManip->init();
+    oComsManip->init(oConfig);
     oComsManip->setFrequency(1); // 1Hz
     oComsManip->connect(oBus);    
 
@@ -157,7 +147,7 @@ void ArmManager::startModules()
     if (!benabled)
         return;
     
-    int numJoints = oBus.getConfig().getNumJoints();    
+    int numJoints = oConfig.getNumJoints();    
     for (int i=0; i<numJoints; i++)
     {
         if (oJointControl[i].isEnabled() && oJointControl[i].isConnected())
@@ -181,7 +171,7 @@ void ArmManager::stopModules()
     if (!benabled)
         return;
 
-    int numJoints = oBus.getConfig().getNumJoints();    
+    int numJoints = oConfig.getNumJoints();    
     for (int i=0; i<numJoints; i++)
     {
         // stop & wait for modules 
@@ -209,13 +199,12 @@ void ArmManager::stopModules()
 // Writes to bus
 void ArmManager::setIstAngles(std::vector<float>& listAngles)
 {
-    manipulation::Connections& mConnections = oBus.getConnections();
     int size = listAngles.size();
     
     for (int i=0; i<size; i++)
     {
         // write angle in SI_ANGLE
-        mConnections.getConnectionsJointByIndex(i).getSOIst().setValue(listAngles.at(i));
+        oBus.getConnectionsJointByIndex(i).getSOIst().setValue(listAngles.at(i));
     }            
 }
 
@@ -223,21 +212,20 @@ void ArmManager::setIstAngles(std::vector<float>& listAngles)
 // Reads from bus
 void ArmManager::readSollAngles()
 {        
-    manipulation::Connections& mConnections = oBus.getConnections();
-    int numJoints = oBus.getConfig().getNumJoints();       
+    int numJoints = oConfig.getNumJoints();       
     float jointAngle;    
     
     // for each joint, check if the commanded angle has changed & insert it into the soll list
     for (int i=0; i<numJoints; i++)
     {        
-        if (mConnections.getConnectionsJointByIndex(i).getCOAngle().checkRequested(jointAngle))
+        if (oBus.getConnectionsJointByIndex(i).getCOAngle().checkRequested(jointAngle))
             listSollAngles[i] = jointAngle;
     }
 }
 
 bool ArmManager::checkEndRequested()
 {
-    return oBus.getConnections().getCOFinish().checkRequested();
+    return oBus.getCOFinish().checkRequested();
 }
 
 }

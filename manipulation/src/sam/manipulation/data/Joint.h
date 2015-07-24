@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "sam/manipulation/bus/ParamsJoint.h"
+#include "sam/manipulation/config/ParamsJoint.h"
 
 namespace sam 
 {

@@ -6,28 +6,52 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <vector>
+#include <string>
 
-#include "sam/manipulation/bus/Config.h"
-#include "sam/manipulation/bus/Connections.h"
+#include "sam/manipulation/config/defines.h"
+#include "sam/manipulation/bus/ConnectionsJoint.h"
+#include "sam/utils/brooks/control.h"
 
 namespace sam 
 {
 namespace manipulation 
-{
-// The bus holds the Brooks connections between modules & the configuration data
+{    
 class Bus
 {
-    private:
-        Config oConfig;
-        Connections oConnections;
-
+    private:        
+        bool benabled;
+        // general commands
+        goon::Control coFinish;    // finish all modules 
+        // ArmMover module
+        goon::Control coArmMoverStart;       // ArmMover command: start 
+        goon::Control coArmMoverStop;       // ArmMover command: stop
+        // modules for individual joints 
+        ConnectionsJoint oConnectionsJoint[SAM_MAX_JOINTS];
+        int numJoints;   // number of active joints
+        
     public:
         Bus();
-        ~Bus();
+        //~Connections();
 
-        Config& getConfig() {return oConfig;};
-        Connections& getConnections() {return oConnections;};        
+        // initializes a ConnectionsJoint object for the given joint name. Returns true if ok, false otherwise.
+        bool add4Joint(std::string jointName);
+        bool isEnabled() {return benabled;};
+        
+        goon::Control& getCOFinish() {return coFinish;};   
+        
+        // ArmMover module
+        goon::Control& getCOArmMoverStart() {return coArmMoverStart;};        
+        goon::Control& getCOArmMoverStop() {return coArmMoverStop;};        
+        
+        // gets the connections set for the specified joint name
+        ConnectionsJoint& getConnectionsJoint(std::string jointName);
+        // gets the connections set for the specified joint index        
+        ConnectionsJoint& getConnectionsJointByIndex(int index);
+        
+      
+private:
+    // checks if the given joint name is already used
+    bool checkExistingJoint(std::string jointName);
 };
 
 }

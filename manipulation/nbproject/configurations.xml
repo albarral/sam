@@ -19,16 +19,17 @@
           <logicalFolder name="bus" displayName="bus" projectFiles="true">
             <itemPath>src/sam/manipulation/bus/Bus.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/Bus.h</itemPath>
-            <itemPath>src/sam/manipulation/bus/Config.cpp</itemPath>
-            <itemPath>src/sam/manipulation/bus/Config.h</itemPath>
-            <itemPath>src/sam/manipulation/bus/Connections.cpp</itemPath>
-            <itemPath>src/sam/manipulation/bus/Connections.h</itemPath>
             <itemPath>src/sam/manipulation/bus/ConnectionsJoint.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/ConnectionsJoint.h</itemPath>
-            <itemPath>src/sam/manipulation/bus/ParamsJoint.cpp</itemPath>
-            <itemPath>src/sam/manipulation/bus/ParamsJoint.h</itemPath>
-            <itemPath>src/sam/manipulation/bus/ParamsJointMover.cpp</itemPath>
-            <itemPath>src/sam/manipulation/bus/ParamsJointMover.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f1" displayName="config" projectFiles="true">
+            <itemPath>src/sam/manipulation/config/Config.cpp</itemPath>
+            <itemPath>src/sam/manipulation/config/Config.h</itemPath>
+            <itemPath>src/sam/manipulation/config/ParamsJoint.cpp</itemPath>
+            <itemPath>src/sam/manipulation/config/ParamsJoint.h</itemPath>
+            <itemPath>src/sam/manipulation/config/ParamsJointMover.cpp</itemPath>
+            <itemPath>src/sam/manipulation/config/ParamsJointMover.h</itemPath>
+            <itemPath>src/sam/manipulation/config/defines.h</itemPath>
           </logicalFolder>
           <logicalFolder name="data" displayName="data" projectFiles="true">
             <itemPath>src/sam/manipulation/data/Arm.cpp</itemPath>
@@ -87,6 +88,7 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../utils/src</pElem>
+            <pElem>../backbone/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -104,6 +106,18 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../backbone"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../backbone"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
@@ -119,23 +133,6 @@
       </item>
       <item path="src/sam/manipulation/bus/Bus.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/Config.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/Config.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/Connections.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/Connections.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/bus/ConnectionsJoint.cpp"
             ex="false"
             tool="1"
@@ -146,22 +143,37 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJoint.cpp"
+      <item path="src/sam/manipulation/config/Config.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJoint.h"
+      <item path="src/sam/manipulation/config/Config.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJointMover.cpp"
+      <item path="src/sam/manipulation/config/ParamsJoint.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJointMover.h"
+      <item path="src/sam/manipulation/config/ParamsJoint.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/config/ParamsJointMover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/config/ParamsJointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/config/defines.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -274,23 +286,6 @@
       </item>
       <item path="src/sam/manipulation/bus/Bus.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/Config.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/Config.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/Connections.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/bus/Connections.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/bus/ConnectionsJoint.cpp"
             ex="false"
             tool="1"
@@ -301,22 +296,37 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJoint.cpp"
+      <item path="src/sam/manipulation/config/Config.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJoint.h"
+      <item path="src/sam/manipulation/config/Config.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJointMover.cpp"
+      <item path="src/sam/manipulation/config/ParamsJoint.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/manipulation/bus/ParamsJointMover.h"
+      <item path="src/sam/manipulation/config/ParamsJoint.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/config/ParamsJointMover.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/config/ParamsJointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/config/defines.h"
             ex="false"
             tool="3"
             flavor2="0">

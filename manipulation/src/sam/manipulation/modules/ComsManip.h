@@ -7,11 +7,13 @@
  ***************************************************************************/
 
 #include <string>
+#include <vector>
 #include <log4cxx/logger.h>
 
-#include <sam/utils/module2.h>
-#include <sam/manipulation/utils/Responder.h>
 #include "sam/manipulation/bus/Bus.h"
+#include "sam/manipulation/config/Config.h"
+#include <sam/manipulation/utils/Responder.h>
+#include <sam/utils/module2.h>
 #include "Commands.h"
 
 namespace sam 
@@ -25,6 +27,7 @@ private:
     bool bconnected;        // connected to bus
     manipulation::Bus* pBus;
     // logic
+    std::vector<std::string> listJointNames;
     manipulation::Commands oCommands;
     Responder oResponder;    
     std::string activeJointName;    // name of controlled joint
@@ -35,7 +38,7 @@ public:
     ~ComsManip();
 
     // module params
-    void init ();       
+    void init (manipulation::Config& oConfig);       
     bool isEnabled() {return benabled;};
 
     // bus connection 

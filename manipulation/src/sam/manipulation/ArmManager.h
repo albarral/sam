@@ -10,8 +10,9 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "sam/manipulation/data/defines.h"
+#include "sam/manipulation/config/defines.h"
 #include "sam/manipulation/bus/Bus.h"
+#include "sam/manipulation/config/Config.h"
 #include "sam/manipulation/data/Arm.h"
 #include "sam/manipulation/modules/ArmMover.h"
 #include "sam/manipulation/modules/JointMover.h"
@@ -28,6 +29,7 @@ class ArmManager
         static log4cxx::LoggerPtr logger;
         bool benabled;
         manipulation::Bus oBus;
+        manipulation::Config oConfig;
         Arm oArm;
         // modules ...
         JointMover oJointMover[SAM_MAX_JOINTS];

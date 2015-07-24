@@ -19,7 +19,7 @@ ArmMover::ArmMover()
     benabled = false;
     
     bconnected = false;
-    pConnections = 0;
+    pBus = 0;
 }
 
 //ArmMover::~ArmMover()
@@ -41,9 +41,9 @@ void ArmMover::init(int timeChange)
     LOG4CXX_INFO(logger, "tchange=" << timeChange);      
 };
 
-void ArmMover::connect(manipulation::Connections& oConnections)
+void ArmMover::connect(manipulation::Bus& oBus)
 {
-    pConnections = &oConnections;
+    pBus = &oBus;
     bconnected = true;
 
     LOG4CXX_INFO(logger, modName << " connected to bus");      
@@ -119,18 +119,18 @@ void ArmMover::loop()
 
 void ArmMover::senseBus()
 {
-    realSpeed = pConnections->getConnectionsJoint(jointName).getSORealSpeed().getValue();
+    realSpeed = pBus->getConnectionsJoint(jointName).getSORealSpeed().getValue();
     
-    if (pConnections->getCOArmMoverStart().checkRequested())
+    if (pBus->getCOArmMoverStart().checkRequested())
         start();
     
-    if (pConnections->getCOArmMoverStop().checkRequested())
+    if (pBus->getCOArmMoverStop().checkRequested())
         stop();    
 }
 
 void ArmMover::writeBus(int command)
 {
-    pConnections->getConnectionsJoint(jointName).getCOAction().request(command);
+    pBus->getConnectionsJoint(jointName).getCOAction().request(command);
     
     LOG4CXX_DEBUG(logger, "command = " << command);
 }

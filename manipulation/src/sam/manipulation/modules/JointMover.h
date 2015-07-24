@@ -11,7 +11,7 @@
 
 #include "sam/utils/module2.h"
 #include "sam/utils/Click.h"
-#include "sam/manipulation/bus/ParamsJointMover.h"
+#include "sam/manipulation/config/ParamsJointMover.h"
 #include "sam/manipulation/bus/ConnectionsJoint.h"
 
 namespace sam 

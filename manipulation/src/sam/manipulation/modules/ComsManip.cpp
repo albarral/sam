@@ -3,7 +3,6 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <vector>
 #include "log4cxx/ndc.h"
 
 #include "ComsManip.h"
@@ -27,8 +26,10 @@ ComsManip::~ComsManip ()
 {
 }
 
-void ComsManip::init ()
+void ComsManip::init (manipulation::Config& oConfig)
 {
+    listJointNames = oConfig.getListJointNames();
+    
     // build command list
     std::vector<std::string>& listCommands = oCommands.getListCommands();
     for (int i=0; i<listCommands.size(); i++)
@@ -72,7 +73,7 @@ void ComsManip::loop()
         
         // finish all?
         if (commandID == manipulation::Commands::eFINISH_ALL)
-            pBus->getConnections().getCOFinish().request();            
+            pBus->getCOFinish().request();            
         else if (manipulation::Commands::isArmMoverCommand(oResponder.getRawCommand()))        
             sendArmMoverCommand(commandID);
         else
@@ -101,11 +102,11 @@ void ComsManip::sendArmMoverCommand(int reqCommand)
     switch (reqCommand)
     {        
         case manipulation::Commands::eARMOVER_START:
-            pBus->getConnections().getCOArmMoverStart().request();            
+            pBus->getCOArmMoverStart().request();            
             break;
  
         case manipulation::Commands::eARMOVER_STOP:
-            pBus->getConnections().getCOArmMoverStop().request();            
+            pBus->getCOArmMoverStop().request();            
             break;
 
         default:
@@ -124,7 +125,7 @@ void ComsManip::sendJointCommand(int reqCommand)
         case manipulation::Commands::eJOINT_BRAKE:
         case manipulation::Commands::eJOINT_KEEP:
         case manipulation::Commands::eJOINT_STOP:            
-            pBus->getConnections().getConnectionsJoint(activeJointName).getCOAction().request(reqCommand);            
+            pBus->getConnectionsJoint(activeJointName).getCOAction().request(reqCommand);            
             break;
  
         case manipulation::Commands::eJOINT_USE1:
@@ -133,7 +134,6 @@ void ComsManip::sendJointCommand(int reqCommand)
         case manipulation::Commands::eJOINT_USE4:
         {
             // sets the name of the active joint
-            std::vector<std::string> listJointNames = pBus->getConfig().getListJointNames();
             int index = reqCommand - manipulation::Commands::eJOINT_USE1;
             activeJointName = listJointNames.at(index);
             LOG4CXX_INFO(logger, "active joint = " << activeJointName);
@@ -151,7 +151,7 @@ void ComsManip::sendJointAngle(int angleCommand)
 {
     float angle = angleCommand;
         
-    pBus->getConnections().getConnectionsJoint(activeJointName).getCOAngle().request(angle);
+    pBus->getConnectionsJoint(activeJointName).getCOAngle().request(angle);
     LOG4CXX_INFO(logger, "angle=" << angleCommand);
 }
 

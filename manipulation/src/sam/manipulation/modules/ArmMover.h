@@ -11,7 +11,7 @@
 
 #include "sam/utils/module2.h"
 #include "sam/utils/Click.h"
-#include "sam/manipulation/bus/Connections.h"
+#include "sam/manipulation/bus/Bus.h"
 
 namespace sam 
 {
@@ -45,7 +45,7 @@ private:
     std::string jointName;  // target joint
     // bus
     bool bconnected;        // connected to bus
-    manipulation::Connections* pConnections;    // the bus connections
+    manipulation::Bus* pBus;
     // logic
     float realSpeed;
     int prevState;
@@ -60,7 +60,7 @@ public:
        bool isEnabled() {return benabled;};
 
        // bus connection 
-       void connect(manipulation::Connections& oConnections);
+       void connect(manipulation::Bus& oConnections);
        bool isConnected() {return bconnected;};
        
        void start();

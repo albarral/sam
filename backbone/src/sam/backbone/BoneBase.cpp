@@ -19,16 +19,20 @@ BoneBase::BoneBase()
 
 void BoneBase::init(std::string url, std::string user, std::string password, std::string schema)
 {
+    // sets database connection params
     oDBClient.init(url, user, password, schema);
     
-    readAreas();
-    readModules();
+    // reads the lists of areas & modules stored in backbone DB tables
+    readSupportedAreas();
+    readSupportedModules();
     binitialized = true;
 }
 
 void BoneBase::tune(std::string tabMessages, std::string area)
  {
+    // sets the table that will be read or written
     this->tabMessages = tabMessages;
+    // checks if the specified area name exist in the list of valid areas
     myAreaID = searchAreaID(area);
     
     if (myAreaID > 0)
@@ -41,7 +45,7 @@ void BoneBase::close()
         oDBClient.disconnect();
 }
 
-void BoneBase::readAreas()
+void BoneBase::readSupportedAreas()
 {    
     listAreas.clear();    
 
@@ -58,7 +62,7 @@ void BoneBase::readAreas()
     }
 }
 
-void BoneBase::readModules()
+void BoneBase::readSupportedModules()
 {    
     listModules.clear();    
 

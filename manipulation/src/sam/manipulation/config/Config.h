@@ -9,9 +9,9 @@
 #include <string>
 #include <vector>
 
-#include "sam/manipulation/data/defines.h"
-#include "sam/manipulation/bus/ParamsJoint.h"
-#include "sam/manipulation/bus/ParamsJointMover.h"
+#include "sam/manipulation/config/defines.h"
+#include "sam/manipulation/config/ParamsJoint.h"
+#include "sam/manipulation/config/ParamsJointMover.h"
 
 namespace sam 
 {

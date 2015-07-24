@@ -23,17 +23,18 @@ protected:
     bool binitialized;
     bool btuned;                              // indicates the reader/writer is tuned to a specific table & an area                
     DatabaseClient oDBClient;          // handler for database clients
-    std::string tabAreas;                 // DB table in which Sam areas are defined
-    std::string tabModules;              // DB table in which Sam modules are defined
-    std::string tabMessages;           // DB table used for transferring the messages (TAB_INFO or TAB_COMMANDS)
+    std::string tabAreas;                 // DB table storing the areas supported by backbone system
+    std::string tabModules;              // DB table storing the modules supported by backbone system
+    std::string tabMessages;           // DB table storing the messages (between backbone & external system) (TAB_INFO for backbone outputs, TAB_COMMANDS for backbone inputs)
     int myAreaID;                            // area to which the reader/writer will be tuned
-    std::vector<BoneArea> listAreas;        // list of areas as defined in DB (navigation, manipulation ...)
-    std::vector<BoneModul> listModules;   // list of modules as defined in DB (elbow mover, ...) 
+    std::vector<BoneArea> listAreas;        // list of areas supported in backbone system (those in TAB_AREAS) (navigation, manipulation ...)
+    std::vector<BoneModul> listModules;   // list of modules supported in backbone system (those in TAB_MODULES) (elbow mover, ...) 
 
 public:
     BoneBase();
     
     // sets connection parameters for the database client handler
+    // typically: "tcp://127.0.0.1:3306", "sam", "sam", "SAM_BACKBONE"
     void init (std::string url, std::string user, std::string password, std::string schema);
     // Tunes reader/writer to table & area
     virtual void tune(std::string tabMessages, std::string area);  
@@ -49,8 +50,10 @@ protected:
     // add initial & final quotes to a given string
     std::string stringQuotes(std::string word) {return "'"+word+"'";};
 private:
-    void readAreas();
-    void readModules();
+    // reads from DB the list of supported SAM areas
+    void readSupportedAreas();
+    // reads from DB the list of supported SAM modules
+    void readSupportedModules();
     // Obtains the ID of the specified area name, returns 0 if not found. 
     int searchAreaID(std::string area);
     // Obtains the ID of the specified module name (inside given area) , returns 0 if not found. 

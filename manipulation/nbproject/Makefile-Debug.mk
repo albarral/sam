@@ -37,11 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/ArmManager.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/Bus.o \
-	${OBJECTDIR}/src/sam/manipulation/bus/Config.o \
-	${OBJECTDIR}/src/sam/manipulation/bus/Connections.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o \
-	${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o \
-	${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o \
+	${OBJECTDIR}/src/sam/manipulation/config/Config.o \
+	${OBJECTDIR}/src/sam/manipulation/config/ParamsJoint.o \
+	${OBJECTDIR}/src/sam/manipulation/config/ParamsJointMover.o \
 	${OBJECTDIR}/src/sam/manipulation/data/Arm.o \
 	${OBJECTDIR}/src/sam/manipulation/data/Joint.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/ArmMover.o \
@@ -66,13 +65,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../utils/dist/Debug/GNU-Linux-x86 -L../utils/dist/Debug/GNU-Linux-x86 -lsam_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../utils/dist/Debug/GNU-Linux-x86 -L../utils/dist/Debug/GNU-Linux-x86 -lsam_utils -Wl,-rpath,../backbone/dist/Debug/GNU-Linux-x86 -L../backbone/dist/Debug/GNU-Linux-x86 -lsam_backbone -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ../utils/dist/Debug/GNU-Linux-x86/libsam_utils.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ../backbone/dist/Debug/GNU-Linux-x86/libsam_backbone.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -81,81 +82,77 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}: ${OBJEC
 ${OBJECTDIR}/src/sam/manipulation/ArmManager.o: src/sam/manipulation/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmManager.o src/sam/manipulation/ArmManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmManager.o src/sam/manipulation/ArmManager.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o: src/sam/manipulation/bus/Bus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o src/sam/manipulation/bus/Bus.cpp
-
-${OBJECTDIR}/src/sam/manipulation/bus/Config.o: src/sam/manipulation/bus/Config.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Config.o src/sam/manipulation/bus/Config.cpp
-
-${OBJECTDIR}/src/sam/manipulation/bus/Connections.o: src/sam/manipulation/bus/Connections.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Connections.o src/sam/manipulation/bus/Connections.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/Bus.o src/sam/manipulation/bus/Bus.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o: src/sam/manipulation/bus/ConnectionsJoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o src/sam/manipulation/bus/ConnectionsJoint.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o src/sam/manipulation/bus/ConnectionsJoint.cpp
 
-${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o: src/sam/manipulation/bus/ParamsJoint.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+${OBJECTDIR}/src/sam/manipulation/config/Config.o: src/sam/manipulation/config/Config.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJoint.o src/sam/manipulation/bus/ParamsJoint.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/config/Config.o src/sam/manipulation/config/Config.cpp
 
-${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o: src/sam/manipulation/bus/ParamsJointMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
+${OBJECTDIR}/src/sam/manipulation/config/ParamsJoint.o: src/sam/manipulation/config/ParamsJoint.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ParamsJointMover.o src/sam/manipulation/bus/ParamsJointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/config/ParamsJoint.o src/sam/manipulation/config/ParamsJoint.cpp
+
+${OBJECTDIR}/src/sam/manipulation/config/ParamsJointMover.o: src/sam/manipulation/config/ParamsJointMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/config
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/config/ParamsJointMover.o src/sam/manipulation/config/ParamsJointMover.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/data/Arm.o: src/sam/manipulation/data/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Arm.o src/sam/manipulation/data/Arm.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Arm.o src/sam/manipulation/data/Arm.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/data/Joint.o: src/sam/manipulation/data/Joint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Joint.o src/sam/manipulation/data/Joint.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/data/Joint.o src/sam/manipulation/data/Joint.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/ArmMover.o: src/sam/manipulation/modules/ArmMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ArmMover.o src/sam/manipulation/modules/ArmMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ArmMover.o src/sam/manipulation/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/Commands.o: src/sam/manipulation/modules/Commands.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/Commands.o src/sam/manipulation/modules/Commands.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/Commands.o src/sam/manipulation/modules/Commands.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o: src/sam/manipulation/modules/ComsManip.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o src/sam/manipulation/modules/ComsManip.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o src/sam/manipulation/modules/ComsManip.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o: src/sam/manipulation/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o src/sam/manipulation/modules/JointControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o src/sam/manipulation/modules/JointControl.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o: src/sam/manipulation/modules/JointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/Responder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o src/sam/manipulation/utils/Responder.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o src/sam/manipulation/utils/Responder.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../backbone && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -165,6 +162,7 @@ ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/
 # Subprojects
 .clean-subprojects:
 	cd ../utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../backbone && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
