@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/backbone/BoneBase.o \
 	${OBJECTDIR}/src/sam/backbone/BoneReader.o \
 	${OBJECTDIR}/src/sam/backbone/BoneWriter.o \
+	${OBJECTDIR}/src/sam/backbone/config/Config.o \
 	${OBJECTDIR}/src/sam/backbone/data/BoneArea.o \
 	${OBJECTDIR}/src/sam/backbone/data/BoneModul.o \
 	${OBJECTDIR}/src/sam/backbone/data/BoneMsg.o \
@@ -82,6 +83,11 @@ ${OBJECTDIR}/src/sam/backbone/BoneWriter.o: src/sam/backbone/BoneWriter.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/BoneWriter.o src/sam/backbone/BoneWriter.cpp
+
+${OBJECTDIR}/src/sam/backbone/config/Config.o: src/sam/backbone/config/Config.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/config
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/config/Config.o src/sam/backbone/config/Config.cpp
 
 ${OBJECTDIR}/src/sam/backbone/data/BoneArea.o: src/sam/backbone/data/BoneArea.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data

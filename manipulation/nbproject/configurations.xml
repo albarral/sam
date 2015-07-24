@@ -36,7 +36,6 @@
             <itemPath>src/sam/manipulation/data/Arm.h</itemPath>
             <itemPath>src/sam/manipulation/data/Joint.cpp</itemPath>
             <itemPath>src/sam/manipulation/data/Joint.h</itemPath>
-            <itemPath>src/sam/manipulation/data/defines.h</itemPath>
           </logicalFolder>
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
             <itemPath>src/sam/manipulation/modules/ArmMover.cpp</itemPath>
@@ -189,11 +188,6 @@
       </item>
       <item path="src/sam/manipulation/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/manipulation/data/defines.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/manipulation/modules/ArmMover.cpp"
             ex="false"
             tool="1"
@@ -341,11 +335,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/data/Joint.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/data/defines.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/ArmMover.cpp"
             ex="false"

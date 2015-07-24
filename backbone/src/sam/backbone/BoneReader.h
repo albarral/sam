@@ -1,5 +1,5 @@
-#ifndef __SAM_BACKBONE_BONELISTEN_H
-#define __SAM_BACKBONE_BONELISTEN_H
+#ifndef __SAM_BACKBONE_BONEREADER_H
+#define __SAM_BACKBONE_BONEREADER_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -30,7 +30,7 @@ public:
     BoneReader();
                     
     // Tunes reader/writer to table & area
-    virtual void tune(std::string tabMessages, std::string area);  
+    virtual void tune(int direction, std::string area);  
     // Reads new messages from table
     void readMessages();
     

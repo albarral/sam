@@ -13,14 +13,15 @@ BoneBase::BoneBase()
 {
     binitialized = false;
     btuned = false;
-    tabAreas = "TAB_AREAS";
-    tabModules = "TAB_MODULES";
 }
 
-void BoneBase::init(std::string url, std::string user, std::string password, std::string schema)
+void BoneBase::init()
 {
     // sets database connection params
-    oDBClient.init(url, user, password, schema);
+    oDBClient.init(oConfig.getDBServerUrl(), oConfig.getDBUser(), oConfig.getDBPassword(), oConfig.getDBName());
+
+    tabAreas = oConfig.getTabNameAreas();
+    tabModules = oConfig.getTabNameModules();
     
     // reads the lists of areas & modules stored in backbone DB tables
     readSupportedAreas();
@@ -28,10 +29,19 @@ void BoneBase::init(std::string url, std::string user, std::string password, std
     binitialized = true;
 }
 
-void BoneBase::tune(std::string tabMessages, std::string area)
+void BoneBase::tune(int direction, std::string area)
  {
     // sets the table that will be read or written
-    this->tabMessages = tabMessages;
+    if (direction == eTAB_COMMANDS)
+        this->tabMessages = oConfig.getTabNameCommands();
+    else if (direction == eTAB_INFO)
+        this->tabMessages = oConfig.getTabNameInfo();
+    else
+    {
+        btuned = false;
+        return;
+    }
+    
     // checks if the specified area name exist in the list of valid areas
     myAreaID = searchAreaID(area);
     

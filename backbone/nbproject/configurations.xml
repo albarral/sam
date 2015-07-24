@@ -14,6 +14,10 @@
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="backbone" displayName="backbone" projectFiles="true">
+          <logicalFolder name="f1" displayName="config" projectFiles="true">
+            <itemPath>src/sam/backbone/config/Config.cpp</itemPath>
+            <itemPath>src/sam/backbone/config/Config.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="data" displayName="data" projectFiles="true">
             <itemPath>src/sam/backbone/data/BoneArea.cpp</itemPath>
             <itemPath>src/sam/backbone/data/BoneArea.h</itemPath>
@@ -97,6 +101,10 @@
       </item>
       <item path="src/sam/backbone/BoneWriter.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/sam/backbone/config/Config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/backbone/config/Config.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sam/backbone/data/BoneArea.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/backbone/data/BoneArea.h" ex="false" tool="3" flavor2="0">
@@ -154,6 +162,10 @@
       <item path="src/sam/backbone/BoneWriter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/backbone/BoneWriter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/backbone/config/Config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/backbone/config/Config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/backbone/data/BoneArea.cpp" ex="false" tool="1" flavor2="0">
       </item>

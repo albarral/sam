@@ -12,9 +12,9 @@ BoneReader::BoneReader()
     pBoneMsg = 0;
 }
 
-void BoneReader::tune(std::string tabMessages, std::string area)
+void BoneReader::tune(int direction, std::string area)
  {
-    BoneBase::tune(tabMessages, area);
+    BoneBase::tune(direction, area);
     
     // query for selecting new messages of the area
     select = "SELECT * FROM " + tabMessages 

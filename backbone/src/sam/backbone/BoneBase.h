@@ -9,9 +9,10 @@
 #include <string>
 #include <vector>
 
-#include "utils/DatabaseClient.h"
+#include "config/Config.h"
 #include "data/BoneArea.h"
 #include "data/BoneModul.h"
+#include "utils/DatabaseClient.h"
 
 namespace sam 
 {
@@ -19,9 +20,18 @@ namespace sam
 // Must be initialized & tuned before using it.    
 class BoneBase
 {
+public:
+    enum eDirection 
+    {
+        eTAB_COMMANDS,  // connect to commands table (input to SAM)
+        eTAB_INFO,            // connect to info table (output from SAM) 
+        eTAB_DIM
+    };
+    
 protected:
     bool binitialized;
-    bool btuned;                              // indicates the reader/writer is tuned to a specific table & an area                
+    bool btuned;                              // indicates the reader/writer is tuned to a specific table & an area  
+    backbone::Config oConfig;
     DatabaseClient oDBClient;          // handler for database clients
     std::string tabAreas;                 // DB table storing the areas supported by backbone system
     std::string tabModules;              // DB table storing the modules supported by backbone system
@@ -34,10 +44,9 @@ public:
     BoneBase();
     
     // sets connection parameters for the database client handler
-    // typically: "tcp://127.0.0.1:3306", "sam", "sam", "SAM_BACKBONE"
-    void init (std::string url, std::string user, std::string password, std::string schema);
-    // Tunes reader/writer to table & area
-    virtual void tune(std::string tabMessages, std::string area);  
+    void init ();
+    // Tunes reader/writer to the commands or info table & to the specifed area
+    virtual void tune(int direction, std::string area);  
     bool isReady() {return (binitialized && btuned);};
         
     std::vector<BoneArea>& getListAreas() {return listAreas;}
