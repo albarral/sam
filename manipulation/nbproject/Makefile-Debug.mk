@@ -48,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o \
+	${OBJECTDIR}/src/sam/manipulation/modules/ManipResponder.o \
 	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o
 
 
@@ -143,6 +144,11 @@ ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o: src/sam/manipulation/mod
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
+
+${OBJECTDIR}/src/sam/manipulation/modules/ManipResponder.o: src/sam/manipulation/modules/ManipResponder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils/src -I../backbone/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ManipResponder.o src/sam/manipulation/modules/ManipResponder.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/Responder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils

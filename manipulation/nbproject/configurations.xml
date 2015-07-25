@@ -48,6 +48,8 @@
             <itemPath>src/sam/manipulation/modules/JointControl.h</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.h</itemPath>
+            <itemPath>src/sam/manipulation/modules/ManipResponder.cpp</itemPath>
+            <itemPath>src/sam/manipulation/modules/ManipResponder.h</itemPath>
           </logicalFolder>
           <logicalFolder name="utils" displayName="utils" projectFiles="true">
             <itemPath>src/sam/manipulation/utils/Responder.cpp</itemPath>
@@ -238,6 +240,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/sam/manipulation/modules/ManipResponder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ManipResponder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/sam/manipulation/utils/Responder.cpp"
             ex="false"
             tool="1"
@@ -382,6 +394,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ManipResponder.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/modules/ManipResponder.h"
             ex="false"
             tool="3"
             flavor2="0">

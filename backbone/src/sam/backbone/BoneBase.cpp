@@ -43,9 +43,9 @@ void BoneBase::tune(int direction, std::string area)
     }
     
     // checks if the specified area name exist in the list of valid areas
-    myAreaID = searchAreaID(area);
+    tunedAreaID = searchAreaID(area);
     
-    if (myAreaID > 0)
+    if (tunedAreaID > 0)
         btuned = true;   
 };
 

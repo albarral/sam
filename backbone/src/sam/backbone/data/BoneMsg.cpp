@@ -20,4 +20,12 @@ BoneMsg::BoneMsg(int areaID, int moduleID, std::string message, int detail, int 
 BoneMsg::~BoneMsg()
 {
 }
+
+std::string BoneMsg::toString()
+{
+    return ("BoneMsg: area=" + std::to_string(areaID) + 
+            ", module=" + std::to_string(moduleID) +  
+            ", info=" + info +  
+            ", detail=" + std::to_string(detail));                  
+}
 }

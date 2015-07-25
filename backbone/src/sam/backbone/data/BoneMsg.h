@@ -38,6 +38,9 @@ public:
     std::string getInfo() {return info;};    
     int getDetail() {return detail;};
     int getProcessed() {return processed;}
+    
+    // creates string with all data (for logging purpose)
+    std::string toString();
 };
 }
 #endif

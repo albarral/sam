@@ -14,7 +14,7 @@ BoneWriter::BoneWriter()
 
 void BoneWriter::write(int moduleID, std::string info, int detail)
 {
-    BoneMsg oBoneMsg(myAreaID, moduleID, info, detail, BoneMsg::eMSG_NEW);
+    BoneMsg oBoneMsg(tunedAreaID, moduleID, info, detail, BoneMsg::eMSG_NEW);
 
     // connects to DB if not already done
     if (!oDBClient.isConnected())

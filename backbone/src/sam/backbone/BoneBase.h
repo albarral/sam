@@ -16,8 +16,10 @@
 
 namespace sam 
 {
-// Base class for handling backbone data. Manages connections with backbone database.
-// Must be initialized & tuned before using it.    
+// Base class for management of backbone communication.
+// It handles connections to the backbone DB. 
+// It tunes to one of the messages table & to a specific sam's area.
+// Calls to init() and tune() need to be done to use it.    
 class BoneBase
 {
 public:
@@ -30,15 +32,15 @@ public:
     
 protected:
     bool binitialized;
-    bool btuned;                              // indicates the reader/writer is tuned to a specific table & an area  
+    bool btuned;                              // indicates we are tuned to a table & area  
     backbone::Config oConfig;
-    DatabaseClient oDBClient;          // handler for database clients
-    std::string tabAreas;                 // DB table storing the areas supported by backbone system
-    std::string tabModules;              // DB table storing the modules supported by backbone system
-    std::string tabMessages;           // DB table storing the messages (between backbone & external system) (TAB_INFO for backbone outputs, TAB_COMMANDS for backbone inputs)
-    int myAreaID;                            // area to which the reader/writer will be tuned
-    std::vector<BoneArea> listAreas;        // list of areas supported in backbone system (those in TAB_AREAS) (navigation, manipulation ...)
-    std::vector<BoneModul> listModules;   // list of modules supported in backbone system (those in TAB_MODULES) (elbow mover, ...) 
+    DatabaseClient oDBClient;          // handler for database connections
+    std::string tabAreas;                 // DB table for supported areas
+    std::string tabModules;              // DB table for supported modules
+    std::string tabMessages;           // DB table for communication messages (input or output)
+    int tunedAreaID;                        // area to which we are tuned
+    std::vector<BoneArea> listAreas;        // list of areas supported (read from tabAreas)
+    std::vector<BoneModul> listModules;   // list of modules supported (read from tabModules)
 
 public:
     BoneBase();
@@ -47,6 +49,7 @@ public:
     void init ();
     // Tunes reader/writer to the commands or info table & to the specifed area
     virtual void tune(int direction, std::string area);  
+    // Checks if init & tune have already been called
     bool isReady() {return (binitialized && btuned);};
         
     std::vector<BoneArea>& getListAreas() {return listAreas;}

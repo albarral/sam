@@ -18,7 +18,7 @@ void BoneReader::tune(int direction, std::string area)
     
     // query for selecting new messages of the area
     select = "SELECT * FROM " + tabMessages 
-        + " where areaID = " + std::to_string(myAreaID)
+        + " where areaID = " + std::to_string(tunedAreaID)
         + " and proc = " + std::to_string(BoneMsg::eMSG_NEW);    
 };
 
@@ -58,7 +58,7 @@ bool BoneReader::nextMessage()
 }
 
 
-void BoneReader::markMessageOk(int areaID, int moduleID)
+void BoneReader::markMessageOk(int moduleID)
 {
     // connects to DB if not already done
     if (!oDBClient.isConnected())
@@ -67,7 +67,7 @@ void BoneReader::markMessageOk(int areaID, int moduleID)
     // query for updating a specific message in DB
     std::string update = "UPDATE " + tabMessages 
          + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_OK)
-        + " where areaID = " + std::to_string(areaID)
+        + " where areaID = " + std::to_string(tunedAreaID)
         + " and moduleID = " + std::to_string(moduleID);
 
     oDBClient.write(update);    
@@ -75,7 +75,7 @@ void BoneReader::markMessageOk(int areaID, int moduleID)
 }
 
 
-void BoneReader::markMessageUnknown(int areaID, int moduleID)
+void BoneReader::markMessageFailed(int moduleID)
 {
     // connects to DB if not already done
     if (!oDBClient.isConnected())
@@ -84,7 +84,7 @@ void BoneReader::markMessageUnknown(int areaID, int moduleID)
     // query for updating a specific message in DB
     std::string update = "UPDATE " + tabMessages 
          + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_UNKNOWN)
-        + " where areaID = " + std::to_string(areaID)
+        + " where areaID = " + std::to_string(tunedAreaID)
         + " and moduleID = " + std::to_string(moduleID);
 
     oDBClient.write(update);    

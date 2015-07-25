@@ -76,13 +76,13 @@ ParamsJointMover& Config::getParamsJointMover(std::string jointName)
 void Config::loadYoubot()
 {    
     int i=0;
-    std::string jointName = "shoulderH";
+    std::string jointName = "h_shoulder";
     oJointParams[i].set(jointName, 0, 90, 20);
     oJointMoverParams[i].set(jointName, 3, 10, 3);        
     listJointNames.push_back(jointName);
 
     i++;
-    jointName = "shoulderV";
+    jointName = "v_shoulder";
     oJointParams[i].set(jointName, -30, 160, 20);
     oJointMoverParams[i].set(jointName, 3, 10, 3);
     listJointNames.push_back(jointName);
@@ -105,13 +105,13 @@ void Config::loadYoubot()
 void Config::loadUR5()
 {    
     int i=0;
-    std::string jointName = "shoulderH";
+    std::string jointName = "h_shoulder";
     oJointParams[i].set(jointName, -90, 90, 20);    // frontal arm = 0
     oJointMoverParams[i].set(jointName, 15, 40, 30);        
     listJointNames.push_back(jointName);
 
     i++;
-    jointName = "shoulderV";
+    jointName = "v_shoulder";
     oJointParams[i].set(jointName, 0, 135, 20);     // horizontal arm = 0
     oJointMoverParams[i].set(jointName, 15, 40, 30);
     listJointNames.push_back(jointName);

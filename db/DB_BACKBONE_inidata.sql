@@ -11,12 +11,17 @@ INSERT INTO TAB_AREAS (area) VALUES ('navigation');
 -- Table TAB_MODULES
 -- -----------------------------------------------------
 -- manipulation modules
-INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 1, 'shoulderpan mover');
-INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 2, 'shouldertilt mover');
-INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 3, 'elbow mover');
-INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 4, 'wrist mover');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 1, 'control h_shoulder');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 2, 'control v_shoulder');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 3, 'control elbow');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 4, 'control wrist');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 5, 'mover h_shoulder');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 6, 'mover v_shoulder');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 7, 'mover elbow');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 8, 'mover wrist');
+INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (1, 9, 'arm mover');
 -- navigation modules
---INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (2, 1, 'navigator');
+-- INSERT INTO TAB_MODULES (areaID, moduleID, modul) VALUES (2, 1, 'navigator');
 
 
 -- -----------------------------------------------------

@@ -40,9 +40,9 @@ public:
     BoneMsg* getMessage() {return pBoneMsg;};
     
     // Marks DB message of specified module as processed ok
-    void markMessageOk(int areaID, int moduleID);
+    void markMessageOk(int moduleID);
     // Marks DB message of specified module as unknown
-    void markMessageUnknown(int areaID, int moduleID);
+    void markMessageFailed(int moduleID);
     
 };
 }
