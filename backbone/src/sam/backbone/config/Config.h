@@ -22,10 +22,10 @@ class Config
         std::string dbPassword;
         std::string dbName;
 
-        std::string tabNameAreas;
-        std::string tabNameModules;
-        std::string tabNameCommands;
-        std::string tabNameInfo;
+        std::string tabAreas;
+        std::string tabModules;
+        std::string tabControls;
+        std::string tabSenses;
         
     public:
         Config();
@@ -35,10 +35,10 @@ class Config
         std::string getDBPassword() {return this->dbPassword;};
         std::string getDBName() {return this->dbName;};
 
-        std::string getTabNameAreas() {return tabNameAreas;};
-        std::string getTabNameModules() {return tabNameModules;};
-        std::string getTabNameCommands() {return tabNameCommands;};
-        std::string getTabNameInfo() {return tabNameInfo;};
+        std::string getTabAreas() {return tabAreas;};
+        std::string getTabModules() {return tabModules;};
+        std::string getTabControls() {return tabControls;};
+        std::string getTabSenses() {return tabSenses;};
 };
 
 }

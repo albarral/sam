@@ -40,7 +40,7 @@ void ArmManager::init(std::string robotName)
         LOG4CXX_ERROR(logger, "Not enabled !!! Robot not supported: " + robotName);
     
     // obtain (from config file) the list of joints to be controlled 
-    std::vector<std::string> listJointNames = oConfig.getListJointNames();
+    std::vector<std::string>& listJointNames = oConfig.getListJointNames();
 
     initArm(listJointNames);
     initBus(listJointNames);

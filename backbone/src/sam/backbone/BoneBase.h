@@ -25,8 +25,8 @@ class BoneBase
 public:
     enum eDirection 
     {
-        eTAB_COMMANDS,  // connect to commands table (input to SAM)
-        eTAB_INFO,            // connect to info table (output from SAM) 
+        eTAB_CONTROL,       // connect to control table (commands sent to SAM modules)
+        eTAB_SENSE,           // connect to sense table (states info shared by SAM modules) 
         eTAB_DIM
     };
     
@@ -37,7 +37,7 @@ protected:
     DatabaseClient oDBClient;          // handler for database connections
     std::string tabAreas;                 // DB table for supported areas
     std::string tabModules;              // DB table for supported modules
-    std::string tabMessages;           // DB table for communication messages (input or output)
+    std::string tabMessages;           // DB table for message communications (control or sense)
     int tunedAreaID;                        // area to which we are tuned
     std::vector<BoneArea> listAreas;        // list of areas supported (read from tabAreas)
     std::vector<BoneModul> listModules;   // list of modules supported (read from tabModules)

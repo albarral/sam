@@ -29,13 +29,16 @@ ManipResponder::~ManipResponder ()
     mapModules.clear();
 }
 
-void ManipResponder::init ()
+void ManipResponder::init (manipulation::Config& oConfig)
 {
     LOG4CXX_INFO(logger, "ManipResponder: tunning to TAB_COMMANDS " << area << " section");          
 
+    // list of joints
+    listJointNames = oConfig.getListJointNames();
+    
     // connect the backbone reader & tune it to the commands table
     oBoneReader.init();
-    oBoneReader.tune(BoneBase::eTAB_COMMANDS, area);
+    oBoneReader.tune(BoneBase::eTAB_CONTROL, area);
     
     // if connected, create the modules map (for interpreting the received messages)
     if (oBoneReader.isReady())
@@ -125,14 +128,13 @@ void ManipResponder::check4NewMessages()
 
 bool ManipResponder::processMessage(BoneMsg* pBoneMsg)
 {
-    std::string module;
-    std::string target1, target2, target3;
+    std::string targetModule;
     std::string targetJoint;
 
-    // obtain target module of message
+    // obtain target module for the received message
     try
     {
-        module = mapModules.at(pBoneMsg->getModuleID());
+        targetModule = mapModules.at(pBoneMsg->getModuleID());
     }
     catch (std::out_of_range)
     {
@@ -140,21 +142,31 @@ bool ManipResponder::processMessage(BoneMsg* pBoneMsg)
         return false;
     }
         
-   // deliver command to appropriate module  
-   target1 = "arm_mover";
-   target2 = "mover";
-   target3 = "control";
-   if (module.find(target1) != std::string::npos)
-       sendArmMover(pBoneMsg->getInfo(), pBoneMsg->getDetail());
-   else if (module.find(target2) != std::string::npos)
+   // deliver command to the appropriate module  
+   std::string word_ArmMover =  "arm_mover";
+   std::string word_JointMover =  "jointmover";
+   std::string word_JointControl = "jointcontrol";
+   
+   // TO ARMMOVER module
+   if (targetModule.find(word_ArmMover) != std::string::npos)
    {
-       targetJoint = "v_shoulder";
-       sendJointMover(pBoneMsg->getInfo(), pBoneMsg->getDetail(), targetJoint);
+       send2ArmMover(pBoneMsg->getInfo(), pBoneMsg->getDetail());
    }
-   else if (module.find(target3) != std::string::npos)
+   // TO JOINTMOVER module
+   else if (targetModule.find(word_JointMover) != std::string::npos)
    {
-       targetJoint = "v_shoulder";
-       sendJointControl(pBoneMsg->getInfo(), pBoneMsg->getDetail(), targetJoint);
+       targetJoint = extractTargetJoint(targetModule);
+       
+       if (targetJoint.size() > 0)
+        send2JointMover(pBoneMsg->getInfo(), pBoneMsg->getDetail(), targetJoint);
+   }
+   // TO JOINTCONTROL module
+   else if (targetModule.find(word_JointControl) != std::string::npos)
+   {
+       targetJoint = extractTargetJoint(targetModule);
+       
+       if (targetJoint.size() > 0)
+           send2JointControl(pBoneMsg->getInfo(), pBoneMsg->getDetail(), targetJoint);
    }
    else 
    {
@@ -165,51 +177,57 @@ bool ManipResponder::processMessage(BoneMsg* pBoneMsg)
    return true;
 }
 
-void ManipResponder::sendArmMover(std::string info, int detail)
-{    
-    std::string command1 = "start";
-    std::string command2 = "stop";
+// extracts the joint name from the target module string
+std::string ManipResponder::extractTargetJoint(std::string targetModule)
+{
+    for (std::string& jointName : listJointNames)
+    {
+        if (targetModule.find(jointName) != std::string::npos)
+            return jointName;
+    }
+    return "";
+}
 
-    if (info.find(command1) != std::string::npos)
+// Commands for ArmMover module
+void ManipResponder::send2ArmMover(std::string info, int detail)
+{    
+    std::string word_start = "start";
+    std::string word_stop = "stop";
+
+    // CO start
+    if (info.find(word_start) != std::string::npos)
         pBus->getCOArmMoverStart().request(); 
-    else if (info.find(command2) != std::string::npos)
+    // CO stop
+    else if (info.find(word_stop) != std::string::npos)
         pBus->getCOArmMoverStop().request();            
     else
-        LOG4CXX_WARN(logger, "> unknown arm mover command: " << info);
+        LOG4CXX_WARN(logger, "> wrong ArmMover command requested: " << info);
 }
 
-void ManipResponder::sendJointMover(std::string info, int detail, std::string jointName)
+void ManipResponder::send2JointMover(std::string info, int detail, std::string jointName)
 {    
-    LOG4CXX_WARN(logger, " TO DO ...")
-//    switch (reqCommand)
-//    {        
-//        case manipulation::Commands::eJOINT_POSITIVE:
-//        case manipulation::Commands::eJOINT_NEGATIVE:
-//        case manipulation::Commands::eJOINT_BRAKE:
-//        case manipulation::Commands::eJOINT_KEEP:
-//        case manipulation::Commands::eJOINT_STOP:            
-//            pBus->getConnectionsJoint(activeJointName).getCOAction().request(reqCommand);            
-//            break;
-// 
-//        case manipulation::Commands::eJOINT_USE1:
-//        case manipulation::Commands::eJOINT_USE2:
-//        case manipulation::Commands::eJOINT_USE3:
-//        case manipulation::Commands::eJOINT_USE4:
-//        {
-//            // sets the name of the active joint
-//            int index = reqCommand - manipulation::Commands::eJOINT_USE1;
-//            activeJointName = listJointNames.at(index);
-//            LOG4CXX_INFO(logger, "active joint = " << activeJointName);
-//            break;
-//        }
-//
-//        default:
-//            LOG4CXX_INFO(logger, "> wrong joint command requested");
-//            break;
-//    }    
+    int reqCommand = -1;
+    std::string word_movePos = "move+";
+    std::string word_moveNeg = "move-";
+    std::string word_brake = "brake";
+    std::string word_stop = "stop";
+
+    if (info.find(word_movePos) != std::string::npos)
+        reqCommand = manipulation::Commands::eJOINT_POSITIVE;
+    else if (info.find(word_moveNeg) != std::string::npos)
+        reqCommand = manipulation::Commands::eJOINT_NEGATIVE;
+    else if (info.find(word_brake) != std::string::npos)
+        reqCommand = manipulation::Commands::eJOINT_BRAKE;
+    else if (info.find(word_stop) != std::string::npos)
+        reqCommand = manipulation::Commands::eJOINT_STOP;
+    
+    if (reqCommand >=0 )        
+        pBus->getConnectionsJoint(jointName).getCOAction().request(reqCommand);            
+    else
+        LOG4CXX_WARN(logger, "> wrong JointMover command requested: " << info);
 }
 
-void ManipResponder::sendJointControl(std::string info, int detail, std::string jointName)
+void ManipResponder::send2JointControl(std::string info, int detail, std::string jointName)
 {
     LOG4CXX_WARN(logger, " TO DO ...")
 //    float angle = angleCommand;

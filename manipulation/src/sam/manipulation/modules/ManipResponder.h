@@ -12,6 +12,7 @@
 
 #include <sam/utils/module2.h>
 #include "sam/manipulation/bus/Bus.h"
+#include "sam/manipulation/config/Config.h"
 #include "sam/backbone/BoneReader.h"
 
 namespace sam 
@@ -28,13 +29,14 @@ private:
     // logic
     BoneReader oBoneReader;
     std::map<int, std::string> mapModules;    
-
+    std::vector<std::string> listJointNames;    // note: not a reference to avoid colliding iterations
+    
 public:
     ManipResponder ();
     ~ManipResponder();
 
     // module params
-    void init ();       
+    void init (manipulation::Config& oConfig);       
     bool isEnabled() {return benabled;};
 
     // bus connection 
@@ -48,16 +50,19 @@ private:
 
     // reads & processes new backbone messages
     void check4NewMessages();     
-    // Transfers message command to the manipulation bus. Returns true if ok, false if failed.
+    // Sends received commands to the appropriate modules. Returns true if ok, false if failed.
     bool processMessage(BoneMsg* pBoneMsg);
     
+    // Extracts the target joint from the target module string
+    std::string extractTargetJoint(std::string targetModule);
+
     // send command to ArmMover module
-    void sendArmMover(std::string info, int detail);
+    void send2ArmMover(std::string info, int detail);
     // send command to JointMover module (for specified joint)
-    void sendJointMover(std::string info, int detail, std::string jointName);
+    void send2JointMover(std::string info, int detail, std::string jointName);
     // send command to JointControl module (for specified joint)
-    void sendJointControl(std::string info, int detail, std::string jointName);
-    
+    void send2JointControl(std::string info, int detail, std::string jointName);
+        
     // build a map with module IDs and their name
     void buildModulesMap();
     // shows map in log

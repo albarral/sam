@@ -20,8 +20,8 @@ void BoneBase::init()
     // sets database connection params
     oDBClient.init(oConfig.getDBServerUrl(), oConfig.getDBUser(), oConfig.getDBPassword(), oConfig.getDBName());
 
-    tabAreas = oConfig.getTabNameAreas();
-    tabModules = oConfig.getTabNameModules();
+    tabAreas = oConfig.getTabAreas();
+    tabModules = oConfig.getTabModules();
     
     // reads the lists of areas & modules stored in backbone DB tables
     readSupportedAreas();
@@ -32,10 +32,10 @@ void BoneBase::init()
 void BoneBase::tune(int direction, std::string area)
  {
     // sets the table that will be read or written
-    if (direction == eTAB_COMMANDS)
-        this->tabMessages = oConfig.getTabNameCommands();
-    else if (direction == eTAB_INFO)
-        this->tabMessages = oConfig.getTabNameInfo();
+    if (direction == eTAB_CONTROL)
+        this->tabMessages = oConfig.getTabControls();
+    else if (direction == eTAB_SENSE)
+        this->tabMessages = oConfig.getTabSenses();
     else
     {
         btuned = false;

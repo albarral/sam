@@ -29,11 +29,11 @@ CREATE TABLE TAB_MODULES
 );
 
 -- -----------------------------------------------------
--- Table TAB_INFO
+-- Table TAB_SENSES
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS TAB_INFO;
+DROP TABLE IF EXISTS TAB_SENSES;
 
-CREATE TABLE TAB_INFO 
+CREATE TABLE TAB_SENSES 
 (
   areaID INT not NULL,
   moduleID INT not NULL,
@@ -45,11 +45,11 @@ CREATE TABLE TAB_INFO
 );
 
 -- -----------------------------------------------------
--- Table TAB_COMMANDS
+-- Table TAB_CONTROLS
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS TAB_COMMANDS;
+DROP TABLE IF EXISTS TAB_CONTROLS;
 
-CREATE TABLE TAB_COMMANDS 
+CREATE TABLE TAB_CONTROLS 
 (
   areaID INT not NULL,
   moduleID INT not NULL,
