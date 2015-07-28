@@ -6,8 +6,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <string>
-
 #include "BoneBase.h"
 
 namespace sam 
@@ -22,7 +20,7 @@ public:
     BoneWriter();
         
     // write given coms message in    
-    void write (int moduleID, std::string info, int detail);
+    void write (int module, int info, int detail);
     
 };
 }

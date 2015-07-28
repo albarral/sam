@@ -19,17 +19,14 @@ void BoneBase::init()
 {
     // sets database connection params
     oDBClient.init(oConfig.getDBServerUrl(), oConfig.getDBUser(), oConfig.getDBPassword(), oConfig.getDBName());
-
     tabAreas = oConfig.getTabAreas();
-    tabModules = oConfig.getTabModules();
+    tabModules = oConfig.getTabModules(); 
+    tabSymbols = oConfig.getTabSymbols();
     
-    // reads the lists of areas & modules stored in backbone DB tables
-    readSupportedAreas();
-    readSupportedModules();
     binitialized = true;
 }
 
-void BoneBase::tune(int direction, std::string area)
+void BoneBase::tune(int direction, std::string areaName)
  {
     // sets the table that will be read or written
     if (direction == eTAB_CONTROL)
@@ -43,9 +40,9 @@ void BoneBase::tune(int direction, std::string area)
     }
     
     // checks if the specified area name exist in the list of valid areas
-    tunedAreaID = searchAreaID(area);
+    tunedArea = searchAreaByName(areaName);
     
-    if (tunedAreaID > 0)
+    if (tunedArea > 0)
         btuned = true;   
 };
 
@@ -55,76 +52,106 @@ void BoneBase::close()
         oDBClient.disconnect();
 }
 
-void BoneBase::readSupportedAreas()
+std::vector<BoneArea> BoneBase::readAreas()
 {    
-    listAreas.clear();    
+    std::vector<BoneArea> listAreas;   
 
+    // connect to DB
     if (!oDBClient.isConnected())
         oDBClient.connect();
     
+    // perform query
     std::string select_areas = "SELECT * FROM " + tabAreas;
     sql::ResultSet* res = oDBClient.read(select_areas);
     
+    // store obtained areas
     while (res->next())
     {        
-       BoneArea oBoneArea(res->getInt("ID"), res->getString("area"));
+       BoneArea oBoneArea(res->getInt("area"), res->getString("name"));
        listAreas.push_back(oBoneArea);
     }
+    
+    return listAreas;
 }
 
-void BoneBase::readSupportedModules()
+std::vector<BoneModul> BoneBase::readAreaModules()
 {    
-    listModules.clear();    
+    std::vector<BoneModul> listModules; 
 
+    // connect to DB
     if (!oDBClient.isConnected())
         oDBClient.connect();
     
-    std::string select_modules = "SELECT * FROM " + tabModules;
+    // perform query
+    std::string select_modules = "SELECT * FROM " + tabModules + 
+                 + " where area = " + std::to_string(tunedArea);
     sql::ResultSet* res = oDBClient.read(select_modules);
     
+    // store obtained modules
     while (res->next())
     {        
-       BoneModul oBoneModul(res->getInt("areaID"), res->getInt("moduleID"), res->getString("modul"));
+       BoneModul oBoneModul(res->getInt("area"), res->getInt("module"), res->getString("symbol"));
        listModules.push_back(oBoneModul);
     }
+    
+    return listModules;
 }
 
-int BoneBase::searchAreaID(std::string area)
-{
-    int ID = 0;
-    std::vector<BoneArea>::iterator it_area = listAreas.begin();
-    
-    while (it_area != listAreas.end())
-    {
-        // compares given area with list of areas 
-        if (area.compare(it_area->getArea()) == 0)
-        {
-            ID = it_area->getID();
-            break;            
-        }           
-        it_area++;
-    }
-    
-    return ID;
+
+std::vector<BoneSymbol> BoneBase::readAreaControls()
+{    
+    return readAreaSymbols(BoneSymbol::eCAT_CONTROL);
 }
 
-int BoneBase::searchModuleID(int areaID, std::string module)
-{
-    int ID = 0;
-    std::vector<BoneModul>::iterator it_module = listModules.begin();
+
+std::vector<BoneSymbol> BoneBase::readAreaSensors()
+{    
+    return readAreaSymbols(BoneSymbol::eCAT_SENSE);
+}
+
+
+std::vector<BoneSymbol> BoneBase::readAreaSymbols(int category)
+{    
+    std::vector<BoneSymbol> listSymbols; 
+
+    // connect to DB
+    if (!oDBClient.isConnected())
+        oDBClient.connect();
     
-    while (it_module != listModules.end())
-    {
-        // compares given area with list of areas 
-        if ( (areaID == it_module->getAreaID()) && 
-             (module.compare(it_module->getModule()) == 0) )
-        {
-            ID = it_module->getModuleID();
-            break;            
-        }           
-        it_module++;
+    // perform query
+    std::string select = "SELECT * FROM " + tabSymbols + 
+                 + " where area = " + std::to_string(tunedArea) + 
+                 + " and category = " + std::to_string(category);
+    sql::ResultSet* res = oDBClient.read(select);
+    
+    // store obtained modules
+    while (res->next())
+    {        
+       BoneSymbol oBoneSymbol(res->getInt("ID"), res->getInt("area"), res->getInt("category"), res->getString("symbol"), res->getString("name"));
+       listSymbols.push_back(oBoneSymbol);
     }
     
-    return ID;
+    return listSymbols;
 }
+
+
+int BoneBase::searchAreaByName(std::string name)
+{
+    // connect to DB
+    if (!oDBClient.isConnected())
+        oDBClient.connect();
+    
+    // perform query
+    std::string select_area = "SELECT * FROM " + tabAreas +
+                     + " where name = " + name;
+
+    sql::ResultSet* res = oDBClient.read(select_area);
+    
+    // store obtained areas
+    if (res->next())
+       return res->getInt("area");
+    else     
+        return 0;
+}
+
 }

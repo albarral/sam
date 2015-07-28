@@ -9,21 +9,22 @@
 #include <string>
 
 namespace sam 
-{
+{  
+// Bean for TAB_MODULES    
 class BoneModul
 {
 private:
-    int areaID;                 
-    int moduleID;  
-    std::string module;       // module name  (ShoulderMover, ElbowMover, ...)
+    int area;                 // area ID
+    int module;             // module ID
+    std::string symbol;  // module symbol  (J1_MOV, J2_MOV, ... ) as defined in TAB_MODULES
 
 public:    
-    BoneModul(int areaID, int moduleID, std::string module);
+    BoneModul(int area, int module, std::string symbol);
     ~BoneModul();
 
-    int getAreaID() {return areaID;};
-    int getModuleID() {return moduleID;};
-    std::string getModule() {return module;};
+    int getArea() {return area;};
+    int getModule() {return module;};
+    std::string getSymbol() {return symbol;};
 };
 }
 #endif

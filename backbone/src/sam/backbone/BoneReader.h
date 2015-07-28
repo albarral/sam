@@ -24,13 +24,15 @@ private:
     std::vector<BoneMsg> listMessages;    // unprocessed messages list
     int index;                        // index of pointed message in the list
     BoneMsg* pBoneMsg;      // pointer to message in the list
-    std::string select;     // query for selecting new messages
+    std::string select;            // query for selecting new messages
+    std::string updateOK;       // query for updating a message state to ok
+    std::string updateKO;       // query for updating a message state to failed
     
 public:
     BoneReader();
                     
     // Tunes reader/writer to table & area
-    virtual void tune(int direction, std::string area);  
+    virtual void tune(int direction, std::string areaName);  
     // Reads new messages from table
     void readMessages();
     
@@ -40,9 +42,9 @@ public:
     BoneMsg* getMessage() {return pBoneMsg;};
     
     // Marks DB message of specified module as processed ok
-    void markMessageOk(int moduleID);
+    void markMessageOk(int module);
     // Marks DB message of specified module as unknown
-    void markMessageFailed(int moduleID);
+    void markMessageFailed(int module);
     
 };
 }

@@ -10,7 +10,7 @@
 
 namespace sam 
 {
-// Class to represent a backbone message
+// Bean for TAB_CONTROL & TAB_SENSE
 class BoneMsg
 {
 public:
@@ -23,19 +23,19 @@ public:
     };
     
 private:
-    int areaID;                  // ID of area to which message belongs
-    int moduleID;              // ID of module to which message belongs
-    std::string info;           // message info or action
-    int detail;                   // optional detail of the message
-    int processed;            // processed state (one of eProc values)
+    int area;                  // ID of target area 
+    int module;              // ID of target module 
+    int info;                   // ID of control or sense symbol (the message info or command)
+    int detail;                 // detail of the control or sense message (optional)
+    int processed;          // processed state (one of eProc values)
 
 public:    
-    BoneMsg(int areaID, int moduleID, std::string message, int detail, int processed = eMSG_NEW);
+    BoneMsg(int area, int module, int info, int detail, int processed = eMSG_NEW);
     ~BoneMsg();
 
-    int getAreaID() {return areaID;};
-    int getModuleID() {return moduleID;};
-    std::string getInfo() {return info;};    
+    int getArea() {return area;};
+    int getModule() {return module;};
+    int getInfo() {return info;};    
     int getDetail() {return detail;};
     int getProcessed() {return processed;}
     

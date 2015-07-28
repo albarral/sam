@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/backbone/data/BoneArea.o \
 	${OBJECTDIR}/src/sam/backbone/data/BoneModul.o \
 	${OBJECTDIR}/src/sam/backbone/data/BoneMsg.o \
+	${OBJECTDIR}/src/sam/backbone/data/BoneSymbol.o \
 	${OBJECTDIR}/src/sam/backbone/utils/DatabaseClient.o
 
 
@@ -103,6 +104,11 @@ ${OBJECTDIR}/src/sam/backbone/data/BoneMsg.o: src/sam/backbone/data/BoneMsg.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneMsg.o src/sam/backbone/data/BoneMsg.cpp
+
+${OBJECTDIR}/src/sam/backbone/data/BoneSymbol.o: src/sam/backbone/data/BoneSymbol.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneSymbol.o src/sam/backbone/data/BoneSymbol.cpp
 
 ${OBJECTDIR}/src/sam/backbone/utils/DatabaseClient.o: src/sam/backbone/utils/DatabaseClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/utils

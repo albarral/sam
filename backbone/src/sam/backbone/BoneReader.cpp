@@ -12,24 +12,36 @@ BoneReader::BoneReader()
     pBoneMsg = 0;
 }
 
-void BoneReader::tune(int direction, std::string area)
+void BoneReader::tune(int direction, std::string areaName)
  {
-    BoneBase::tune(direction, area);
+    BoneBase::tune(direction, areaName);
     
     // query for selecting new messages of the area
     select = "SELECT * FROM " + tabMessages 
-        + " where areaID = " + std::to_string(tunedAreaID)
+        + " where areaID = " + std::to_string(tunedArea)
         + " and proc = " + std::to_string(BoneMsg::eMSG_NEW);    
+    
+    // partial query (module needs to be informed)
+    std::string updateOK = "UPDATE " + tabMessages    
+        + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_OK)
+        + " where area = " + std::to_string(tunedArea)
+        + " and module = ";
+
+    // partial query (module needs to be informed)
+    std::string updateKO = "UPDATE " + tabMessages 
+        + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_UNKNOWN)
+        + " where area = " + std::to_string(tunedArea)
+        + " and module = ";
 };
 
 
 void BoneReader::readMessages()
 {        
-    // clear list of messages
+    // clear messages list
     listMessages.clear();  
     index = -1;
     
-    // connects to DB if not already done
+    // connects to DB
     if (!oDBClient.isConnected())
         oDBClient.connect();
     
@@ -37,7 +49,7 @@ void BoneReader::readMessages()
     sql::ResultSet* res = oDBClient.read(select);    
     while (res->next())
     {        
-       BoneMsg oBoneMsg(res->getInt("areaID"), res->getInt("moduleID"), res->getString("info"), res->getInt("detail"));
+       BoneMsg oBoneMsg(res->getInt("area"), res->getInt("module"), res->getInt("info"), res->getInt("detail"));
        listMessages.push_back(oBoneMsg);
     }
  }
@@ -58,34 +70,28 @@ bool BoneReader::nextMessage()
 }
 
 
-void BoneReader::markMessageOk(int moduleID)
+void BoneReader::markMessageOk(int module)
 {
     // connects to DB if not already done
     if (!oDBClient.isConnected())
         oDBClient.connect();
 
-    // query for updating a specific message in DB
-    std::string update = "UPDATE " + tabMessages 
-         + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_OK)
-        + " where areaID = " + std::to_string(tunedAreaID)
-        + " and moduleID = " + std::to_string(moduleID);
+    // build update ok query
+    std::string update = updateOK + std::to_string(module);
 
     oDBClient.write(update);    
     oDBClient.commit();
 }
 
 
-void BoneReader::markMessageFailed(int moduleID)
+void BoneReader::markMessageFailed(int module)
 {
     // connects to DB if not already done
     if (!oDBClient.isConnected())
         oDBClient.connect();
 
-    // query for updating a specific message in DB
-    std::string update = "UPDATE " + tabMessages 
-         + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_UNKNOWN)
-        + " where areaID = " + std::to_string(tunedAreaID)
-        + " and moduleID = " + std::to_string(moduleID);
+    // build update ko query
+    std::string update = updateKO + std::to_string(module);
 
     oDBClient.write(update);    
     oDBClient.commit();

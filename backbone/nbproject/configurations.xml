@@ -25,6 +25,8 @@
             <itemPath>src/sam/backbone/data/BoneModul.h</itemPath>
             <itemPath>src/sam/backbone/data/BoneMsg.cpp</itemPath>
             <itemPath>src/sam/backbone/data/BoneMsg.h</itemPath>
+            <itemPath>src/sam/backbone/data/BoneSymbol.cpp</itemPath>
+            <itemPath>src/sam/backbone/data/BoneSymbol.h</itemPath>
           </logicalFolder>
           <logicalFolder name="utils" displayName="utils" projectFiles="true">
             <itemPath>src/sam/backbone/utils/DatabaseClient.cpp</itemPath>
@@ -120,6 +122,13 @@
       </item>
       <item path="src/sam/backbone/data/BoneMsg.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/sam/backbone/data/BoneSymbol.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/backbone/data/BoneSymbol.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sam/backbone/utils/DatabaseClient.cpp"
             ex="false"
             tool="1"
@@ -181,6 +190,13 @@
       <item path="src/sam/backbone/data/BoneMsg.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/backbone/data/BoneMsg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/backbone/data/BoneSymbol.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/backbone/data/BoneSymbol.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/backbone/utils/DatabaseClient.cpp"
             ex="false"

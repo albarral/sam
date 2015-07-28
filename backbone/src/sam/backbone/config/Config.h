@@ -24,6 +24,7 @@ class Config
 
         std::string tabAreas;
         std::string tabModules;
+        std::string tabSymbols;            
         std::string tabControls;
         std::string tabSenses;
         
@@ -37,6 +38,7 @@ class Config
 
         std::string getTabAreas() {return tabAreas;};
         std::string getTabModules() {return tabModules;};
+        std::string getTabSymbols() {return tabSymbols;};
         std::string getTabControls() {return tabControls;};
         std::string getTabSenses() {return tabSenses;};
 };

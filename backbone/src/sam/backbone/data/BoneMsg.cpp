@@ -8,11 +8,11 @@
 namespace sam 
 {
 // complete constructor    
-BoneMsg::BoneMsg(int areaID, int moduleID, std::string message, int detail, int processed)
+BoneMsg::BoneMsg(int area, int module, int info, int detail, int processed)
 {
-    this->areaID = areaID;
-    this->moduleID = moduleID;
-    this->info = message;
+    this->area = area;
+    this->module = module;
+    this->info = info;
     this->detail = detail;
     this->processed = processed;    
 }
@@ -23,9 +23,9 @@ BoneMsg::~BoneMsg()
 
 std::string BoneMsg::toString()
 {
-    return ("BoneMsg: area=" + std::to_string(areaID) + 
-            ", module=" + std::to_string(moduleID) +  
-            ", info=" + info +  
+    return ("BoneMsg: area=" + std::to_string(area) + 
+            ", module=" + std::to_string(module) +  
+            ", info=" + std::to_string(info) +  
             ", detail=" + std::to_string(detail));                  
 }
 }

@@ -9,6 +9,7 @@
 #include "ManipResponder.h"
 #include "sam/backbone/data/BoneModul.h"
 #include "sam/backbone/data/BoneMsg.h"
+#include "Commands.h"
 
 using namespace log4cxx;
 
@@ -32,11 +33,11 @@ ManipResponder::~ManipResponder ()
 void ManipResponder::init (manipulation::Config& oConfig)
 {
     LOG4CXX_INFO(logger, "ManipResponder: tunning to TAB_COMMANDS " << area << " section");          
-
+    
     // list of joints
     listJointNames = oConfig.getListJointNames();
     
-    // connect the backbone reader & tune it to the commands table
+    // connect the backbone reader & tune it to the control table
     oBoneReader.init();
     oBoneReader.tune(BoneBase::eTAB_CONTROL, area);
     
@@ -44,9 +45,11 @@ void ManipResponder::init (manipulation::Config& oConfig)
     if (oBoneReader.isReady())
     {
         buildModulesMap();
+        buildControlsMap();
         benabled = true;    
         LOG4CXX_INFO(logger, "ManipResponder: initialized ok");          
         showModulesMap();
+        showControlsMap();
     }
     else
         LOG4CXX_ERROR(logger, "ManipResponder: failed to initialize!");              
@@ -67,42 +70,8 @@ void ManipResponder::first()
 
 void ManipResponder::loop()
 {
-    bool bvalid = false;
-    
-//    LOG4CXX_INFO(logger, "> ?");    
-//    oResponder.listen();
-//
-//    int commandID = oResponder.getCommandID();
-//    
-//    // list of expected words
-//    if (commandID != Responder::UNRECOGNIZED_WORD)
-//    {
-//        bvalid = true;
-//        LOG4CXX_INFO(logger, oResponder.getRawCommand());      
-//        
-//        // finish all?
-//        if (commandID == manipulation::Commands::eFINISH_ALL)
-//            pBus->getConnections().getCOFinish().request();            
-//        else if (manipulation::Commands::isArmMoverCommand(oResponder.getRawCommand()))        
-//            sendArmMoverCommand(commandID);
-//        else
-//            sendJointCommand(commandID);
-//    }
-//    // not in the list (numerics accepted)
-//    else
-//    {
-//        int numCommand = 0;        
-//        LOG4CXX_INFO(logger, oResponder.getRawCommand());      
-//
-//        if (oResponder.isNumericCommand(numCommand))
-//        {
-//            bvalid = true;
-//            sendJointAngle(numCommand);
-//        }
-//    }
-      
-    if (!bvalid)
-        LOG4CXX_ERROR(logger, "Invalid command!");
+    LOG4CXX_INFO(logger, "> check messages");    
+    check4NewMessages();      
 }
 
 
@@ -120,53 +89,50 @@ void ManipResponder::check4NewMessages()
         
         // mark them as processed or failed
         if (processMessage(pBoneMsg))
-            oBoneReader.markMessageOk(pBoneMsg->getModuleID());
+            oBoneReader.markMessageOk(pBoneMsg->getModule());
         else
-            oBoneReader.markMessageFailed(pBoneMsg->getModuleID());
+            oBoneReader.markMessageFailed(pBoneMsg->getModule());
     }    
 }
 
 bool ManipResponder::processMessage(BoneMsg* pBoneMsg)
 {
-    std::string targetModule;
-    std::string targetJoint;
+    std::string targetModule;       // a module symbol
+    std::string targetJoint;            // a joint name 
+    std::string targetCommand;   // a control symbol
 
     // obtain target module for the received message
     try
     {
-        targetModule = mapModules.at(pBoneMsg->getModuleID());
+        targetModule = mapModules.at(pBoneMsg->getModule());
+        targetCommand = mapControls.at(pBoneMsg->getInfo());
     }
     catch (std::out_of_range)
     {
-        LOG4CXX_ERROR(logger, "Invalid message: module ID not found in map! - " << pBoneMsg->toString());
+        LOG4CXX_ERROR(logger, "Invalid message: module or command not supported! - " << pBoneMsg->toString());
         return false;
     }
         
-   // deliver command to the appropriate module  
-   std::string word_ArmMover =  "arm_mover";
-   std::string word_JointMover =  "jointmover";
-   std::string word_JointControl = "jointcontrol";
+   // deliver command to the appropriate module ... 
    
-   // TO ARMMOVER module
-   if (targetModule.find(word_ArmMover) != std::string::npos)
+   // ARMMOVER module
+   if (targetModule.compare("ARMMOV") == 0)
    {
-       send2ArmMover(pBoneMsg->getInfo(), pBoneMsg->getDetail());
+       send2ArmMover(targetCommand, pBoneMsg->getDetail());
    }
-   // TO JOINTMOVER module
-   else if (targetModule.find(word_JointMover) != std::string::npos)
+   // JOINTMOVER modules
+   else if (targetModule.find("MOV") != std::string::npos)
    {
-       targetJoint = extractTargetJoint(targetModule);
+       targetJoint = getTargetJoint(targetModule);
        
-       if (targetJoint.size() > 0)
-        send2JointMover(pBoneMsg->getInfo(), pBoneMsg->getDetail(), targetJoint);
+       send2JointMover(targetCommand, pBoneMsg->getDetail(), targetJoint);
    }
-   // TO JOINTCONTROL module
-   else if (targetModule.find(word_JointControl) != std::string::npos)
+   // JOINTCONTROL modules
+   else if (targetModule.find("CON") != std::string::npos)
    {
-       targetJoint = extractTargetJoint(targetModule);
+       targetJoint = getTargetJoint(targetModule);
        
-       if (targetJoint.size() > 0)
-           send2JointControl(pBoneMsg->getInfo(), pBoneMsg->getDetail(), targetJoint);
+       send2JointControl(targetCommand, pBoneMsg->getDetail(), targetJoint);
    }
    else 
    {
@@ -177,54 +143,37 @@ bool ManipResponder::processMessage(BoneMsg* pBoneMsg)
    return true;
 }
 
-// extracts the joint name from the target module string
-std::string ManipResponder::extractTargetJoint(std::string targetModule)
-{
-    for (std::string& jointName : listJointNames)
-    {
-        if (targetModule.find(jointName) != std::string::npos)
-            return jointName;
-    }
-    return "";
-}
 
 // Commands for ArmMover module
-void ManipResponder::send2ArmMover(std::string info, int detail)
+void ManipResponder::send2ArmMover(std::string commandSymbol, int detail)
 {    
-    std::string word_start = "start";
-    std::string word_stop = "stop";
-
     // CO start
-    if (info.find(word_start) != std::string::npos)
+    if (commandSymbol.find("START") != std::string::npos)
         pBus->getCOArmMoverStart().request(); 
     // CO stop
-    else if (info.find(word_stop) != std::string::npos)
+    else if (commandSymbol.find("STOP") != std::string::npos)
         pBus->getCOArmMoverStop().request();            
     else
-        LOG4CXX_WARN(logger, "> wrong ArmMover command requested: " << info);
+        LOG4CXX_WARN(logger, "> wrong ArmMover command requested: " << commandSymbol);
 }
 
-void ManipResponder::send2JointMover(std::string info, int detail, std::string jointName)
+void ManipResponder::send2JointMover(std::string command, int detail, std::string jointName)
 {    
     int reqCommand = -1;
-    std::string word_movePos = "move+";
-    std::string word_moveNeg = "move-";
-    std::string word_brake = "brake";
-    std::string word_stop = "stop";
 
-    if (info.find(word_movePos) != std::string::npos)
+    if (command.find("MOVPOS") != std::string::npos)
         reqCommand = manipulation::Commands::eJOINT_POSITIVE;
-    else if (info.find(word_moveNeg) != std::string::npos)
+    else if (command.find("MOVNEG") != std::string::npos)
         reqCommand = manipulation::Commands::eJOINT_NEGATIVE;
-    else if (info.find(word_brake) != std::string::npos)
+    else if (command.find("BRAKE") != std::string::npos)
         reqCommand = manipulation::Commands::eJOINT_BRAKE;
-    else if (info.find(word_stop) != std::string::npos)
+    else if (command.find("STOP") != std::string::npos)
         reqCommand = manipulation::Commands::eJOINT_STOP;
     
     if (reqCommand >=0 )        
         pBus->getConnectionsJoint(jointName).getCOAction().request(reqCommand);            
     else
-        LOG4CXX_WARN(logger, "> wrong JointMover command requested: " << info);
+        LOG4CXX_WARN(logger, "> wrong JointMover command requested: " << command);
 }
 
 void ManipResponder::send2JointControl(std::string info, int detail, std::string jointName)
@@ -237,14 +186,39 @@ void ManipResponder::send2JointControl(std::string info, int detail, std::string
 }
 
 
+// extracts the joint name from the target module symbol
+std::string ManipResponder::getTargetJoint(std::string moduleSymbol)
+{
+    // extract the joint number from the module symbol
+    // first joint number is 1
+    std::string jointText = moduleSymbol.substr(1, 1);       // J1_MOV, J2_CON, ...
+    int jointNum = std::stoi(jointText);
+    
+    // joint 1 is at position 0 ...
+    std::string jointName = listJointNames.at(jointNum-1);
+    
+    return jointName;
+}
+
 void ManipResponder::buildModulesMap()
 {
     // creates a map with the list of supported modules in this area
-    std::vector<BoneModul>& listModules = oBoneReader.getListModules();
+    std::vector<BoneModul> listModules = oBoneReader.readAreaModules();
     
     for (BoneModul& oBoneModul : listModules)
     {
-        mapModules.emplace(oBoneModul.getModuleID(), oBoneModul.getModule());        
+        mapModules.emplace(oBoneModul.getModule(), oBoneModul.getSymbol());        
+    }        
+}
+
+void ManipResponder::buildControlsMap()
+{
+    // creates a map with the list of supported modules in this area
+    std::vector<BoneSymbol> listControls = oBoneReader.readAreaControls();
+    
+    for (BoneSymbol& oBoneSymbol : listControls)
+    {
+        mapControls.emplace(oBoneSymbol.getID(), oBoneSymbol.getSymbol());        
     }        
 }
 
@@ -252,6 +226,15 @@ void ManipResponder::showModulesMap()
 {
     LOG4CXX_INFO(logger, "ManipResponder modules map:");      
      for (auto& element : mapModules) 
+     {
+        LOG4CXX_INFO(logger, element.first << ": " << element.second);      
+    }    
+}
+
+void ManipResponder::showControlsMap()
+{
+    LOG4CXX_INFO(logger, "ManipResponder controls map:");      
+     for (auto& element : mapControls) 
      {
         LOG4CXX_INFO(logger, element.first << ": " << element.second);      
     }    

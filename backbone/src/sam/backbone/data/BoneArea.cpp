@@ -8,10 +8,10 @@
 namespace sam 
 {
 // complete constructor    
-BoneArea::BoneArea(int ID, std::string area)
+BoneArea::BoneArea(int area, std::string name)
 {
-    this->ID = ID;
     this->area = area;
+    this->name = name;
 }
 
 BoneArea::~BoneArea()

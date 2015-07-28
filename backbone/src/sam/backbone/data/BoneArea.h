@@ -10,18 +10,19 @@
 
 namespace sam 
 {
+// Bean for TAB_AREAS
 class BoneArea
 {    
 private:
-    int ID;                         // area ID
-    std::string area;          // subsystem name (manipulation, navigation ...)
+    int area;                       // area ID
+    std::string name;          // subsystem name (manipulation, navigation ...)
 
 public:    
-    BoneArea(int ID, std::string area);
+    BoneArea(int area, std::string name);
     ~BoneArea();
 
-    int getID() {return ID;};
-    std::string getArea() {return area;};
+    int getArea() {return area;};
+    std::string getName() {return name;};
 };
 }
 #endif

@@ -12,6 +12,7 @@
 #include "config/Config.h"
 #include "data/BoneArea.h"
 #include "data/BoneModul.h"
+#include "data/BoneSymbol.h"
 #include "utils/DatabaseClient.h"
 
 namespace sam 
@@ -37,40 +38,39 @@ protected:
     DatabaseClient oDBClient;          // handler for database connections
     std::string tabAreas;                 // DB table for supported areas
     std::string tabModules;              // DB table for supported modules
+    std::string tabSymbols;             // DB table for supported symbols (control & sense categories)
     std::string tabMessages;           // DB table for message communications (control or sense)
-    int tunedAreaID;                        // area to which we are tuned
-    std::vector<BoneArea> listAreas;        // list of areas supported (read from tabAreas)
-    std::vector<BoneModul> listModules;   // list of modules supported (read from tabModules)
+    int tunedArea;                        // area to which we are tuned
 
 public:
     BoneBase();
     
     // sets connection parameters for the database client handler
     void init ();
-    // Tunes reader/writer to the commands or info table & to the specifed area
-    virtual void tune(int direction, std::string area);  
+    // tunes the reader/writer to the commands or info table & to the specified area
+    virtual void tune(int direction, std::string areaName);  
     // Checks if init & tune have already been called
     bool isReady() {return (binitialized && btuned);};
         
-    std::vector<BoneArea>& getListAreas() {return listAreas;}
-    std::vector<BoneModul>& getListModules() {return listModules;}
+    // gets from DB the list of supported areas (the list is returned)
+    std::vector<BoneArea> readAreas();
+    // gets from DB the list of modules of the tuned area (the list is returned)
+    std::vector<BoneModul> readAreaModules();
+    // gets from DB the list of CONTROL symbols for the tuned area (the list is returned)
+    std::vector<BoneSymbol> readAreaControls();
+    // gets from DB the list of SENSOR symbols for the tuned area (the list is returned)
+    std::vector<BoneSymbol> readAreaSensors();
+    
+    // searches in DB for the area with the specified name. Return its ID if found, or 0 otherwise.
+    int searchAreaByName(std::string name);
 
     // closes connection to DB
     void close();   
 
-protected:
-    // add initial & final quotes to a given string
-    std::string stringQuotes(std::string word) {return "'"+word+"'";};
 private:
-    // reads from DB the list of supported SAM areas
-    void readSupportedAreas();
-    // reads from DB the list of supported SAM modules
-    void readSupportedModules();
-    // Obtains the ID of the specified area name, returns 0 if not found. 
-    int searchAreaID(std::string area);
-    // Obtains the ID of the specified module name (inside given area) , returns 0 if not found. 
-    int searchModuleID(int areaID, std::string module);
-    
+    // gets from DB the list of symbols of the specified category for the tuned area (the list is returned)
+    std::vector<BoneSymbol> readAreaSymbols(int category);
+
 };
 }
 

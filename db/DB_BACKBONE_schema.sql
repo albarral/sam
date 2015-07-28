@@ -10,9 +10,9 @@ DROP TABLE IF EXISTS TAB_AREAS;
 
 CREATE TABLE TAB_AREAS 
 (
-  ID INT not NULL AUTO_INCREMENT,
-  area VARCHAR(30),
-  PRIMARY KEY (ID)
+  area INT not NULL AUTO_INCREMENT,
+  name VARCHAR(30) not NULL,
+  PRIMARY KEY (area)
 );
 
 -- -----------------------------------------------------
@@ -22,41 +22,68 @@ DROP TABLE IF EXISTS TAB_MODULES;
 
 CREATE TABLE TAB_MODULES
 (
-  areaID INT not NULL,
-  moduleID INT not NULL,
-  modul VARCHAR(30),
-  PRIMARY KEY (areaID, moduleID)
+  area INT not NULL,
+  module INT not NULL,
+  symbol VARCHAR(6) not NULL,
+  name VARCHAR(50) default null
 );
 
--- -----------------------------------------------------
--- Table TAB_SENSES
--- -----------------------------------------------------
-DROP TABLE IF EXISTS TAB_SENSES;
+ALTER TABLE TAB_MODULES
+ADD CONSTRAINT PK_MODULES PRIMARY KEY (area, module);
 
-CREATE TABLE TAB_SENSES 
+-- -----------------------------------------------------
+-- Table TAB_CONTROL
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS TAB_CONTROL;
+
+CREATE TABLE TAB_CONTROL 
 (
-  areaID INT not NULL,
-  moduleID INT not NULL,
-  modul VARCHAR(30) not NULL,  
-  info VARCHAR(40),
+  area INT not NULL,
+  module INT not NULL,
+  info INT default 0,
   detail INT default 0,
   proc INT default 0,
-  PRIMARY KEY (areaID, moduleID)
+-- for debug purpose
+  mod_symbol VARCHAR(6)
 );
 
--- -----------------------------------------------------
--- Table TAB_CONTROLS
--- -----------------------------------------------------
-DROP TABLE IF EXISTS TAB_CONTROLS;
+ALTER TABLE TAB_CONTROL 
+ADD CONSTRAINT PK_CONTROL PRIMARY KEY (area, module);
 
-CREATE TABLE TAB_CONTROLS 
+-- -----------------------------------------------------
+-- Table TAB_SENSE
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS TAB_SENSE;
+
+CREATE TABLE TAB_SENSE 
 (
-  areaID INT not NULL,
-  moduleID INT not NULL,
-  modul VARCHAR(30) not NULL,
-  info VARCHAR(40),
+  area INT not NULL,
+  module INT not NULL,
+  info INT default 0,
   detail INT default 0,
   proc INT default 0,
-  PRIMARY KEY (areaID, moduleID)
+-- for debug purpose
+  mod_symbol VARCHAR(6)
 );
+
+ALTER TABLE TAB_SENSE 
+ADD CONSTRAINT PK_SENSE PRIMARY KEY (area, module);
+
+-- -----------------------------------------------------
+-- Table TAB_SYMBOLS
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS TAB_SYMBOLS;
+
+CREATE TABLE TAB_SYMBOLS
+(
+  ID INT not NULL AUTO_INCREMENT,
+  area INT not NULL,
+  category INT not NULL,
+  symbol VARCHAR(6) not NULL,
+  name VARCHAR(50) default null,
+  PRIMARY KEY (ID)
+);
+
+
+
 
