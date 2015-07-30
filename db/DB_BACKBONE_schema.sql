@@ -10,10 +10,12 @@ DROP TABLE IF EXISTS TAB_AREAS;
 
 CREATE TABLE TAB_AREAS 
 (
-  area INT not NULL AUTO_INCREMENT,
-  name VARCHAR(30) not NULL,
-  PRIMARY KEY (area)
+  area INT not NULL,
+  name VARCHAR(30) not NULL
 );
+
+ALTER TABLE TAB_AREAS
+ADD CONSTRAINT PK_AREAS PRIMARY KEY (area);
 
 -- -----------------------------------------------------
 -- Table TAB_MODULES

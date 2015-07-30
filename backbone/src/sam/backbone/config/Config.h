@@ -32,7 +32,7 @@ class Config
         Config();
 
         std::string getDBServerUrl() {return this->dbServerUrl;};
-        std::string getDBUser() {return this->dbServerUrl;};
+        std::string getDBUser() {return this->dbUser;};
         std::string getDBPassword() {return this->dbPassword;};
         std::string getDBName() {return this->dbName;};
 

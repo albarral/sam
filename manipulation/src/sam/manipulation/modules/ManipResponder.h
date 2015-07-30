@@ -50,16 +50,20 @@ private:
     void loop ();
 
     // reads & processes new backbone messages
-    void check4NewMessages();     
+    void processNewMessages();     
     // Sends received commands to the appropriate modules. Returns true if ok, false if failed.
     bool processMessage(BoneMsg* pBoneMsg);
        
     // send command to ArmMover module
-    void send2ArmMover(std::string info, int detail);
+    void send2ArmMover(std::string command, int detail);
     // send command to JointMover module (for specified joint)
-    void send2JointMover(std::string info, int detail, std::string jointName);
+    void send2JointMover(std::string command, std::string jointName);
     // send command to JointControl module (for specified joint)
-    void send2JointControl(std::string info, int detail, std::string jointName);
+    void send2JointControl(int detail, std::string jointName);
+    // send position command directly to joint (for specified joint)
+    void send2DirectJoint(int detail, std::string jointName);
+    // send position command directly to joint (for specified joint)
+    void send2ArmManager(std::string command);
 
     // Extracts the target joint from the target module string
     std::string getTargetJoint(std::string targetModule);
@@ -72,6 +76,7 @@ private:
     void showModulesMap();
     // show controls map in log
     void showControlsMap();
+    
 };
 }		
 #endif

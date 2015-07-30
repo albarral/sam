@@ -30,6 +30,7 @@ public:
         eTAB_SENSE,           // connect to sense table (states info shared by SAM modules) 
         eTAB_DIM
     };
+    const int areaGeneralSymbol = 0;   // area field for general symbols (valid for all areas)
     
 protected:
     bool binitialized;
@@ -56,9 +57,9 @@ public:
     std::vector<BoneArea> readAreas();
     // gets from DB the list of modules of the tuned area (the list is returned)
     std::vector<BoneModul> readAreaModules();
-    // gets from DB the list of CONTROL symbols for the tuned area (the list is returned)
+    // gets from DB the list of CONTROL symbols for the tuned area & for general use (the list is returned)
     std::vector<BoneSymbol> readAreaControls();
-    // gets from DB the list of SENSOR symbols for the tuned area (the list is returned)
+    // gets from DB the list of SENSOR symbols for the tuned area & for general use (the list is returned)
     std::vector<BoneSymbol> readAreaSensors();
     
     // searches in DB for the area with the specified name. Return its ID if found, or 0 otherwise.
@@ -67,6 +68,9 @@ public:
     // closes connection to DB
     void close();   
 
+protected:    
+     // add initial & final quotes to a given string
+    std::string addQuotes(std::string word) {return "'"+word+"'";};
 private:
     // gets from DB the list of symbols of the specified category for the tuned area (the list is returned)
     std::vector<BoneSymbol> readAreaSymbols(int category);

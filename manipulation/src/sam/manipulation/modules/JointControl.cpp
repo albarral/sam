@@ -19,7 +19,7 @@ JointControl::JointControl()
     benabled = false;
     bconnected = false;
     pConnectionsJoint = 0;
-    angle = 0;
+    sollAngle = 0;
     limitBroken = 0;
 }
 
@@ -72,50 +72,58 @@ void JointControl::loop()
             break;
     }   // end switch    
     
-    if (angle != lastAngle)
+    if (sollAngle != prevSollAngle)
     {
         writeBus();
-        lastAngle = angle;
+        prevSollAngle = sollAngle;
     }
 }
 
 void JointControl::senseBus()
 {
-    // read the system's last requested angle
-    pConnectionsJoint->getCOAngle().getValue(angle);
-    // check for new speed requests
-    if (pConnectionsJoint->getCOSpeed().checkRequested(reqSpeed))
-        speed_ms = reqSpeed/1000.0;
+    // read CO_SOLL_ANGLE 
+    // to get the last systembroad SOLL angle
+    pConnectionsJoint->getCO_SOLL_ANGLE().getValue(sollAngle);
+    
+    // read CO_SOLL_SPEED 
+    // to check for new SOLL speed requests
+    if (pConnectionsJoint->getCO_SOLL_SPEED().checkRequested(sollSpeed))
+        sollSpeed_ms = sollSpeed/1000.0;
 }
 
 void JointControl::writeBus()
 {
-    pConnectionsJoint->getCOAngle().request(angle);
-    LOG4CXX_DEBUG(logger, "angle=" << (int)angle);
+    // write CO_SOLL_ANGLE
+    // to request a new SOLL angle
+    pConnectionsJoint->getCO_SOLL_ANGLE().request(sollAngle);
+    LOG4CXX_DEBUG(logger, "angle=" << (int)sollAngle);
     
-    // TEMPORAL: real speed should be obtained from changes in real joint positions
-    // for now we put the requested speed
-    pConnectionsJoint->getSORealSpeed().setValue(reqSpeed);
+    // write SO_REALSPEED
+    // to inform about the real IST speed
+    // TEMPORAL !!! 
+    // We put the SOLL speed here instead of the IST speed. 
+    // That's because we are not reading the IST angles yet, needed for its computation.
+    pConnectionsJoint->getSO_REAL_SPEED().setValue(sollSpeed);
 }
 
 void JointControl::doSpeed2Angle()
 {
-    if (speed_ms == 0)
+    if (sollSpeed_ms == 0)
         return;
     
-    angle += (float)(speed_ms*oClick.getMillis());      
+    sollAngle += (float)(sollSpeed_ms*oClick.getMillis());      
     
     // limit angle to joint's range
-    if (angle > mJoint->getUpperLimit())
+    if (sollAngle > mJoint->getUpperLimit())
     {
         LOG4CXX_WARN(logger, "upper limit!");
-        angle = mJoint->getUpperLimit();
+        sollAngle = mJoint->getUpperLimit();
         limitBroken = 1;
     }
-    else if (angle < mJoint->getLowerLimit())
+    else if (sollAngle < mJoint->getLowerLimit())
     {
         LOG4CXX_WARN(logger, "lower limit!");
-        angle = mJoint->getLowerLimit();
+        sollAngle = mJoint->getLowerLimit();
         limitBroken = -1;
     }
     else

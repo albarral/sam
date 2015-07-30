@@ -73,7 +73,7 @@ void ComsManip::loop()
         
         // finish all?
         if (commandID == manipulation::Commands::eFINISH_ALL)
-            pBus->getCOFinish().request();            
+            pBus->getCO_FINISH_MANAGER().request();            
         else if (manipulation::Commands::isArmMoverCommand(oResponder.getRawCommand()))        
             sendArmMoverCommand(commandID);
         else
@@ -102,11 +102,11 @@ void ComsManip::sendArmMoverCommand(int reqCommand)
     switch (reqCommand)
     {        
         case manipulation::Commands::eARMOVER_START:
-            pBus->getCOArmMoverStart().request();            
+            pBus->getCO_ARMMOVER_START().request();            
             break;
  
         case manipulation::Commands::eARMOVER_STOP:
-            pBus->getCOArmMoverStop().request();            
+            pBus->getCO_ARMMOVER_STOP().request();            
             break;
 
         default:
@@ -125,7 +125,7 @@ void ComsManip::sendJointCommand(int reqCommand)
         case manipulation::Commands::eJOINT_BRAKE:
         case manipulation::Commands::eJOINT_KEEP:
         case manipulation::Commands::eJOINT_STOP:            
-            pBus->getConnectionsJoint(activeJointName).getCOAction().request(reqCommand);            
+            pBus->getConnectionsJoint(activeJointName).getCO_MOVE_ACTION().request(reqCommand);            
             break;
  
         case manipulation::Commands::eJOINT_USE1:
@@ -151,7 +151,7 @@ void ComsManip::sendJointAngle(int angleCommand)
 {
     float angle = angleCommand;
         
-    pBus->getConnectionsJoint(activeJointName).getCOAngle().request(angle);
+    pBus->getConnectionsJoint(activeJointName).getCO_SOLL_ANGLE().request(angle);
     LOG4CXX_INFO(logger, "angle=" << angleCommand);
 }
 

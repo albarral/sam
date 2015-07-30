@@ -36,6 +36,9 @@ public:
     // Reads new messages from table
     void readMessages();
     
+    // return the number of read messages
+    int getNumReadMessages() {return listMessages.size();};
+    
     // Jumps to next message in the list. Returns false when end of list reached.
     bool nextMessage();
     // Gets pointed message

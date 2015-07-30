@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../manipulation/dist/Debug/GNU-Linux-x86 -lsam_manip -Wl,-rpath,../../utils/dist/Debug/GNU-Linux-x86 -L../../utils/dist/Debug/GNU-Linux-x86 -lgoon_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../manipulation/dist/Debug/GNU-Linux-x86 -lsam_manip -Wl,-rpath,../../utils/dist/Debug/GNU-Linux-x86 -L../../utils/dist/Debug/GNU-Linux-x86 -lsam_utils -Wl,-rpath,../../backbone/dist/Debug/GNU-Linux-x86 -L../../backbone/dist/Debug/GNU-Linux-x86 -lsam_backbone -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -60,7 +60,9 @@ LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../man
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../manipulation/dist/Debug/GNU-Linux-x86/libsam_manip.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../utils/dist/Debug/GNU-Linux-x86/libgoon_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../utils/dist/Debug/GNU-Linux-x86/libsam_utils.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../backbone/dist/Debug/GNU-Linux-x86/libsam_backbone.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -75,6 +77,7 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 .build-subprojects:
 	cd ../../manipulation && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../backbone && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -85,6 +88,7 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 .clean-subprojects:
 	cd ../../manipulation && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../backbone && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

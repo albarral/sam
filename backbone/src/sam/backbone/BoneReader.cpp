@@ -18,17 +18,17 @@ void BoneReader::tune(int direction, std::string areaName)
     
     // query for selecting new messages of the area
     select = "SELECT * FROM " + tabMessages 
-        + " where areaID = " + std::to_string(tunedArea)
+        + " where area = " + std::to_string(tunedArea)
         + " and proc = " + std::to_string(BoneMsg::eMSG_NEW);    
     
     // partial query (module needs to be informed)
-    std::string updateOK = "UPDATE " + tabMessages    
+    updateOK = "UPDATE " + tabMessages    
         + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_OK)
         + " where area = " + std::to_string(tunedArea)
         + " and module = ";
 
     // partial query (module needs to be informed)
-    std::string updateKO = "UPDATE " + tabMessages 
+    updateKO = "UPDATE " + tabMessages 
         + " set proc = " + std::to_string(BoneMsg::eMSG_PROC_UNKNOWN)
         + " where area = " + std::to_string(tunedArea)
         + " and module = ";
@@ -52,6 +52,8 @@ void BoneReader::readMessages()
        BoneMsg oBoneMsg(res->getInt("area"), res->getInt("module"), res->getInt("info"), res->getInt("detail"));
        listMessages.push_back(oBoneMsg);
     }
+    
+    //delete res;
  }
 
 

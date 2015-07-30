@@ -6,7 +6,6 @@
 #include "log4cxx/ndc.h"
 
 #include "JointMover.h"
-#include "sam/manipulation/modules/Commands.h"
 
 using namespace log4cxx;
 
@@ -115,7 +114,9 @@ void JointMover::loop()
 void JointMover::senseBus()
 {
     int reqCommand;
-    if (pConnectionsJoint->getCOAction().checkRequested(reqCommand))
+    // read CO_MOVE_ACTION 
+    // to get action requests
+    if (pConnectionsJoint->getCO_MOVE_ACTION().checkRequested(reqCommand))
     {
         processActionRequest(reqCommand);
     }    
@@ -123,8 +124,11 @@ void JointMover::senseBus()
 
 void JointMover::writeBus()
 {
-    pConnectionsJoint->getCOSpeed().request(speed);
+    // write CO_SOLL_SPEED
+    // to request new SOLL speed
+    pConnectionsJoint->getCO_SOLL_SPEED().request(speed);
     
+    // just show output changes
     if(speed != lastOutput)
     {
         LOG4CXX_INFO(logger, "speed = " << (int)speed);
@@ -137,34 +141,34 @@ void JointMover::processActionRequest(int reqCommand)
     switch (reqCommand)
     {
         // start movement to the positive direction (right or up) 
-        case manipulation::Commands::eJOINT_POSITIVE:
-            this->direction = 1;
+        case eMOV_POSITIVE:
+            direction = 1;
             setNextState(eSTATE_ACCEL);
             break;
             
         // start movement to the negative direction (left or down) 
-        case manipulation::Commands::eJOINT_NEGATIVE:
-            this->direction = -1;
+        case eMOV_NEGATIVE:
+            direction = -1;
             setNextState(eSTATE_ACCEL);
             break;
 
         // start braking until the joint stops        
-        case manipulation::Commands::eJOINT_BRAKE:
+        case eMOV_BRAKE:
             setNextState(eSTATE_BRAKE);    
             break;
             
         // keeps the present speed
-        case manipulation::Commands::eJOINT_KEEP:
+        case eMOV_KEEP:
             setNextState(eSTATE_KEEP);
             break;
             
         // suddenly stops the joint
-        case manipulation::Commands::eJOINT_STOP:
+        case eMOV_STOP:
             setNextState(eSTATE_STOP);    
             break;
 
         default:
-            LOG4CXX_INFO(logger, "> unkown request");
+            LOG4CXX_INFO(logger, "> unknown request");
             break;
     }    
 }

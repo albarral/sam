@@ -119,18 +119,18 @@ void ArmMover::loop()
 
 void ArmMover::senseBus()
 {
-    realSpeed = pBus->getConnectionsJoint(jointName).getSORealSpeed().getValue();
+    realSpeed = pBus->getConnectionsJoint(jointName).getSO_REAL_SPEED().getValue();
     
-    if (pBus->getCOArmMoverStart().checkRequested())
+    if (pBus->getCO_ARMMOVER_START().checkRequested())
         start();
     
-    if (pBus->getCOArmMoverStop().checkRequested())
+    if (pBus->getCO_ARMMOVER_STOP().checkRequested())
         stop();    
 }
 
 void ArmMover::writeBus(int command)
 {
-    pBus->getConnectionsJoint(jointName).getCOAction().request(command);
+    pBus->getConnectionsJoint(jointName).getCO_MOVE_ACTION().request(command);
     
     LOG4CXX_DEBUG(logger, "command = " << command);
 }

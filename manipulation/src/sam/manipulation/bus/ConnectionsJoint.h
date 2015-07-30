@@ -22,15 +22,21 @@ class ConnectionsJoint
     private:        
         bool benabled;
         std::string jointName;
-        // JointMover module
-        goon::ControlT<int> coAction;       // move actions: move, brake, keep, stop
-        goon::ControlT<float> coSpeed;    // desired joint speed (degrees/s)
-        // JointControl module
-        goon::SensorT<float> soRealSpeed;     // real joint speed (degrees/s)
-        goon::SensorT<int> soLimitReached;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
-        goon::ControlT<float> coAngle;         // desired joint angle (degrees)
-        // external sensing
-        goon::SensorT<float> soIst;            // real joint angle (degrees)
+
+        // CONTROLS (receiver modules)
+        // JointMover 
+        goon::ControlT<int> CO_MOVE_ACTION;     // UP >> JointMover: received actions (move, brake, keep, stop)
+        // JointControl 
+        goon::ControlT<float> CO_SOLL_SPEED;    // JointMover >> JointControl: desired joint speed (degrees/s)
+        // ArmManager
+        goon::ControlT<float> CO_SOLL_ANGLE;         // desired joint angle (degrees)
+
+        // SENSORS (sender modules)        
+        // ArmManager 
+        goon::SensorT<float> SO_IST_ANGLE;            // real joint angle (degrees)
+        // JointControl 
+        goon::SensorT<float> SO_REAL_SPEED;     // real joint speed (degrees/s)
+        goon::SensorT<int> SO_LIMIT_REACHED;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
         
     public:
         ConnectionsJoint();
@@ -41,17 +47,15 @@ class ConnectionsJoint
         bool isEnabled() {return benabled;};
         std::string& getJointName() {return jointName;};
 
-        // JointMover module
-        goon::ControlT<int>& getCOAction() {return coAction;};        
-        goon::ControlT<float>& getCOSpeed() {return coSpeed;};                
+        // controls
+        goon::ControlT<int>& getCO_MOVE_ACTION() {return CO_MOVE_ACTION;};        
+        goon::ControlT<float>& getCO_SOLL_SPEED() {return CO_SOLL_SPEED;};                
+        goon::ControlT<float>& getCO_SOLL_ANGLE() {return CO_SOLL_ANGLE;};                
         
-        // JointControl module
-        goon::SensorT<float>& getSORealSpeed() {return soRealSpeed;}; 
-        goon::SensorT<int>& getSOLimitReached() {return soLimitReached;}; 
-        goon::ControlT<float>& getCOAngle() {return coAngle;};                
-
-        // external sensing
-        goon::SensorT<float>& getSOIst() {return soIst;}; 
+        // sensors
+        goon::SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
+        goon::SensorT<float>& getSO_REAL_SPEED() {return SO_REAL_SPEED;}; 
+        goon::SensorT<int>& getSO_LIMIT_REACHED() {return SO_LIMIT_REACHED;}; 
 };
 
 }

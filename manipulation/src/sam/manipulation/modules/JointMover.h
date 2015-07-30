@@ -27,6 +27,16 @@ namespace sam
 class JointMover : public Module2
 {
 public:
+    // input commands
+    enum eCommands
+    {
+        eMOV_POSITIVE,
+        eMOV_NEGATIVE,
+        eMOV_BRAKE,
+        eMOV_KEEP,
+        eMOV_STOP
+    };
+
     // states of JointMover module
     enum eType
     {

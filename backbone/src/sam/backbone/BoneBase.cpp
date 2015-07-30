@@ -120,7 +120,7 @@ std::vector<BoneSymbol> BoneBase::readAreaSymbols(int category)
     
     // perform query
     std::string select = "SELECT * FROM " + tabSymbols + 
-                 + " where area = " + std::to_string(tunedArea) + 
+                 + " where (area = " + std::to_string(areaGeneralSymbol) + " or area = " + std::to_string(tunedArea) + " ) "
                  + " and category = " + std::to_string(category);
     sql::ResultSet* res = oDBClient.read(select);
     
@@ -143,7 +143,7 @@ int BoneBase::searchAreaByName(std::string name)
     
     // perform query
     std::string select_area = "SELECT * FROM " + tabAreas +
-                     + " where name = " + name;
+                     + " where name = " + addQuotes(name);
 
     sql::ResultSet* res = oDBClient.read(select_area);
     

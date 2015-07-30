@@ -20,8 +20,8 @@ Config::Config ()
     tabAreas = "TAB_AREAS";
     tabModules = "TAB_MODULES";
     tabSymbols = " TAB_SYMBOLS";
-    tabControls = "TAB_CONTROLS";
-    tabSenses = "TAB_SENSES";
+    tabControls = "TAB_CONTROL";
+    tabSenses = "TAB_SENSE";
 }
 
 }

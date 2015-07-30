@@ -37,11 +37,11 @@ private:
     bool bconnected;        // connected to bus
     manipulation::ConnectionsJoint* pConnectionsJoint;    // the bus connections corresponding to a given joint
     // logic
-    float reqSpeed;     // requested speed
-    float angle;            // output: degrees (float to grant continuity)
-    float lastAngle;       
+    float sollSpeed;        // speed requested by higher modules (deg/s)
+    float sollSpeed_ms;  // speed requested by higher modules (deg/ms))
+    float sollAngle;        // angle requested by this module (float to grant continuity)
+    float prevSollAngle;       
     goon::Click oClick;   
-    float speed_ms;     // requested speed (deg/ms))
     int limitBroken;    // commanded angle out of joint's range  
 
 public:
@@ -57,7 +57,7 @@ public:
        bool isConnected() {return bconnected;};
 
         Joint* getJoint() {return mJoint;};
-        float getAngle() {return angle;};
+        float getAngle() {return sollAngle;};
         
 private:       
         // first actions when the thread begins 

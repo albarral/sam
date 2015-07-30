@@ -20,12 +20,15 @@ class Bus
 {
     private:        
         bool benabled;
-        // general commands
-        goon::Control coFinish;    // finish all modules 
-        // ArmMover module
-        goon::Control coArmMoverStart;       // ArmMover command: start 
-        goon::Control coArmMoverStop;       // ArmMover command: stop
-        // modules for individual joints 
+        
+        // CONTROLS (receiver modules)
+        // ArmManager
+        goon::Control CO_FINISH_MANAGER;    // finish all modules 
+        // ArmMover 
+        goon::Control CO_ARMMOVER_START;       // ArmMover command: start 
+        goon::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
+        
+        // connections for individual joints 
         ConnectionsJoint oConnectionsJoint[SAM_MAX_JOINTS];
         int numJoints;   // number of active joints
         
@@ -37,11 +40,10 @@ class Bus
         bool add4Joint(std::string jointName);
         bool isEnabled() {return benabled;};
         
-        goon::Control& getCOFinish() {return coFinish;};   
-        
-        // ArmMover module
-        goon::Control& getCOArmMoverStart() {return coArmMoverStart;};        
-        goon::Control& getCOArmMoverStop() {return coArmMoverStop;};        
+        // controls
+        goon::Control& getCO_FINISH_MANAGER() {return CO_FINISH_MANAGER;};   
+        goon::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
+        goon::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
         
         // gets the connections set for the specified joint name
         ConnectionsJoint& getConnectionsJoint(std::string jointName);
