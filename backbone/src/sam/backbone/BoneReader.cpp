@@ -52,8 +52,6 @@ void BoneReader::readMessages()
        BoneMsg oBoneMsg(res->getInt("area"), res->getInt("module"), res->getInt("info"), res->getInt("detail"));
        listMessages.push_back(oBoneMsg);
     }
-    
-    //delete res;
  }
 
 

@@ -11,9 +11,9 @@
 #include <cppconn/driver.h>
 #include <cppconn/connection.h>
 #include <cppconn/statement.h>
-#include <cppconn/prepared_statement.h>
 #include <cppconn/resultset.h>
 #include <cppconn/metadata.h>
+
 #include <cppconn/resultset_metadata.h>
 #include <cppconn/exception.h>
 #include <cppconn/warning.h>
@@ -24,7 +24,6 @@ class DatabaseClient
 {  
 private:
     bool binitialized;
-    bool bconnected;
     std::string url; //  "tcp://127.0.0.1:3306" for mySql
     std::string user;
     std::string password;
@@ -33,7 +32,6 @@ private:
     sql::Connection* con;
     sql::Statement* stmt;
     sql::ResultSet* res;
-    sql::PreparedStatement* prep_stmt;
         
 public:
     DatabaseClient();
@@ -42,7 +40,7 @@ public:
     void init (std::string url, std::string user, std::string password, std::string schema);
     
     bool isInitialized() {return binitialized;};
-    bool isConnected() {return bconnected;};
+    bool isConnected() {return (con != 0 && !con->isClosed());};
         
     void connect();
     void disconnect();

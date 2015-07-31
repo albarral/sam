@@ -11,32 +11,28 @@ namespace sam
 DatabaseClient::DatabaseClient() 
 {
     binitialized = false;
-    bconnected = false;
     // init pointers
     driver = 0;
     con = 0;
     stmt = 0;
     res = 0;
-    prep_stmt = 0;
 }
 
 DatabaseClient::~DatabaseClient()
 {
     // release objects
-//    if (driver != 0)
-//        delete (driver);
+    //  never delete driver
     if (con != 0)
-        delete (con);
+        delete con;
     if (stmt != 0)
-        delete (stmt);
+        delete stmt;
     if (res != 0)
-        delete (res);        
-    if (prep_stmt != 0)
-        delete (prep_stmt);
+        delete res;        
 }
 
 void DatabaseClient::init(std::string url, std::string user, std::string password, std::string schema)
 {
+    driver = get_driver_instance();
     this->url = url;
     this->user = user;
     this->password = password;
@@ -46,18 +42,18 @@ void DatabaseClient::init(std::string url, std::string user, std::string passwor
 
 void DatabaseClient::connect()
 {
-    // establish connection with database server & set database to be used
-    driver = get_driver_instance();
-    con = driver->connect(url, user, password); 
-    
-    if (con != 0)
+    // establish connection with database server 
+    if (!isConnected())       
     {
-        con->setSchema(schema);    
-        // also turn off the autocommit (user must commit after each transaction set)
-        con->setAutoCommit(0);
-        bconnected = true;
+        con = driver->connect(url, user, password);         
+
+        // set the specific database to be used & turn off the autocommit 
+        if (!con->isClosed())
+        {
+            con->setSchema(schema);    
+            con->setAutoCommit(0);
+        }
     }
-    // else throw exception
 }
 
 void DatabaseClient::disconnect()
@@ -66,23 +62,16 @@ void DatabaseClient::disconnect()
     {
         con->close();
         delete con;
-        bconnected = false;
-    }
-}
-
-void DatabaseClient::write(std::string update)
-{ 
-    if (bconnected)
-    {
-        prep_stmt = con->prepareStatement(update);    
-        prep_stmt->execute();  
-        delete prep_stmt;        
+        con = 0;
     }
 }
 
 sql::ResultSet* DatabaseClient::read(std::string select)
 {  
-    if (bconnected)
+    if (res != 0)
+        delete res;
+    
+    if (isConnected())
     {
         stmt = con->createStatement();   
         res = stmt->executeQuery(select);   
@@ -94,9 +83,19 @@ sql::ResultSet* DatabaseClient::read(std::string select)
     return res;
 }
 
+void DatabaseClient::write(std::string update)
+{ 
+    if (isConnected())
+    {
+        stmt = con->createStatement();   
+        stmt->execute(update);  
+        delete stmt;        
+    }
+}
+
 void DatabaseClient::commit()
 {     
-    if (bconnected)
+    if (isConnected())
     {
        con->commit();
     }    
@@ -104,7 +103,7 @@ void DatabaseClient::commit()
 
 void DatabaseClient::rollback()
 {     
-    if (bconnected)
+    if (isConnected())
     {
        con->rollback();
     }    

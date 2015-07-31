@@ -45,6 +45,7 @@
           <standard>8</standard>
           <incDir>
             <pElem>../../manipulation/src</pElem>
+            <pElem>../../backbone/src</pElem>
             <pElem>../../utils/src</pElem>
           </incDir>
         </ccTool>
