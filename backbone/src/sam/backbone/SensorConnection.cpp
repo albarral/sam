@@ -17,7 +17,7 @@ SensorConnection::SensorConnection()
     btuned = false;
 }
 
-void SensorConnection::setTabMessages(std::string tabName)
+void SensorConnection::tune2Table(std::string tabName)
 {
     this->tabMessages = tabName;
 

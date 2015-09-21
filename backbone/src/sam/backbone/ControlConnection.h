@@ -21,7 +21,7 @@ class ControlConnection : public BoneConnection
 {
 private:        
     bool btuned;                        // flag to indicate the target table is set
-    std::string tabMessages;           // name of CONTROL table
+    std::string tabMessages;      // name of CONTROL table
     // logic
     std::vector<ControlMsg> listMessages;    // unprocessed messages list
     std::string select;                 // query for selecting table registers
@@ -32,13 +32,15 @@ public:
     ControlConnection();
     
     // Sets the target table name
-    void setTabMessages(std::string tabName);
+    void tune2Table(std::string tabName);
     bool isTuned() {return btuned;};        
 
     // Reads new messages from table
     void readMessages();
     // Writes a new message to the table
     bool writeMessage(ControlMsg& oControlMsg);
+    // Returns the list of read control messages
+    std::vector<ControlMsg>& getListMessages() {return listMessages;}
 
     
     // return the number of read messages

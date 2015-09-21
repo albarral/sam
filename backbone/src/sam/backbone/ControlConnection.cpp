@@ -17,7 +17,7 @@ ControlConnection::ControlConnection()
     btuned = false;
 }
 
-void ControlConnection::setTabMessages(std::string tabName)
+void ControlConnection::tune2Table(std::string tabName)
 {
     this->tabMessages = tabName;
 
@@ -76,21 +76,6 @@ bool ControlConnection::writeMessage(ControlMsg& oControlMsg)
     
     return true;
 }
-
-
-//bool ControlConnection::nextMessage()
-//{
-//    // point to next message in the list
-//    index++;
-//    if (index < listMessages.size())
-//    {
-//        pControlMsg = &listMessages.at(index);
-//        return true;
-//    }
-//    
-//    // if list finished, false is returned
-//    return false;
-//}
 
 
 void ControlConnection::markMessageOk(int moduleID)

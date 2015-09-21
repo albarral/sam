@@ -32,14 +32,15 @@ public:
     SensorConnection();
     
     // Sets the target table name
-    void setTabMessages(std::string tabName);
+    void tune2Table(std::string tabName);
     bool isTuned() {return btuned;};        
 
     // Reads new messages from table
     void readMessages();
     // Writes a new message to the table
     bool writeMessage(SensorMsg& oSensorMsg);
-
+    // Returns the list of read control messages
+    std::vector<SensorMsg>& getListMessages() {return listMessages;}
     
     // return the number of read messages
     int getNumReadMessages() {return listMessages.size();};

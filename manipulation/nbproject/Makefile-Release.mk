@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/sam/manipulation/ArmComs.o \
 	${OBJECTDIR}/src/sam/manipulation/ArmManager.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/Bus.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o \
@@ -48,7 +49,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/manipulation/modules/ComsManip.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointControl.o \
 	${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o \
-	${OBJECTDIR}/src/sam/manipulation/modules/ManipResponder.o \
 	${OBJECTDIR}/src/sam/manipulation/utils/Responder.o
 
 
@@ -75,6 +75,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmanipulation.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmanipulation.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/src/sam/manipulation/ArmComs.o: src/sam/manipulation/ArmComs.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmComs.o src/sam/manipulation/ArmComs.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/ArmManager.o: src/sam/manipulation/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
@@ -140,11 +145,6 @@ ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o: src/sam/manipulation/mod
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/JointMover.o src/sam/manipulation/modules/JointMover.cpp
-
-${OBJECTDIR}/src/sam/manipulation/modules/ManipResponder.o: src/sam/manipulation/modules/ManipResponder.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/modules/ManipResponder.o src/sam/manipulation/modules/ManipResponder.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/utils/Responder.o: src/sam/manipulation/utils/Responder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/utils

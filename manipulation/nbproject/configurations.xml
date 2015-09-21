@@ -48,13 +48,13 @@
             <itemPath>src/sam/manipulation/modules/JointControl.h</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.cpp</itemPath>
             <itemPath>src/sam/manipulation/modules/JointMover.h</itemPath>
-            <itemPath>src/sam/manipulation/modules/ManipResponder.cpp</itemPath>
-            <itemPath>src/sam/manipulation/modules/ManipResponder.h</itemPath>
           </logicalFolder>
           <logicalFolder name="utils" displayName="utils" projectFiles="true">
             <itemPath>src/sam/manipulation/utils/Responder.cpp</itemPath>
             <itemPath>src/sam/manipulation/utils/Responder.h</itemPath>
           </logicalFolder>
+          <itemPath>src/sam/manipulation/ArmComs.cpp</itemPath>
+          <itemPath>src/sam/manipulation/ArmComs.h</itemPath>
           <itemPath>src/sam/manipulation/ArmManager.cpp</itemPath>
           <itemPath>src/sam/manipulation/ArmManager.h</itemPath>
         </logicalFolder>
@@ -88,13 +88,26 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../utils/src</pElem>
             <pElem>../backbone/src</pElem>
+            <pElem>../utils/src</pElem>
+            <pElem>../utils2/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../backbone"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../backbone"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../utils"
                             CT="2"
@@ -108,21 +121,25 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../backbone"
+              <makeArtifact PL="../utils2"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../backbone"
+                            WD="../utils2"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils2.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/sam/manipulation/ArmComs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/ArmComs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sam/manipulation/ArmManager.cpp"
             ex="false"
             tool="1"
@@ -236,16 +253,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/ManipResponder.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/ManipResponder.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -281,6 +288,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/sam/manipulation/ArmComs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/ArmComs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sam/manipulation/ArmManager.cpp"
             ex="false"
             tool="1"
@@ -394,16 +405,6 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/modules/JointMover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/ManipResponder.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/modules/ManipResponder.h"
             ex="false"
             tool="3"
             flavor2="0">

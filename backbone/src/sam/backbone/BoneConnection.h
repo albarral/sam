@@ -22,14 +22,13 @@ class BoneConnection
 {
 protected:
     bool binitialized;              // flag to indicate connection parameters are set
-    Config oConfig;
     utils2::DBClient oDBClient;          // handler for database connections
 
 public:
     BoneConnection();
     
     // sets connection parameters for the database client handler
-    void init ();
+    void init (Config& oConfig);
     bool isInitialized() {return binitialized;};        
     // closes connection to DB
     void close();   

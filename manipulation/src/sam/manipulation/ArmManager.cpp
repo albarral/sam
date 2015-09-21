@@ -141,9 +141,9 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
-    oManipResponder.init(oConfig);
-    oManipResponder.connect(oBus);
-    oManipResponder.setFrequency(2);  // 2Hz
+    oArmComs.init(oConfig);
+    oArmComs.connect(oBus);
+    oArmComs.setFrequency(2);  // 2Hz
     
 //    oComsManip->init(oConfig);
 //    oComsManip->setFrequency(1); // 1Hz
@@ -183,8 +183,8 @@ void ArmManager::startModules()
 
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
-    if (oManipResponder.isEnabled() && oManipResponder.isConnected())
-        oManipResponder.on();
+    if (oArmComs.isEnabled() && oArmComs.isConnected())
+        oArmComs.on();
 //    if (oComsManip->isEnabled() && oComsManip->isConnected())    
 //        oComsManip->on();
 
@@ -200,8 +200,8 @@ void ArmManager::stopModules()
     int numJoints = oConfig.getNumJoints();    
 
     LOG4CXX_INFO(logger, ">> STOP level " << level);
-    oManipResponder.off();
-    oManipResponder.wait();
+    oArmComs.off();
+    oArmComs.wait();
 //    oComsManip->off();
     //oComsManip->wait();
 

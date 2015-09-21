@@ -17,7 +17,7 @@
 #include "sam/manipulation/modules/ArmMover.h"
 #include "sam/manipulation/modules/JointMover.h"
 #include "sam/manipulation/modules/JointControl.h"
-#include "sam/manipulation/modules/ManipResponder.h"
+#include "sam/manipulation/ArmComs.h"
 //#include "sam/manipulation/modules/ComsManip.h"
 
 namespace sam
@@ -37,7 +37,7 @@ class ArmManager
         JointMover oJointMover[SAM_MAX_JOINTS];
         JointControl oJointControl[SAM_MAX_JOINTS];
         ArmMover oArmMover;
-        ManipResponder oManipResponder;
+        ArmComs oArmComs;   // communications module for handling of arm control commands & sensor info
         //ComsManip* oComsManip;
         // system's IO
         //std::vector<float> listIstAngles;     // ist (sensed) joint angles
