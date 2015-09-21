@@ -22,11 +22,11 @@ class Config
         std::string dbPassword;
         std::string dbName;
 
-        std::string tabAreas;
-        std::string tabModules;
-        std::string tabSymbols;            
-        std::string tabControls;
-        std::string tabSenses;
+        // arm tables
+        std::string tabArmControl;
+        std::string tabArmSense;
+        std::string tabArmModules;
+        std::string tabArmItems;            
         
     public:
         Config();
@@ -36,11 +36,10 @@ class Config
         std::string getDBPassword() {return this->dbPassword;};
         std::string getDBName() {return this->dbName;};
 
-        std::string getTabAreas() {return tabAreas;};
-        std::string getTabModules() {return tabModules;};
-        std::string getTabSymbols() {return tabSymbols;};
-        std::string getTabControls() {return tabControls;};
-        std::string getTabSenses() {return tabSenses;};
+        std::string getTabArmControl() {return tabArmControl;};
+        std::string getTabArmSense() {return tabArmSense;};
+        std::string getTabArmModules() {return tabArmModules;};
+        std::string getTabArmItems() {return tabArmItems;};
 };
 
 }

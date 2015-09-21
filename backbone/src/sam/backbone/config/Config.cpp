@@ -17,11 +17,10 @@ Config::Config ()
     dbPassword = "sam";
     dbName = "SAM_BACKBONE";
    
-    tabAreas = "TAB_AREAS";
-    tabModules = "TAB_MODULES";
-    tabSymbols = " TAB_SYMBOLS";
-    tabControls = "TAB_CONTROL";
-    tabSenses = "TAB_SENSE";
+    tabArmControl = "TAB_ARM_CONTROL";
+    tabArmSense = "TAB_ARM_SENSE";
+    tabArmModules = "TAB_ARM_MODULES";
+    tabArmItems = " TAB_ARM_ITEMS";
 }
 
 }

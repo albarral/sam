@@ -3,19 +3,23 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "BoneModul.h"
+#include "BoneModule.h"
 
 namespace sam 
 {
-// complete constructor    
-BoneModul::BoneModul(int area, int module, std::string symbol)
+namespace backbone 
 {
-    this->area = area;
-    this->module = module;
-    this->symbol = symbol;
+// complete constructor    
+BoneModule::BoneModule(int ID, std::string name, std::string desc)
+{
+    this->ID = ID;
+    this->name = name;
+    this->description = desc;
 }
 
-BoneModul::~BoneModul()
+BoneModule::~BoneModule()
 {
+}
+
 }
 }
