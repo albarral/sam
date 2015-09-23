@@ -3,10 +3,11 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
+#include <cppconn/resultset.h>
+
 #include "ControlConnection.h"
 #include "sam/backbone/config/Config.h"
 
-#include <cppconn/resultset.h>
 
 namespace sam 
 {
@@ -38,10 +39,14 @@ void ControlConnection::tune2Table(std::string tabName)
     btuned = true;
 }
 
-void ControlConnection::readMessages()
+bool ControlConnection::readMessages()
 {        
     // clear messages list
     listMessages.clear();  
+    
+    // skip if not yet tuned
+    if (!isTuned())
+        return false;
     
     // connects to DB
     if (!oDBClient.isConnected())
@@ -54,11 +59,17 @@ void ControlConnection::readMessages()
        ControlMsg oControlMsg(res->getInt("module_id"), res->getInt("action_id"), res->getInt("detail"), res->getInt("priority"), res->getInt("processed"));
        listMessages.push_back(oControlMsg);
     }
+
+    return true;
  }
 
 
 bool ControlConnection::writeMessage(ControlMsg& oControlMsg)
 {
+    // skip if not yet tuned
+    if (!isTuned())
+        return false;
+
     // connects to DB 
     if (!oDBClient.isConnected())
         oDBClient.connect();

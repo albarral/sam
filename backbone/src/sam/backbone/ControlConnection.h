@@ -17,6 +17,7 @@ namespace sam
 namespace backbone 
 {
 // Class used for reading & writing messages to a backbone CONTROL table
+// Extends from BoneConnection    
 class ControlConnection : public BoneConnection
 {
 private:        
@@ -35,9 +36,9 @@ public:
     void tune2Table(std::string tabName);
     bool isTuned() {return btuned;};        
 
-    // Reads new messages from table
-    void readMessages();
-    // Writes a new message to the table
+    // Reads new messages from table. Returns true if ok, false otherwise.
+    bool readMessages();
+    // Writes a new message to the table. Returns true if ok, false otherwise.
     bool writeMessage(ControlMsg& oControlMsg);
     // Returns the list of read control messages
     std::vector<ControlMsg>& getListMessages() {return listMessages;}

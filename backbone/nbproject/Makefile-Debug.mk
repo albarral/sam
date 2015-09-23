@@ -35,12 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/sam/backbone/AreaConnection.o \
 	${OBJECTDIR}/src/sam/backbone/BoneConnection.o \
 	${OBJECTDIR}/src/sam/backbone/ControlConnection.o \
 	${OBJECTDIR}/src/sam/backbone/SensorConnection.o \
 	${OBJECTDIR}/src/sam/backbone/config/Config.o \
-	${OBJECTDIR}/src/sam/backbone/data/BoneItem.o \
-	${OBJECTDIR}/src/sam/backbone/data/BoneModule.o \
+	${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o \
 	${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o \
 	${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o
 
@@ -71,6 +71,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ${OB
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
+${OBJECTDIR}/src/sam/backbone/AreaConnection.o: src/sam/backbone/AreaConnection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/AreaConnection.o src/sam/backbone/AreaConnection.cpp
+
 ${OBJECTDIR}/src/sam/backbone/BoneConnection.o: src/sam/backbone/BoneConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
@@ -91,15 +96,10 @@ ${OBJECTDIR}/src/sam/backbone/config/Config.o: src/sam/backbone/config/Config.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/config/Config.o src/sam/backbone/config/Config.cpp
 
-${OBJECTDIR}/src/sam/backbone/data/BoneItem.o: src/sam/backbone/data/BoneItem.cpp 
+${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o: src/sam/backbone/data/BoneComponent.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneItem.o src/sam/backbone/data/BoneItem.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/BoneModule.o: src/sam/backbone/data/BoneModule.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneModule.o src/sam/backbone/data/BoneModule.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o src/sam/backbone/data/BoneComponent.cpp
 
 ${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o: src/sam/backbone/data/ControlMsg.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data

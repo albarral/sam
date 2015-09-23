@@ -16,7 +16,8 @@ namespace sam
 {
 namespace backbone 
 {
-// Class used for reading & writing messages to a backbone SENSOR table
+// Class used for reading & writing messages to a backbone's SENSE table
+// Extends from BoneConnection        
 class SensorConnection : public BoneConnection
 {
 private:        
@@ -35,9 +36,9 @@ public:
     void tune2Table(std::string tabName);
     bool isTuned() {return btuned;};        
 
-    // Reads new messages from table
-    void readMessages();
-    // Writes a new message to the table
+    // Reads new messages from SENSE table. Returns true if ok, false otherwise.
+    bool readMessages();
+    // Writes a new message to SENSE table. Returns true if ok, false otherwise.
     bool writeMessage(SensorMsg& oSensorMsg);
     // Returns the list of read control messages
     std::vector<SensorMsg>& getListMessages() {return listMessages;}

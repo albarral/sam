@@ -3,10 +3,10 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
+#include <cppconn/resultset.h>
+
 #include "SensorConnection.h"
 #include "sam/backbone/config/Config.h"
-
-#include <cppconn/resultset.h>
 
 namespace sam 
 {
@@ -27,11 +27,15 @@ void SensorConnection::tune2Table(std::string tabName)
     btuned = true;
 }
 
-void SensorConnection::readMessages()
+bool SensorConnection::readMessages()
 {        
     // clear messages list
     listMessages.clear();  
     
+    // skip if not yet tuned
+    if (!isTuned())
+        return false;
+
     // connects to DB
     if (!oDBClient.isConnected())
         oDBClient.connect();
@@ -43,10 +47,16 @@ void SensorConnection::readMessages()
        SensorMsg oSensorMsg(res->getInt("module_id"), res->getInt("sensor_id"), res->getInt("detail"), res->getInt("updates"));
        listMessages.push_back(oSensorMsg);
     }
+
+    return true;
  }
 
 bool SensorConnection::writeMessage(SensorMsg& oSensorMsg)
 {
+    // skip if not yet tuned
+    if (!isTuned())
+        return false;
+
     // connects to DB 
     if (!oDBClient.isConnected())
         oDBClient.connect();
@@ -63,20 +73,6 @@ bool SensorConnection::writeMessage(SensorMsg& oSensorMsg)
     
     return true;
 }
-
-//bool SensorConnection::nextMessage()
-//{
-//    // point to next message in the list
-//    index++;
-//    if (index < listMessages.size())
-//    {
-//        pSensorMsg = &listMessages.at(index);
-//        return true;
-//    }
-//    
-//    // if list finished, false is returned
-//    return false;
-//}
 
 }
 }

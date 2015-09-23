@@ -1,5 +1,5 @@
-#ifndef __SAM_BACKBONE_BONEITEM_H
-#define __SAM_BACKBONE_BONEITEM_H
+#ifndef __SAM_BACKBONE_BONECOMPONENT_H
+#define __SAM_BACKBONE_BONECOMPONENT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -12,17 +12,19 @@ namespace sam
 {  
 namespace backbone 
 {
-// Bean for TAB_XXX_ITEMS    
-class BoneItem
+// Bean for TAB_XXX_COMPONENTS    
+class BoneComponent
 {
 public:
-    enum eItemType
+    enum eType
     {
+        eTYPE_MODULE,
         eTYPE_ACTION,
         eTYPE_SENSOR
     };
-    const std::string actionType = "action";
-    const std::string sensorType = "sensor";
+    static const std::string moduleType;
+    static const std::string actionType;
+    static const std::string sensorType;
     
 private:
     int ID;                             // item ID
@@ -31,12 +33,13 @@ private:
     std::string description;    // item description
 
 public:    
-    BoneItem(int ID, int type, std::string name, std::string desc);
-    ~BoneItem();
+    BoneComponent(int ID, int type, std::string name, std::string desc);
+    ~BoneComponent();
 
     int getID() {return ID;};
-    bool isActionItem() {return (type.compare(actionType) == 0);};
-    bool isSensorItem() {return (type.compare(sensorType) == 0);};
+    bool isModule() {return (type.compare(moduleType) == 0);};
+    bool isAction() {return (type.compare(actionType) == 0);};
+    bool isSensor() {return (type.compare(sensorType) == 0);};
     std::string getName() {return name;};
     std::string getDescription() {return description;};
 };
