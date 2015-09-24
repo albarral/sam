@@ -44,14 +44,14 @@ bool SensorConnection::readMessages()
     sql::ResultSet* res = oDBClient.read(select);    
     while (res->next())
     {        
-       SensorMsg oSensorMsg(res->getInt("module_id"), res->getInt("sensor_id"), res->getInt("detail"), res->getInt("updates"));
+       network::SensorMsg oSensorMsg(res->getInt("module_id"), res->getInt("sensor_id"), res->getInt("detail"));
        listMessages.push_back(oSensorMsg);
     }
 
     return true;
  }
 
-bool SensorConnection::writeMessage(SensorMsg& oSensorMsg)
+bool SensorConnection::writeMessage(network::SensorMsg& oSensorMsg)
 {
     // skip if not yet tuned
     if (!isTuned())

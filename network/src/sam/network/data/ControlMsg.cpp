@@ -7,7 +7,7 @@
 
 namespace sam 
 {
-namespace backbone 
+namespace network
 {
 // complete constructor    
 ControlMsg::ControlMsg(int moduleID, int actionID, int detail, int priority, int processed)

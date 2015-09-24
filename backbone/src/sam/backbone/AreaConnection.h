@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "BoneConnection.h"
-#include "data/BoneComponent.h"
+#include "sam/network/data/AreaComponent.h"
 
 namespace sam 
 {
@@ -23,9 +23,9 @@ class AreaConnection : public BoneConnection
 private:        
     bool btuned;                            // flag to indicate the target table is set
     std::string tabComponents;      // name of COMPONENTS table
-    std::vector<BoneComponent> listModules;    // list of area modules
-    std::vector<BoneComponent> listControls;     // list of area controls
-    std::vector<BoneComponent> listSensors;    // list of area sensors
+    std::vector<network::AreaComponent> listModules;    // list of area modules
+    std::vector<network::AreaComponent> listControls;     // list of area controls
+    std::vector<network::AreaComponent> listSensors;    // list of area sensors
     std::string selectModules;                 // query for selecting the area modules
     std::string selectControls;                 // query for selecting the area modules
     std::string selectSensors;                 // query for selecting the area modules
@@ -41,11 +41,11 @@ public:
     bool readAreaComponents();
 
     // Returns the list of area modules
-    std::vector<BoneComponent>& getListModules() {return listModules;}
+    std::vector<network::AreaComponent>& getListModules() {return listModules;}
     // Returns the list of area controls
-    std::vector<BoneComponent>& getListControls() {return listControls;}
+    std::vector<network::AreaComponent>& getListControls() {return listControls;}
     // Returns the list of area sensors
-    std::vector<BoneComponent>& getListSensors() {return listSensors;}    
+    std::vector<network::AreaComponent>& getListSensors() {return listSensors;}    
 };
 }
 }

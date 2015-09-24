@@ -7,15 +7,15 @@
 
 namespace sam 
 {
-namespace backbone 
+namespace network
 {
 // complete constructor    
-SensorMsg::SensorMsg(int moduleID, int sensorID, int detail, int updates)
+SensorMsg::SensorMsg(int moduleID, int sensorID, int detail)
 {
     this->moduleID = moduleID;
     this->sensorID = sensorID;
     this->detail = detail;
-    this->updates = updates;
+//    this->updates = updates;
 }
 
 SensorMsg::~SensorMsg()
@@ -26,8 +26,8 @@ std::string SensorMsg::toString()
 {
     return ("SensorMsg: moduleID=" + std::to_string(moduleID) +  
             ", sensorID=" + std::to_string(sensorID) +  
-            ", detail=" + std::to_string(detail) + 
-            ", updates=" + std::to_string(updates));
+            ", detail=" + std::to_string(detail));
+//            + ", updates=" + std::to_string(updates));
 }
 
 }

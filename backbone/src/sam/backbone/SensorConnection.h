@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "BoneConnection.h"
-#include "data/SensorMsg.h"
+#include "sam/network/data/SensorMsg.h"
 
 namespace sam 
 {
@@ -24,7 +24,7 @@ private:
     bool btuned;                        // flag to indicate the target table is set
     std::string tabMessages;           // name of SENSOR table
     // logic
-    std::vector<SensorMsg> listMessages;    // unprocessed messages list
+    std::vector<network::SensorMsg> listMessages;    // unprocessed messages list
     std::string select;                 // query for selecting table registers
     std::string updateOK;           // query for updating a table register
     std::string updateKO;           // query for updating a table register
@@ -39,9 +39,9 @@ public:
     // Reads new messages from SENSE table. Returns true if ok, false otherwise.
     bool readMessages();
     // Writes a new message to SENSE table. Returns true if ok, false otherwise.
-    bool writeMessage(SensorMsg& oSensorMsg);
+    bool writeMessage(network::SensorMsg& oSensorMsg);
     // Returns the list of read control messages
-    std::vector<SensorMsg>& getListMessages() {return listMessages;}
+    std::vector<network::SensorMsg>& getListMessages() {return listMessages;}
     
     // return the number of read messages
     int getNumReadMessages() {return listMessages.size();};

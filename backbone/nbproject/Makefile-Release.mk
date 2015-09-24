@@ -39,10 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/backbone/BoneConnection.o \
 	${OBJECTDIR}/src/sam/backbone/ControlConnection.o \
 	${OBJECTDIR}/src/sam/backbone/SensorConnection.o \
-	${OBJECTDIR}/src/sam/backbone/config/Config.o \
-	${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o \
-	${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o \
-	${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o
+	${OBJECTDIR}/src/sam/backbone/config/Config.o
 
 
 # C Compiler Flags
@@ -93,21 +90,6 @@ ${OBJECTDIR}/src/sam/backbone/config/Config.o: src/sam/backbone/config/Config.cp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/config/Config.o src/sam/backbone/config/Config.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o: src/sam/backbone/data/BoneComponent.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o src/sam/backbone/data/BoneComponent.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o: src/sam/backbone/data/ControlMsg.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o src/sam/backbone/data/ControlMsg.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o: src/sam/backbone/data/SensorMsg.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o src/sam/backbone/data/SensorMsg.cpp
 
 # Subprojects
 .build-subprojects:

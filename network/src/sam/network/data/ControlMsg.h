@@ -1,5 +1,5 @@
-#ifndef __SAM_BACKBONE_CONTROLMSG_H
-#define __SAM_BACKBONE_CONTROLMSG_H
+#ifndef __SAM_NETWORK_CONTROLMSG_H
+#define __SAM_NETWORK_CONTROLMSG_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -10,9 +10,9 @@
 
 namespace sam 
 {
-namespace backbone 
+namespace network
 {
-// Bean for backbone control messages (stored at TAB_XXX_CONTROL)
+// Model class for network's control messages 
 class ControlMsg
 {
 public:    

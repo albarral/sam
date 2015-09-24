@@ -37,6 +37,7 @@ protected:
      // add initial & final quotes to a given string
     std::string addQuotes(std::string word) {return "'"+word+"'";};
 };
+
 }
 }
 

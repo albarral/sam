@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "BoneConnection.h"
-#include "data/ControlMsg.h"
+#include "sam/network/data/ControlMsg.h"
 
 namespace sam 
 {
@@ -24,7 +24,7 @@ private:
     bool btuned;                        // flag to indicate the target table is set
     std::string tabMessages;      // name of CONTROL table
     // logic
-    std::vector<ControlMsg> listMessages;    // unprocessed messages list
+    std::vector<network::ControlMsg> listMessages;    // unprocessed messages list
     std::string select;                 // query for selecting table registers
     std::string updateOK;           // query for updating a table register
     std::string updateKO;           // query for updating a table register
@@ -39,9 +39,9 @@ public:
     // Reads new messages from table. Returns true if ok, false otherwise.
     bool readMessages();
     // Writes a new message to the table. Returns true if ok, false otherwise.
-    bool writeMessage(ControlMsg& oControlMsg);
+    bool writeMessage(network::ControlMsg& oControlMsg);
     // Returns the list of read control messages
-    std::vector<ControlMsg>& getListMessages() {return listMessages;}
+    std::vector<network::ControlMsg>& getListMessages() {return listMessages;}
 
     
     // return the number of read messages

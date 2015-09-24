@@ -24,15 +24,15 @@ void AreaConnection::tune2Table(std::string tabName)
 
     // query for selecting area modules
     selectModules = "SELECT * FROM " + tabComponents 
-        + " where type = " + addQuotes(BoneComponent::moduleType);    
+        + " where type = " + addQuotes(network::AreaComponent::moduleType);    
     
     // query for selecting area actions
     selectControls = "SELECT * FROM " + tabComponents 
-        + " where type = " + addQuotes(BoneComponent::actionType);    
+        + " where type = " + addQuotes(network::AreaComponent::actionType);    
 
     // query for selecting area sensors
     selectSensors = "SELECT * FROM " + tabComponents 
-        + " where type = " + addQuotes(BoneComponent::sensorType);    
+        + " where type = " + addQuotes(network::AreaComponent::sensorType);    
 
     btuned = true;
 }
@@ -56,8 +56,8 @@ bool AreaConnection::readAreaComponents()
     sql::ResultSet* res = oDBClient.read(selectModules);    
     while (res->next())
     {        
-       BoneComponent oBoneComponent(res->getInt("id"), BoneComponent::eTYPE_MODULE, res->getString("name"), res->getString("description"));
-       listModules.push_back(oBoneComponent);
+       network::AreaComponent oAreaComponent(res->getInt("id"), network::AreaComponent::eTYPE_MODULE, res->getString("name"));
+       listModules.push_back(oAreaComponent);
     }
     delete res;
 
@@ -65,8 +65,8 @@ bool AreaConnection::readAreaComponents()
     res = oDBClient.read(selectControls);    
     while (res->next())
     {        
-       BoneComponent oBoneComponent(res->getInt("id"), BoneComponent::eTYPE_ACTION, res->getString("name"), res->getString("description"));
-       listControls.push_back(oBoneComponent);
+       network::AreaComponent oAreaComponent(res->getInt("id"), network::AreaComponent::eTYPE_ACTION, res->getString("name"));
+       listControls.push_back(oAreaComponent);
     }
     delete res;
 
@@ -74,8 +74,8 @@ bool AreaConnection::readAreaComponents()
     res = oDBClient.read(selectSensors);    
     while (res->next())
     {        
-       BoneComponent oBoneComponent(res->getInt("id"), BoneComponent::eTYPE_SENSOR, res->getString("name"), res->getString("description"));
-       listSensors.push_back(oBoneComponent);
+       network::AreaComponent oAreaComponent(res->getInt("id"), network::AreaComponent::eTYPE_SENSOR, res->getString("name"));
+       listSensors.push_back(oAreaComponent);
     }
     delete res;    
 

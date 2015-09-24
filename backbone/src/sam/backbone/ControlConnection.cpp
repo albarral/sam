@@ -24,16 +24,16 @@ void ControlConnection::tune2Table(std::string tabName)
 
     // query for selecting new messages of the area
     select = "SELECT * FROM " + tabMessages 
-        + " where processed = " + std::to_string(ControlMsg::eMSG_NEW);    
+        + " where processed = " + std::to_string(network::ControlMsg::eMSG_NEW);    
     
     // partial query (module needs to be informed)
     updateOK = "UPDATE " + tabMessages    
-        + " set processed = " + std::to_string(ControlMsg::eMSG_PROC_OK)
+        + " set processed = " + std::to_string(network::ControlMsg::eMSG_PROC_OK)
         + " where module_id = ";
 
     // partial query (module needs to be informed)
     updateKO = "UPDATE " + tabMessages 
-        + " set processed = " + std::to_string(ControlMsg::eMSG_PROC_FAILED)
+        + " set processed = " + std::to_string(network::ControlMsg::eMSG_PROC_FAILED)
         + " where module_id = ";
 
     btuned = true;
@@ -56,7 +56,7 @@ bool ControlConnection::readMessages()
     sql::ResultSet* res = oDBClient.read(select);    
     while (res->next())
     {        
-       ControlMsg oControlMsg(res->getInt("module_id"), res->getInt("action_id"), res->getInt("detail"), res->getInt("priority"), res->getInt("processed"));
+       network::ControlMsg oControlMsg(res->getInt("module_id"), res->getInt("action_id"), res->getInt("detail"), res->getInt("priority"), res->getInt("processed"));
        listMessages.push_back(oControlMsg);
     }
 
@@ -64,7 +64,7 @@ bool ControlConnection::readMessages()
  }
 
 
-bool ControlConnection::writeMessage(ControlMsg& oControlMsg)
+bool ControlConnection::writeMessage(network::ControlMsg& oControlMsg)
 {
     // skip if not yet tuned
     if (!isTuned())
@@ -79,7 +79,7 @@ bool ControlConnection::writeMessage(ControlMsg& oControlMsg)
          + " set action_id = " + std::to_string(oControlMsg.getActionID())
          + ", detail = " + std::to_string(oControlMsg.getDetail())
          + ", priority = " + std::to_string(oControlMsg.getPriority())
-         + ", proc = " + std::to_string(ControlMsg::eMSG_NEW)
+         + ", proc = " + std::to_string(network::ControlMsg::eMSG_NEW)
         + " where module_id = " + std::to_string(oControlMsg.getModuleID());
 
     oDBClient.write(update);    

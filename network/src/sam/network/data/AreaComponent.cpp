@@ -3,18 +3,18 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "BoneComponent.h"
+#include "AreaComponent.h"
 
 namespace sam 
 {
-namespace backbone 
+namespace network
 {
-const std::string BoneComponent::moduleType = "module";
-const std::string BoneComponent::actionType = "action";
-const std::string BoneComponent::sensorType = "sensor";
+const std::string AreaComponent::moduleType = "module";
+const std::string AreaComponent::actionType = "action";
+const std::string AreaComponent::sensorType = "sensor";
 
 // complete constructor    
-BoneComponent::BoneComponent(int ID, int type, std::string name, std::string desc)
+AreaComponent::AreaComponent(int ID, int type, std::string name)
 {
     this->ID = ID;
     // set type string 
@@ -38,10 +38,10 @@ BoneComponent::BoneComponent(int ID, int type, std::string name, std::string des
     }
             
     this->name = name;
-    this->description = desc;
+    //this->description = desc;
 }
 
-BoneComponent::~BoneComponent()
+AreaComponent::~AreaComponent()
 {
 }
 
