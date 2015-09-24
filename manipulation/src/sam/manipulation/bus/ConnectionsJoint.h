@@ -25,11 +25,11 @@ class ConnectionsJoint
 
         // CONTROLS (receiver modules)
         // JointMover 
-        goon::ControlT<int> CO_MOVE_ACTION;     // UP >> JointMover: received actions (move, brake, keep, stop)
+        goon::ControlT<int> CO_JMOVER_ACTION;     // UP >> JointMover: received actions (move, brake, keep, stop)
         // JointControl 
-        goon::ControlT<float> CO_SOLL_SPEED;    // JointMover >> JointControl: desired joint speed (degrees/s)
+        goon::ControlT<float> CO_JCONTROL_SPEED;    // JointMover >> JointControl: desired joint speed (degrees/s)
         // ArmManager
-        goon::ControlT<float> CO_SOLL_ANGLE;         // desired joint angle (degrees)
+        goon::ControlT<float> CO_JOINT_ANGLE;         // desired joint angle (degrees)
 
         // SENSORS (sender modules)        
         // ArmManager 
@@ -48,9 +48,9 @@ class ConnectionsJoint
         std::string& getJointName() {return jointName;};
 
         // controls
-        goon::ControlT<int>& getCO_MOVE_ACTION() {return CO_MOVE_ACTION;};        
-        goon::ControlT<float>& getCO_SOLL_SPEED() {return CO_SOLL_SPEED;};                
-        goon::ControlT<float>& getCO_SOLL_ANGLE() {return CO_SOLL_ANGLE;};                
+        goon::ControlT<int>& getCO_JMOVER_ACTION() {return CO_JMOVER_ACTION;};        
+        goon::ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
+        goon::ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
         // sensors
         goon::SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 

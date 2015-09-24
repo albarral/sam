@@ -10,7 +10,7 @@
 #include "sam/manipulation/modules/JointMover.h"
 #include "sam/backbone/config/Config.h"
 #include "sam/backbone/data/BoneModule.h"
-#include "sam/backbone/data/BoneItem.h"
+#include "sam/backbone/data/BoneComponent.h"
 
 
 using namespace log4cxx;
@@ -82,6 +82,8 @@ void ArmComs::loop()
 
 void ArmComs::checkControlMessages()
 {    
+    bool bprocessedOK;
+    
     // read messages from DB
     oArmControlConnection.readMessages();
     
@@ -92,13 +94,16 @@ void ArmComs::checkControlMessages()
     LOG4CXX_INFO(logger, "Messages read = " + oArmControlConnection.getNumReadMessages());    
     
     std::vector<backbone::ControlMsg>::iterator it_control = oArmControlConnection.getListMessages().begin();
-    std::vector<backbone::ControlMsg>::iterator end_controls = oArmControlConnection.getListMessages().end();
+    std::vector<backbone::ControlMsg>::iterator it_end = oArmControlConnection.getListMessages().end();
     
     // process each control message one by one
-    while (it_control != end_controls)
+    while (it_control != it_end)
     {
-        // send the appropriate control action to the corresponding module & mark them as processed or failed
-        if (sendControlAction(*it_control))
+        // send the appropriate control action to the corresponding module
+        bprocessedOK = launchControlAction(*it_control);
+        
+        // then mark message as processed or failed
+        if (bprocessedOK)
             oArmControlConnection.markMessageOk(it_control->getModuleID());
         else
             oArmControlConnection.markMessageFailed(it_control->getModuleID());
@@ -107,7 +112,7 @@ void ArmComs::checkControlMessages()
     }
  }
 
-bool ArmComs::sendControlAction(backbone::ControlMsg& oControlMsg)
+bool ArmComs::launchControlAction(backbone::ControlMsg& oControlMsg)
 {
     std::string targetModule;       // a module symbol
     std::string targetJoint;            // a joint name 
@@ -219,7 +224,7 @@ void ArmComs::send2JointMover(std::string command, std::string jointName)
     
     // write CO_MOVE_ACTION
     if (moverAction >=0 )        
-        pBus->getConnectionsJoint(jointName).getCO_MOVE_ACTION().request(moverAction);            
+        pBus->getConnectionsJoint(jointName).getCO_JMOVER_ACTION().request(moverAction);            
     else
         LOG4CXX_WARN(logger, "> unknown command!");
 }
@@ -231,7 +236,7 @@ void ArmComs::send2JointControl(int detail, std::string jointName)
 
     // WRITE CO_SOLL_SPEED
     float speed = detail;
-    pBus->getConnectionsJoint(jointName).getCO_SOLL_SPEED().request(speed);
+    pBus->getConnectionsJoint(jointName).getCO_JCONTROL_SPEED().request(speed);
 }
 
 
@@ -241,7 +246,7 @@ void ArmComs::send2DirectJoint(int detail, std::string jointName)
 
     // WRITE CO_SOLL_ANGLE
     float angle = detail;
-    pBus->getConnectionsJoint(jointName).getCO_SOLL_ANGLE().request(angle);
+    pBus->getConnectionsJoint(jointName).getCO_JOINT_ANGLE().request(angle);
 }
 
 

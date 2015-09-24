@@ -31,8 +31,11 @@ public:
     NetInterpreter ();
     ~NetInterpreter();
 
+    bool isEnabled() {return benabled;};
+    
     // adds new item to knowledge map
     void addKnowledgeItem (std::string netWord, int areaInfo);    
+    void clearKnowledge() {mapKnowledge.clear();};
     // builds translation map from list of predefined area components
     void buildTranslator(std::vector<AreaComponent>& listAreaComponents);    
 

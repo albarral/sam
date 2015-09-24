@@ -22,6 +22,10 @@
             <itemPath>src/sam/manipulation/bus/ConnectionsJoint.cpp</itemPath>
             <itemPath>src/sam/manipulation/bus/ConnectionsJoint.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="f2" displayName="coms" projectFiles="true">
+            <itemPath>src/sam/manipulation/coms/JointComs.cpp</itemPath>
+            <itemPath>src/sam/manipulation/coms/JointComs.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f1" displayName="config" projectFiles="true">
             <itemPath>src/sam/manipulation/config/Config.cpp</itemPath>
             <itemPath>src/sam/manipulation/config/Config.h</itemPath>
@@ -53,8 +57,6 @@
             <itemPath>src/sam/manipulation/utils/Responder.cpp</itemPath>
             <itemPath>src/sam/manipulation/utils/Responder.h</itemPath>
           </logicalFolder>
-          <itemPath>src/sam/manipulation/ArmComs.cpp</itemPath>
-          <itemPath>src/sam/manipulation/ArmComs.h</itemPath>
           <itemPath>src/sam/manipulation/ArmManager.cpp</itemPath>
           <itemPath>src/sam/manipulation/ArmManager.h</itemPath>
         </logicalFolder>
@@ -88,6 +90,7 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
+            <pElem>../network/src</pElem>
             <pElem>../backbone/src</pElem>
             <pElem>../utils/src</pElem>
             <pElem>../utils2/src</pElem>
@@ -96,6 +99,18 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_manip.${CND_DLIB_EXT}</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../network"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../network"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../backbone"
                             CT="2"
@@ -136,10 +151,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/sam/manipulation/ArmComs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/ArmComs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/sam/manipulation/ArmManager.cpp"
             ex="false"
             tool="1"
@@ -157,6 +168,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/bus/ConnectionsJoint.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/coms/JointComs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/coms/JointComs.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -288,10 +309,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/sam/manipulation/ArmComs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/sam/manipulation/ArmComs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/sam/manipulation/ArmManager.cpp"
             ex="false"
             tool="1"
@@ -309,6 +326,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/manipulation/bus/ConnectionsJoint.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/coms/JointComs.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/manipulation/coms/JointComs.h"
             ex="false"
             tool="3"
             flavor2="0">

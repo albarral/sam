@@ -83,11 +83,11 @@ void JointControl::senseBus()
 {
     // read CO_SOLL_ANGLE 
     // to get the last systembroad SOLL angle
-    pConnectionsJoint->getCO_SOLL_ANGLE().getValue(sollAngle);
+    pConnectionsJoint->getCO_JOINT_ANGLE().getValue(sollAngle);
     
     // read CO_SOLL_SPEED 
     // to check for new SOLL speed requests
-    if (pConnectionsJoint->getCO_SOLL_SPEED().checkRequested(sollSpeed))
+    if (pConnectionsJoint->getCO_JCONTROL_SPEED().checkRequested(sollSpeed))
         sollSpeed_ms = sollSpeed/1000.0;
 }
 
@@ -95,7 +95,7 @@ void JointControl::writeBus()
 {
     // write CO_SOLL_ANGLE
     // to request a new SOLL angle
-    pConnectionsJoint->getCO_SOLL_ANGLE().request(sollAngle);
+    pConnectionsJoint->getCO_JOINT_ANGLE().request(sollAngle);
     LOG4CXX_DEBUG(logger, "angle=" << (int)sollAngle);
     
     // write SO_REALSPEED

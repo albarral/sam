@@ -10,6 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../utils</make-dep-project>
+                <make-dep-project>../network</make-dep-project>
                 <make-dep-project>../utils2</make-dep-project>
                 <make-dep-project>../backbone</make-dep-project>
             </make-dep-projects>

@@ -116,7 +116,7 @@ void JointMover::senseBus()
     int reqCommand;
     // read CO_MOVE_ACTION 
     // to get action requests
-    if (pConnectionsJoint->getCO_MOVE_ACTION().checkRequested(reqCommand))
+    if (pConnectionsJoint->getCO_JMOVER_ACTION().checkRequested(reqCommand))
     {
         processActionRequest(reqCommand);
     }    
@@ -126,7 +126,7 @@ void JointMover::writeBus()
 {
     // write CO_SOLL_SPEED
     // to request new SOLL speed
-    pConnectionsJoint->getCO_SOLL_SPEED().request(speed);
+    pConnectionsJoint->getCO_JCONTROL_SPEED().request(speed);
     
     // just show output changes
     if(speed != lastOutput)

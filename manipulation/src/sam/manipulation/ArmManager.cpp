@@ -141,13 +141,10 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
-    oArmComs.init(oConfig);
-    oArmComs.connect(oBus);
-    oArmComs.setFrequency(2);  // 2Hz
+//    oArmComs.init(oConfig);
+//    oArmComs.connect(oBus);
+//    oArmComs.setFrequency(2);  // 2Hz
     
-//    oComsManip->init(oConfig);
-//    oComsManip->setFrequency(1); // 1Hz
-//    oComsManip->connect(oBus);    
 }
 
 
@@ -183,10 +180,8 @@ void ArmManager::startModules()
 
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
-    if (oArmComs.isEnabled() && oArmComs.isConnected())
-        oArmComs.on();
-//    if (oComsManip->isEnabled() && oComsManip->isConnected())    
-//        oComsManip->on();
+//    if (oArmComs.isEnabled() && oArmComs.isConnected())
+//        oArmComs.on();
 
 }
 
@@ -200,10 +195,8 @@ void ArmManager::stopModules()
     int numJoints = oConfig.getNumJoints();    
 
     LOG4CXX_INFO(logger, ">> STOP level " << level);
-    oArmComs.off();
-    oArmComs.wait();
-//    oComsManip->off();
-    //oComsManip->wait();
+//    oArmComs.off();
+//    oArmComs.wait();
 
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);
@@ -258,7 +251,7 @@ void ArmManager::readSollAngles()
     // for each joint, check if the commanded angle has changed & insert it into the soll list
     for (int i=0; i<numJoints; i++)
     {        
-        if (oBus.getConnectionsJointByIndex(i).getCO_SOLL_ANGLE().checkRequested(jointAngle))
+        if (oBus.getConnectionsJointByIndex(i).getCO_JOINT_ANGLE().checkRequested(jointAngle))
             listSollAngles[i] = jointAngle;
     }
 }

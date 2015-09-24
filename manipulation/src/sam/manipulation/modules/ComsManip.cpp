@@ -125,7 +125,7 @@ void ComsManip::sendJointCommand(int reqCommand)
         case manipulation::Commands::eJOINT_BRAKE:
         case manipulation::Commands::eJOINT_KEEP:
         case manipulation::Commands::eJOINT_STOP:            
-            pBus->getConnectionsJoint(activeJointName).getCO_MOVE_ACTION().request(reqCommand);            
+            pBus->getConnectionsJoint(activeJointName).getCO_JMOVER_ACTION().request(reqCommand);            
             break;
  
         case manipulation::Commands::eJOINT_USE1:
@@ -151,7 +151,7 @@ void ComsManip::sendJointAngle(int angleCommand)
 {
     float angle = angleCommand;
         
-    pBus->getConnectionsJoint(activeJointName).getCO_SOLL_ANGLE().request(angle);
+    pBus->getConnectionsJoint(activeJointName).getCO_JOINT_ANGLE().request(angle);
     LOG4CXX_INFO(logger, "angle=" << angleCommand);
 }
 

@@ -130,7 +130,7 @@ void ArmMover::senseBus()
 
 void ArmMover::writeBus(int command)
 {
-    pBus->getConnectionsJoint(jointName).getCO_MOVE_ACTION().request(command);
+    pBus->getConnectionsJoint(jointName).getCO_JMOVER_ACTION().request(command);
     
     LOG4CXX_DEBUG(logger, "command = " << command);
 }

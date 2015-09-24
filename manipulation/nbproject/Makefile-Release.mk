@@ -35,10 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/sam/manipulation/ArmComs.o \
 	${OBJECTDIR}/src/sam/manipulation/ArmManager.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/Bus.o \
 	${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o \
+	${OBJECTDIR}/src/sam/manipulation/coms/JointComs.o \
 	${OBJECTDIR}/src/sam/manipulation/config/Config.o \
 	${OBJECTDIR}/src/sam/manipulation/config/ParamsJoint.o \
 	${OBJECTDIR}/src/sam/manipulation/config/ParamsJointMover.o \
@@ -76,11 +76,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmanipulation.${CND_DLIB_EXT}: ${OB
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmanipulation.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/sam/manipulation/ArmComs.o: src/sam/manipulation/ArmComs.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/ArmComs.o src/sam/manipulation/ArmComs.cpp
-
 ${OBJECTDIR}/src/sam/manipulation/ArmManager.o: src/sam/manipulation/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation
 	${RM} "$@.d"
@@ -95,6 +90,11 @@ ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o: src/sam/manipulation/b
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/bus
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/bus/ConnectionsJoint.o src/sam/manipulation/bus/ConnectionsJoint.cpp
+
+${OBJECTDIR}/src/sam/manipulation/coms/JointComs.o: src/sam/manipulation/coms/JointComs.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/manipulation/coms/JointComs.o src/sam/manipulation/coms/JointComs.cpp
 
 ${OBJECTDIR}/src/sam/manipulation/config/Config.o: src/sam/manipulation/config/Config.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/manipulation/config

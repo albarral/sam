@@ -13,9 +13,10 @@
 #include <sam/utils/module2.h>
 #include "sam/manipulation/bus/Bus.h"
 #include "sam/manipulation/config/Config.h"
+#include "sam/backbone/AreaConnection.h"
 #include "sam/backbone/ControlConnection.h"
 //#include "sam/backbone/SensorConnection.h"
-#include "sam/backbone/data/ControlMsg.h"
+#include "sam/network/data/ControlMsg.h"
 
 namespace sam 
 {
@@ -29,11 +30,12 @@ private:
     bool bconnected;        // connected to bus
     manipulation::Bus* pBus;
     // logic
-    backbone::ControlConnection oArmControlConnection;
-    //backbone::SensorConnection oArmSensorConnection;
-    std::map<int, std::string> mapModules;    // map of manipulation modules <module_ID, module_name>
-    std::map<int, std::string> mapControls;    // map of manipulation controls <action_ID, action_name>
-    std::map<int, std::string> mapSensors;    // map of manipulation sensors <sensor_ID, sensor_name>
+    backbone::AreaConnection oArmAreaConnection;            // connection to backbone's arm components table
+    //backbone::ControlConnection oArmControlConnection;   // connection to backbone's arm controls table 
+    //backbone::SensorConnection oArmSensorConnection;   // connection to backbone's arm sensors table
+    std::map<std::string, int> mapBoneModules;    // map of backbone's arm modules <module_name, module_ID>
+    std::map<std::string, int> mapBoneControls;    // map of backbone's arm controls <action_name, action_ID>
+    std::map<std::string, int> mapBoneSensors;    // map of backbone's arm sensors <sensor_name, sensor_ID>
     std::vector<std::string> listJointNames;    // list of joints (not a reference to avoid colliding iterations)
     
 public:
@@ -56,7 +58,7 @@ private:
     // reads & processes new control messages for the arm
     void checkControlMessages();     
     // sends the received control command to the appropriate arm module. Returns true if ok, false if failed.
-    bool sendControlAction(backbone::ControlMsg& oControlMsg);
+    bool launchControlAction(network::ControlMsg& oControlMsg);
        
     // send command to ArmMover module
     void send2ArmMover(std::string command, int detail);
