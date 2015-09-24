@@ -39,10 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/backbone/BoneConnection.o \
 	${OBJECTDIR}/src/sam/backbone/ControlConnection.o \
 	${OBJECTDIR}/src/sam/backbone/SensorConnection.o \
-	${OBJECTDIR}/src/sam/backbone/config/Config.o \
-	${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o \
-	${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o \
-	${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o
+	${OBJECTDIR}/src/sam/backbone/config/Config.o
 
 
 # C Compiler Flags
@@ -59,11 +56,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../utils2/dist/Debug/GNU-Linux-x86 -L../utils2/dist/Debug/GNU-Linux-x86 -lsam_utils2 -lmysqlcppconn
+LDLIBSOPTIONS=-Wl,-rpath,../network/dist/Debug/GNU-Linux-x86 -L../network/dist/Debug/GNU-Linux-x86 -lsam_network -Wl,-rpath,../utils2/dist/Debug/GNU-Linux-x86 -L../utils2/dist/Debug/GNU-Linux-x86 -lsam_utils2 -lmysqlcppconn
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ../network/dist/Debug/GNU-Linux-x86/libsam_network.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ../utils2/dist/Debug/GNU-Linux-x86/libsam_utils2.so
 
@@ -74,45 +73,31 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ${OB
 ${OBJECTDIR}/src/sam/backbone/AreaConnection.o: src/sam/backbone/AreaConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/AreaConnection.o src/sam/backbone/AreaConnection.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/AreaConnection.o src/sam/backbone/AreaConnection.cpp
 
 ${OBJECTDIR}/src/sam/backbone/BoneConnection.o: src/sam/backbone/BoneConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/BoneConnection.o src/sam/backbone/BoneConnection.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/BoneConnection.o src/sam/backbone/BoneConnection.cpp
 
 ${OBJECTDIR}/src/sam/backbone/ControlConnection.o: src/sam/backbone/ControlConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/ControlConnection.o src/sam/backbone/ControlConnection.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/ControlConnection.o src/sam/backbone/ControlConnection.cpp
 
 ${OBJECTDIR}/src/sam/backbone/SensorConnection.o: src/sam/backbone/SensorConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/SensorConnection.o src/sam/backbone/SensorConnection.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/SensorConnection.o src/sam/backbone/SensorConnection.cpp
 
 ${OBJECTDIR}/src/sam/backbone/config/Config.o: src/sam/backbone/config/Config.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/config/Config.o src/sam/backbone/config/Config.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o: src/sam/backbone/data/BoneComponent.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/BoneComponent.o src/sam/backbone/data/BoneComponent.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o: src/sam/backbone/data/ControlMsg.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/ControlMsg.o src/sam/backbone/data/ControlMsg.cpp
-
-${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o: src/sam/backbone/data/SensorMsg.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o src/sam/backbone/data/SensorMsg.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/config/Config.o src/sam/backbone/config/Config.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../network && ${MAKE}  -f Makefile CONF=Debug
 	cd ../utils2 && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
@@ -122,6 +107,7 @@ ${OBJECTDIR}/src/sam/backbone/data/SensorMsg.o: src/sam/backbone/data/SensorMsg.
 
 # Subprojects
 .clean-subprojects:
+	cd ../network && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../utils2 && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
