@@ -56,26 +56,26 @@ void JointComs::setModuleInterpreter(std::vector<network::AreaComponent>& listAr
     oModuleInterpreter.addKnowledgeItem("JOINT_CONTROL_3", eJOINT_CONTROL);
     oModuleInterpreter.addKnowledgeItem("JOINT_CONTROL_4", eJOINT_CONTROL);
 
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_1", eJOINT_DIRECT);
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_2", eJOINT_DIRECT);
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_3", eJOINT_DIRECT);
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_4", eJOINT_DIRECT);
+    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_1", eJOINT_POSITION);
+    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_2", eJOINT_POSITION);
+    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_3", eJOINT_POSITION);
+    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_4", eJOINT_POSITION);
     
     oModuleInterpreter.buildTranslator(listAreaComponents);
     LOG4CXX_INFO(logger, "module interpreter set");          
 }
 
-void JointComs::setControlInterpreter(std::vector<network::AreaComponent>& listAreaComponents)
+void JointComs::setCommandInterpreter(std::vector<network::AreaComponent>& listAreaComponents)
 {
-    oControlInterpreter.clearKnowledge();
+    oCommandInterpreter.clearKnowledge();
 
-    oControlInterpreter.addKnowledgeItem("JMOVER_UP", JointMover::eMOV_POSITIVE);
-    oControlInterpreter.addKnowledgeItem("JMOVER_DOWN", JointMover::eMOV_NEGATIVE);
-    oControlInterpreter.addKnowledgeItem("JMOVER_KEEP", JointMover::eMOV_KEEP);
-    oControlInterpreter.addKnowledgeItem("JMOVER_BRAKE", JointMover::eMOV_BRAKE);
-    oControlInterpreter.addKnowledgeItem("JMOVER_STOP", JointMover::eMOV_STOP);
+    oCommandInterpreter.addKnowledgeItem("JMOVER_UP", JointMover::eMOV_POSITIVE);
+    oCommandInterpreter.addKnowledgeItem("JMOVER_DOWN", JointMover::eMOV_NEGATIVE);
+    oCommandInterpreter.addKnowledgeItem("JMOVER_KEEP", JointMover::eMOV_KEEP);
+    oCommandInterpreter.addKnowledgeItem("JMOVER_BRAKE", JointMover::eMOV_BRAKE);
+    oCommandInterpreter.addKnowledgeItem("JMOVER_STOP", JointMover::eMOV_STOP);
 
-    oControlInterpreter.buildTranslator(listAreaComponents);
+    oCommandInterpreter.buildTranslator(listAreaComponents);
     LOG4CXX_INFO(logger, "control interpreter set");          
 }
 
@@ -86,7 +86,7 @@ bool JointComs::processMessage(network::ControlMsg& oControlMsg)
     bool bsentOK = false;
     
     // check that interpreters are enabled
-    if (!oModuleInterpreter.isEnabled() || !oControlInterpreter.isEnabled())
+    if (!oModuleInterpreter.isEnabled() || !oCommandInterpreter.isEnabled())
     {
         LOG4CXX_ERROR(logger, "Interpreters disabled. Skip!");          
         return false;
@@ -111,29 +111,29 @@ bool JointComs::processMessage(network::ControlMsg& oControlMsg)
             
         case eJOINT_CONTROL:
             
-            bsentOK = send2JointControl(oControlMsg.getDetail());
+            bsentOK = send2JointControl((float)oControlMsg.getDetail());
             break;
             
-        case eJOINT_DIRECT:
+        case eJOINT_POSITION:
             
-            bsentOK = send2DirectJoint(oControlMsg.getDetail());
+            bsentOK = send2JointPos((float)oControlMsg.getDetail());
             break;
     }
     
     return bsentOK;
 }
 
-bool JointComs::send2JointMover(int netAction)
+bool JointComs::send2JointMover(int networkCommand)
 {            
-    LOG4CXX_INFO(logger, "send to JointMover - action = " << netAction);    
+    LOG4CXX_INFO(logger, "send to JointMover - action = " << networkCommand);    
     int moverAction;
     
     // check that target module is valid
-    if (oControlInterpreter.checkNetInfo(netAction))    
-        moverAction = oControlInterpreter.getAreaInfo();
+    if (oCommandInterpreter.checkNetInfo(networkCommand))    
+        moverAction = oCommandInterpreter.getAreaInfo();
     else
     {
-        LOG4CXX_ERROR(logger, "Invalid target action " << netAction << ". Skip!");          
+        LOG4CXX_ERROR(logger, "Invalid target action " << networkCommand << ". Skip!");          
         return false;        
     }
 
@@ -142,22 +142,20 @@ bool JointComs::send2JointMover(int netAction)
 }
 
 
-bool JointComs::send2JointControl(int detail)
+bool JointComs::send2JointControl(float jointSpeed)
 {
-    LOG4CXX_INFO(logger, "send to JointControl - speed = " << detail);    
+    LOG4CXX_INFO(logger, "send to JointControl - speed = " << jointSpeed);    
 
-    float speed = detail;
-    pCO_JCONTROL_SPEED->request(speed);
+    pCO_JCONTROL_SPEED->request(jointSpeed);
     return true;
 }
 
 
-bool JointComs::send2DirectJoint(int detail)
+bool JointComs::send2JointPos(float jointAngle)
 {
-    LOG4CXX_INFO(logger, "send to JointControl - angle = " << detail);    
+    LOG4CXX_INFO(logger, "send to JointControl - angle = " << jointAngle);    
 
-    float angle = detail;
-    pCO_JOINT_ANGLE->request(angle);
+    pCO_JOINT_ANGLE->request(jointAngle);
     return true;
 }
 

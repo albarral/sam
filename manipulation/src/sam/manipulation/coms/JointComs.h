@@ -23,7 +23,7 @@ class JointComs
 public:
     enum eJointModules
     {
-        eJOINT_DIRECT,  
+        eJOINT_POSITION,  
         eJOINT_CONTROL,        
         eJOINT_MOVER                
     };
@@ -33,7 +33,7 @@ private:
     bool benabled;
     std::string jointName;         // joint for which it responds
     network::NetInterpreter oModuleInterpreter;     // network interpreter for module codes
-    network::NetInterpreter oControlInterpreter;    // network interpreter for control codes         
+    network::NetInterpreter oCommandInterpreter;    // network interpreter for control codes         
     goon::ControlT<int>* pCO_JMOVER_ACTION;         // JointMover commands
     goon::ControlT<float>* pCO_JCONTROL_SPEED;    // JointControl commands
     goon::ControlT<float>* pCO_JOINT_ANGLE;           // Direct joint commands
@@ -41,24 +41,24 @@ private:
 public:
     JointComs ();
     ~JointComs();
-
+    
     // module params
     void init (std::string jointName, manipulation::Bus& oBus);       
     bool isEnabled() {return benabled;};
 
     void setModuleInterpreter(std::vector<network::AreaComponent>& listAreaComponents);
-    void setControlInterpreter(std::vector<network::AreaComponent>& listAreaComponents);
+    void setCommandInterpreter(std::vector<network::AreaComponent>& listAreaComponents);
 
     // sends the received control command to the appropriate module. Returns true if ok, false if failed.
     bool processMessage(network::ControlMsg& oControlMsg);
 
 private:    
     // send command to JointMover module. Returns true if ok, false otherwise. 
-    bool send2JointMover(int netAction);
+    bool send2JointMover(int networkCommand);
     // send command to JointControl module. Returns true if ok, false otherwise
-    bool send2JointControl(int detail);
+    bool send2JointControl(float jointSpeed);
     // send position command directly to joint. Returns true if ok, false otherwise 
-    bool send2DirectJoint(int detail);
+    bool send2JointPos(float jointAngle);
 };
 }		
 #endif
