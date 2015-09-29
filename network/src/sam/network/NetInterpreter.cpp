@@ -18,66 +18,66 @@ NetInterpreter::NetInterpreter ()
     bknown = false;
 }
 
-void NetInterpreter::addKnowledgeItem(std::string netWord, int areaInfo)
+void NetInterpreter::addElement(std::string networkCodename, int areaCode)
 {
-    mapKnowledge.emplace(netWord, areaInfo);
+    mapDictionary.emplace(networkCodename, areaCode);
     
     // disable interpreter till map translation is rebuilt
     if (benabled)
         benabled = false;
 }
 
-void NetInterpreter::buildTranslator(std::vector<AreaComponent>& listAreaComponents)
+void NetInterpreter::updateTranslator(std::vector<NetworkCode>& listNetworkCodes)
 {
-    // For each element in knowledge map: search corresponding numeric info for the component's name.
-    // Then replicate the element in the translation map, but with its numeric network value instead of the word.
+    // For each element in the dictionary: 
+    // search its corresponding code ID and replicate it the translation map with its numeric value
 
     // first clear the translation map
-    mapTranslator.clear();
+    mapTranslate.clear();
 
     // then do the search
-    int componentID;
-    for (auto& element: mapKnowledge)
+    int networkCodeID;
+    for (auto& element: mapDictionary)
     {
-        componentID = searchComponentByName(element.first, listAreaComponents);
+        networkCodeID = searchCodeByName(element.first, listNetworkCodes);
         // if found, add translation element
-        if (componentID != -1)
-            mapTranslator.emplace(componentID, element.second);            
+        if (networkCodeID != -1)
+            mapTranslate.emplace(networkCodeID, element.second);            
     }        
     
     // enable interpreter if we have a filled translation map
-    if (mapTranslator.size() > 0)
+    if (mapTranslate.size() > 0)
         benabled = true;
 }
 
-int NetInterpreter::searchComponentByName(std::string netWord, std::vector<AreaComponent>& listAreaComponents)
+int NetInterpreter::searchCodeByName(std::string codename, std::vector<NetworkCode>& listNetworkCodes)
 {
-    int componentID = -1;
+    int codeID = -1;
     // walk the list of components searching for the given name
-    for (auto& component : listAreaComponents)
+    for (auto& networkCode : listNetworkCodes)
     {
         // if component found, store its ID & quit search
-        if (netWord.compare(component.getName()) == 0)
+        if (codename.compare(networkCode.getName()) == 0)
         {
-            componentID = component.getID();
+            codeID = networkCode.getID();
             break;
         }
     }
 
-    return componentID;
+    return codeID;
 }
 
-bool NetInterpreter::checkNetInfo(int netInfo)
+bool NetInterpreter::translateNetworkCode(int networkCodeID)
 {
     std::map<int, int>::iterator it_translation; 
     
     // search network info in translation map
-    it_translation = mapTranslator.find(netInfo);
+    it_translation = mapTranslate.find(networkCodeID);
     // if found, store corresponding area info 
-    if (it_translation != mapTranslator.end())
+    if (it_translation != mapTranslate.end())
     {
         bknown = true;
-        areaInfo = it_translation->second;        
+        areaCode = it_translation->second;        
     }
     else 
         bknown = false;

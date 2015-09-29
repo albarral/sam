@@ -36,8 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/network/NetInterpreter.o \
-	${OBJECTDIR}/src/sam/network/data/AreaComponent.o \
 	${OBJECTDIR}/src/sam/network/data/ControlMsg.o \
+	${OBJECTDIR}/src/sam/network/data/NetworkCode.o \
 	${OBJECTDIR}/src/sam/network/data/SensorMsg.o
 
 
@@ -70,15 +70,15 @@ ${OBJECTDIR}/src/sam/network/NetInterpreter.o: src/sam/network/NetInterpreter.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/NetInterpreter.o src/sam/network/NetInterpreter.cpp
 
-${OBJECTDIR}/src/sam/network/data/AreaComponent.o: src/sam/network/data/AreaComponent.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/AreaComponent.o src/sam/network/data/AreaComponent.cpp
-
 ${OBJECTDIR}/src/sam/network/data/ControlMsg.o: src/sam/network/data/ControlMsg.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/ControlMsg.o src/sam/network/data/ControlMsg.cpp
+
+${OBJECTDIR}/src/sam/network/data/NetworkCode.o: src/sam/network/data/NetworkCode.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/NetworkCode.o src/sam/network/data/NetworkCode.cpp
 
 ${OBJECTDIR}/src/sam/network/data/SensorMsg.o: src/sam/network/data/SensorMsg.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data

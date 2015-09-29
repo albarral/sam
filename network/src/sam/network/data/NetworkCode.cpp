@@ -3,33 +3,33 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "AreaComponent.h"
+#include "NetworkCode.h"
 
 namespace sam 
 {
 namespace network
 {
-const std::string AreaComponent::moduleType = "module";
-const std::string AreaComponent::actionType = "action";
-const std::string AreaComponent::sensorType = "sensor";
+const std::string NetworkCode::typeModule = "module";
+const std::string NetworkCode::typeAction = "action";
+const std::string NetworkCode::typeSensor = "sensor";
 
 // complete constructor    
-AreaComponent::AreaComponent(int ID, int type, std::string name)
+NetworkCode::NetworkCode(int ID, int type, std::string name)
 {
     this->ID = ID;
     // set type string 
     switch (type)
     {
         case eTYPE_MODULE:
-            this->type = moduleType;
+            this->type = typeModule;
             break;
 
         case eTYPE_ACTION:
-            this->type = actionType;
+            this->type = typeAction;
             break;
             
         case eTYPE_SENSOR:
-            this->type = sensorType;
+            this->type = typeSensor;
             break;
             
         default:
@@ -38,10 +38,9 @@ AreaComponent::AreaComponent(int ID, int type, std::string name)
     }
             
     this->name = name;
-    //this->description = desc;
 }
 
-AreaComponent::~AreaComponent()
+NetworkCode::~NetworkCode()
 {
 }
 

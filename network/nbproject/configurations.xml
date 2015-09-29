@@ -15,10 +15,10 @@
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="network" displayName="network" projectFiles="true">
           <logicalFolder name="data" displayName="data" projectFiles="true">
-            <itemPath>src/sam/network/data/AreaComponent.cpp</itemPath>
-            <itemPath>src/sam/network/data/AreaComponent.h</itemPath>
             <itemPath>src/sam/network/data/ControlMsg.cpp</itemPath>
             <itemPath>src/sam/network/data/ControlMsg.h</itemPath>
+            <itemPath>src/sam/network/data/NetworkCode.cpp</itemPath>
+            <itemPath>src/sam/network/data/NetworkCode.h</itemPath>
             <itemPath>src/sam/network/data/SensorMsg.cpp</itemPath>
             <itemPath>src/sam/network/data/SensorMsg.h</itemPath>
           </logicalFolder>
@@ -65,22 +65,19 @@
       </item>
       <item path="src/sam/network/NetInterpreter.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/network/data/AreaComponent.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/network/data/AreaComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/network/data/ControlMsg.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/network/data/ControlMsg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/network/data/NetworkCode.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/data/NetworkCode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/network/data/SensorMsg.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -111,22 +108,19 @@
       </item>
       <item path="src/sam/network/NetInterpreter.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/network/data/AreaComponent.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/network/data/AreaComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/sam/network/data/ControlMsg.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="src/sam/network/data/ControlMsg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/network/data/NetworkCode.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/data/NetworkCode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/network/data/SensorMsg.cpp" ex="false" tool="1" flavor2="0">
       </item>
