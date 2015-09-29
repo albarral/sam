@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "BoneConnection.h"
+#include "BaseConnection.h"
 #include "sam/network/data/SensorMsg.h"
 
 namespace sam 
@@ -17,8 +17,8 @@ namespace sam
 namespace backbone 
 {
 // Class used for reading & writing messages to a backbone's SENSE table
-// Extends from BoneConnection        
-class SensorConnection : public BoneConnection
+// Extends from BaseConnection        
+class SensorConnection : public BaseConnection
 {
 private:        
     bool btuned;                        // flag to indicate the target table is set

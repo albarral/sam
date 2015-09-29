@@ -1,5 +1,5 @@
-#ifndef __SAM_NETWORK_AREACOMPONENT_H
-#define __SAM_NETWORK_AREACOMPONENT_H
+#ifndef __SAM_NETWORK_NETWORKCODE_H
+#define __SAM_NETWORK_NETWORKCODE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

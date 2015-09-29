@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/sam/backbone/AreaConnection.o \
-	${OBJECTDIR}/src/sam/backbone/BoneConnection.o \
+	${OBJECTDIR}/src/sam/backbone/BaseConnection.o \
+	${OBJECTDIR}/src/sam/backbone/CodesConnection.o \
 	${OBJECTDIR}/src/sam/backbone/ControlConnection.o \
 	${OBJECTDIR}/src/sam/backbone/SensorConnection.o \
 	${OBJECTDIR}/src/sam/backbone/config/Config.o
@@ -70,15 +70,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ${OB
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/sam/backbone/AreaConnection.o: src/sam/backbone/AreaConnection.cpp 
+${OBJECTDIR}/src/sam/backbone/BaseConnection.o: src/sam/backbone/BaseConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/AreaConnection.o src/sam/backbone/AreaConnection.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/BaseConnection.o src/sam/backbone/BaseConnection.cpp
 
-${OBJECTDIR}/src/sam/backbone/BoneConnection.o: src/sam/backbone/BoneConnection.cpp 
+${OBJECTDIR}/src/sam/backbone/CodesConnection.o: src/sam/backbone/CodesConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/BoneConnection.o src/sam/backbone/BoneConnection.cpp
+	$(COMPILE.cc) -g -Isrc -I../network/src -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/backbone/CodesConnection.o src/sam/backbone/CodesConnection.cpp
 
 ${OBJECTDIR}/src/sam/backbone/ControlConnection.o: src/sam/backbone/ControlConnection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/backbone

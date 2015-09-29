@@ -18,10 +18,10 @@
             <itemPath>src/sam/backbone/config/Config.cpp</itemPath>
             <itemPath>src/sam/backbone/config/Config.h</itemPath>
           </logicalFolder>
-          <itemPath>src/sam/backbone/AreaConnection.cpp</itemPath>
-          <itemPath>src/sam/backbone/AreaConnection.h</itemPath>
-          <itemPath>src/sam/backbone/BoneConnection.cpp</itemPath>
-          <itemPath>src/sam/backbone/BoneConnection.h</itemPath>
+          <itemPath>src/sam/backbone/BaseConnection.cpp</itemPath>
+          <itemPath>src/sam/backbone/BaseConnection.h</itemPath>
+          <itemPath>src/sam/backbone/CodesConnection.cpp</itemPath>
+          <itemPath>src/sam/backbone/CodesConnection.h</itemPath>
           <itemPath>src/sam/backbone/ControlConnection.cpp</itemPath>
           <itemPath>src/sam/backbone/ControlConnection.h</itemPath>
           <itemPath>src/sam/backbone/SensorConnection.cpp</itemPath>
@@ -92,19 +92,19 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/sam/backbone/AreaConnection.cpp"
+      <item path="src/sam/backbone/BaseConnection.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/backbone/AreaConnection.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/backbone/BaseConnection.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/backbone/BoneConnection.cpp"
+      <item path="src/sam/backbone/CodesConnection.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/backbone/BoneConnection.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/backbone/CodesConnection.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/backbone/ControlConnection.cpp"
             ex="false"
@@ -151,19 +151,19 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/sam/backbone/AreaConnection.cpp"
+      <item path="src/sam/backbone/BaseConnection.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/backbone/AreaConnection.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/backbone/BaseConnection.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/backbone/BoneConnection.cpp"
+      <item path="src/sam/backbone/CodesConnection.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/sam/backbone/BoneConnection.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/backbone/CodesConnection.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/backbone/ControlConnection.cpp"
             ex="false"

@@ -3,18 +3,18 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include "BoneConnection.h"
+#include "BaseConnection.h"
 
 namespace sam 
 {  
 namespace backbone 
 {
-BoneConnection::BoneConnection() 
+BaseConnection::BaseConnection() 
 {
     binitialized = false;
 }
 
-void BoneConnection::init(Config& oConfig)
+void BaseConnection::init(Config& oConfig)
 {
     // sets database connection params
     oDBClient.setURL(oConfig.getDBServerUrl());
@@ -22,7 +22,7 @@ void BoneConnection::init(Config& oConfig)
     binitialized = true;
 }
 
-void BoneConnection::close()
+void BaseConnection::close()
 {
     if (oDBClient.isConnected())
         oDBClient.disconnect();

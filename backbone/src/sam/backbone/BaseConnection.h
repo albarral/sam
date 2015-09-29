@@ -1,5 +1,5 @@
-#ifndef __SAM_BACKBONE_BONECONNECTION_H
-#define __SAM_BACKBONE_BONECONNECTION_H
+#ifndef __SAM_BACKBONE_BASECONNECTION_H
+#define __SAM_BACKBONE_BASECONNECTION_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -18,14 +18,14 @@ namespace backbone
 // Base class for management of backbone communication.
 // It handles connections to the backbone DB.
 // Call to init() needs to be done to use it.    
-class BoneConnection
+class BaseConnection
 {
 protected:
     bool binitialized;              // flag to indicate connection parameters are set
     utils2::DBClient oDBClient;          // handler for database connections
 
 public:
-    BoneConnection();
+    BaseConnection();
     
     // sets connection parameters for the database client handler
     void init (Config& oConfig);
