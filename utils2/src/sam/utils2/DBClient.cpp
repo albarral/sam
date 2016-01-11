@@ -10,12 +10,15 @@ namespace sam
 {
 namespace utils2 
 {
-DBClient::DBClient() 
+DBClient::DBClient(std::string url, std::string schema, std::string user, std::string password) 
 {
-    binitialized = false;
-    setURL("tcp://127.0.0.1:3306"); // default URL for mysql server
+    this->url = url;
+    this->schema =schema;
+    this->user = user;
+    this->password = password;
+
     // init pointers
-    driver = 0;
+    driver = get_driver_instance();
     con = 0;
     stmt = 0;
     res = 0;
@@ -31,15 +34,6 @@ DBClient::~DBClient()
         delete stmt;
     if (res != 0)
         delete res;        
-}
-
-void DBClient::init(std::string schema, std::string user, std::string password)
-{
-    this->schema =schema;
-    this->user = user;
-    this->password = password;
-    driver = get_driver_instance();
-    binitialized = true;    
 }
 
 void DBClient::connect()
@@ -106,5 +100,6 @@ void DBClient::rollback()
     if (isConnected())
        con->rollback();
 }
+
 }
 }

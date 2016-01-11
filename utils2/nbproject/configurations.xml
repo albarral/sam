@@ -13,9 +13,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
-        <logicalFolder name="f1" displayName="utils2" projectFiles="true">
-          <itemPath>src/utils2/DBClient.cpp</itemPath>
-          <itemPath>src/utils2/DBClient.h</itemPath>
+        <logicalFolder name="utils2" displayName="utils2" projectFiles="true">
+          <itemPath>src/sam/utils2/DBClient.cpp</itemPath>
+          <itemPath>src/sam/utils2/DBClient.h</itemPath>
+          <itemPath>src/sam/utils2/DBConnection.cpp</itemPath>
+          <itemPath>src/sam/utils2/DBConnection.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -43,6 +45,11 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils2.${CND_DLIB_EXT}</output>
           <linkerLibItems>
@@ -50,9 +57,13 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/utils2/DBClient.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/utils2/DBClient.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils2/DBClient.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/utils2/DBClient.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/utils2/DBConnection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/utils2/DBConnection.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -75,9 +86,13 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/utils2/DBClient.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/utils2/DBClient.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils2/DBClient.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/utils2/DBClient.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/utils2/DBConnection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/utils2/DBConnection.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

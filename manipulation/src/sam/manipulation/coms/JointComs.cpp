@@ -42,40 +42,40 @@ void JointComs::init(std::string jointName, manipulation::Bus& oBus)
     LOG4CXX_INFO(logger, "Initialized");          
 }
 
-void JointComs::setModuleInterpreter(std::vector<network::AreaComponent>& listAreaComponents)
+void JointComs::setModuleInterpreter(std::vector<network::NetworkCode>& listAreaComponents)
 {
-    oModuleInterpreter.clearKnowledge();
+    oModuleInterpreter.clearDictionary();
     
-    oModuleInterpreter.addKnowledgeItem("JOINT_MOVER_1", eJOINT_MOVER);
-    oModuleInterpreter.addKnowledgeItem("JOINT_MOVER_2", eJOINT_MOVER);
-    oModuleInterpreter.addKnowledgeItem("JOINT_MOVER_3", eJOINT_MOVER);
-    oModuleInterpreter.addKnowledgeItem("JOINT_MOVER_4", eJOINT_MOVER);
+    oModuleInterpreter.addElement("JOINT_MOVER_1", eJOINT_MOVER);
+    oModuleInterpreter.addElement("JOINT_MOVER_2", eJOINT_MOVER);
+    oModuleInterpreter.addElement("JOINT_MOVER_3", eJOINT_MOVER);
+    oModuleInterpreter.addElement("JOINT_MOVER_4", eJOINT_MOVER);
     
-    oModuleInterpreter.addKnowledgeItem("JOINT_CONTROL_1", eJOINT_CONTROL);
-    oModuleInterpreter.addKnowledgeItem("JOINT_CONTROL_2", eJOINT_CONTROL);
-    oModuleInterpreter.addKnowledgeItem("JOINT_CONTROL_3", eJOINT_CONTROL);
-    oModuleInterpreter.addKnowledgeItem("JOINT_CONTROL_4", eJOINT_CONTROL);
+    oModuleInterpreter.addElement("JOINT_CONTROL_1", eJOINT_CONTROL);
+    oModuleInterpreter.addElement("JOINT_CONTROL_2", eJOINT_CONTROL);
+    oModuleInterpreter.addElement("JOINT_CONTROL_3", eJOINT_CONTROL);
+    oModuleInterpreter.addElement("JOINT_CONTROL_4", eJOINT_CONTROL);
 
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_1", eJOINT_POSITION);
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_2", eJOINT_POSITION);
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_3", eJOINT_POSITION);
-    oModuleInterpreter.addKnowledgeItem("JOINT_ANGLE_4", eJOINT_POSITION);
+    oModuleInterpreter.addElement("JOINT_ANGLE_1", eJOINT_POSITION);
+    oModuleInterpreter.addElement("JOINT_ANGLE_2", eJOINT_POSITION);
+    oModuleInterpreter.addElement("JOINT_ANGLE_3", eJOINT_POSITION);
+    oModuleInterpreter.addElement("JOINT_ANGLE_4", eJOINT_POSITION);
     
-    oModuleInterpreter.buildTranslator(listAreaComponents);
+    oModuleInterpreter.updateTranslator(listAreaComponents);
     LOG4CXX_INFO(logger, "module interpreter set");          
 }
 
-void JointComs::setCommandInterpreter(std::vector<network::AreaComponent>& listAreaComponents)
+void JointComs::setCommandInterpreter(std::vector<network::NetworkCode>& listAreaComponents)
 {
-    oCommandInterpreter.clearKnowledge();
+    oCommandInterpreter.clearDictionary();
 
-    oCommandInterpreter.addKnowledgeItem("JMOVER_UP", JointMover::eMOV_POSITIVE);
-    oCommandInterpreter.addKnowledgeItem("JMOVER_DOWN", JointMover::eMOV_NEGATIVE);
-    oCommandInterpreter.addKnowledgeItem("JMOVER_KEEP", JointMover::eMOV_KEEP);
-    oCommandInterpreter.addKnowledgeItem("JMOVER_BRAKE", JointMover::eMOV_BRAKE);
-    oCommandInterpreter.addKnowledgeItem("JMOVER_STOP", JointMover::eMOV_STOP);
+    oCommandInterpreter.addElement("JMOVER_UP", JointMover::eMOV_POSITIVE);
+    oCommandInterpreter.addElement("JMOVER_DOWN", JointMover::eMOV_NEGATIVE);
+    oCommandInterpreter.addElement("JMOVER_KEEP", JointMover::eMOV_KEEP);
+    oCommandInterpreter.addElement("JMOVER_BRAKE", JointMover::eMOV_BRAKE);
+    oCommandInterpreter.addElement("JMOVER_STOP", JointMover::eMOV_STOP);
 
-    oCommandInterpreter.buildTranslator(listAreaComponents);
+    oCommandInterpreter.updateTranslator(listAreaComponents);
     LOG4CXX_INFO(logger, "control interpreter set");          
 }
 
@@ -93,8 +93,8 @@ bool JointComs::processMessage(network::ControlMsg& oControlMsg)
     }
 
     // check that target module is valid
-    if (oModuleInterpreter.checkNetInfo(oControlMsg.getModuleID()))    
-        targetModule = oModuleInterpreter.getAreaInfo();
+    if (oModuleInterpreter.translateNetworkCode(oControlMsg.getModuleID()))    
+        targetModule = oModuleInterpreter.getAreaCode();
     else
     {
         LOG4CXX_ERROR(logger, "Invalid target module " << oControlMsg.getModuleID() << ". Skip!");          
@@ -129,8 +129,8 @@ bool JointComs::send2JointMover(int networkCommand)
     int moverAction;
     
     // check that target module is valid
-    if (oCommandInterpreter.checkNetInfo(networkCommand))    
-        moverAction = oCommandInterpreter.getAreaInfo();
+    if (oCommandInterpreter.translateNetworkCode(networkCommand))    
+        moverAction = oCommandInterpreter.getAreaCode();
     else
     {
         LOG4CXX_ERROR(logger, "Invalid target action " << networkCommand << ". Skip!");          

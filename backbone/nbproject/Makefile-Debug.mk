@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -56,15 +56,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../network/dist/Debug/GNU-Linux-x86 -L../network/dist/Debug/GNU-Linux-x86 -lsam_network -Wl,-rpath,../utils2/dist/Debug/GNU-Linux-x86 -L../utils2/dist/Debug/GNU-Linux-x86 -lsam_utils2 -lmysqlcppconn
+LDLIBSOPTIONS=-Wl,-rpath,../network/dist/Debug/GNU-Linux -L../network/dist/Debug/GNU-Linux -lsam_network -Wl,-rpath,../utils2/dist/Debug/GNU-Linux -L../utils2/dist/Debug/GNU-Linux -lsam_utils2 -lmysqlcppconn
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ../network/dist/Debug/GNU-Linux-x86/libsam_network.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ../network/dist/Debug/GNU-Linux/libsam_network.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ../utils2/dist/Debug/GNU-Linux-x86/libsam_utils2.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ../utils2/dist/Debug/GNU-Linux/libsam_utils2.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_backbone.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

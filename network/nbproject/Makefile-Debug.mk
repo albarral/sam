@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -36,6 +36,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/network/NetInterpreter.o \
+	${OBJECTDIR}/src/sam/network/areas/ArmNetwork.o \
+	${OBJECTDIR}/src/sam/network/areas/ArmTranslator.o \
+	${OBJECTDIR}/src/sam/network/areas/DBAreaCodes.o \
+	${OBJECTDIR}/src/sam/network/config/Config.o \
 	${OBJECTDIR}/src/sam/network/data/ControlMsg.o \
 	${OBJECTDIR}/src/sam/network/data/NetworkCode.o \
 	${OBJECTDIR}/src/sam/network/data/SensorMsg.o
@@ -55,11 +59,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-Wl,-rpath,../utils2/dist/Debug/GNU-Linux -L../utils2/dist/Debug/GNU-Linux -lsam_utils2 -lmysqlcppconn -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network.${CND_DLIB_EXT}
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network.${CND_DLIB_EXT}: ../utils2/dist/Debug/GNU-Linux/libsam_utils2.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -68,25 +74,46 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network.${CND_DLIB_EXT}: ${OBJ
 ${OBJECTDIR}/src/sam/network/NetInterpreter.o: src/sam/network/NetInterpreter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/NetInterpreter.o src/sam/network/NetInterpreter.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/NetInterpreter.o src/sam/network/NetInterpreter.cpp
+
+${OBJECTDIR}/src/sam/network/areas/ArmNetwork.o: src/sam/network/areas/ArmNetwork.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/network/areas
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/areas/ArmNetwork.o src/sam/network/areas/ArmNetwork.cpp
+
+${OBJECTDIR}/src/sam/network/areas/ArmTranslator.o: src/sam/network/areas/ArmTranslator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/network/areas
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/areas/ArmTranslator.o src/sam/network/areas/ArmTranslator.cpp
+
+${OBJECTDIR}/src/sam/network/areas/DBAreaCodes.o: src/sam/network/areas/DBAreaCodes.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/network/areas
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/areas/DBAreaCodes.o src/sam/network/areas/DBAreaCodes.cpp
+
+${OBJECTDIR}/src/sam/network/config/Config.o: src/sam/network/config/Config.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/network/config
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/config/Config.o src/sam/network/config/Config.cpp
 
 ${OBJECTDIR}/src/sam/network/data/ControlMsg.o: src/sam/network/data/ControlMsg.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/ControlMsg.o src/sam/network/data/ControlMsg.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/ControlMsg.o src/sam/network/data/ControlMsg.cpp
 
 ${OBJECTDIR}/src/sam/network/data/NetworkCode.o: src/sam/network/data/NetworkCode.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/NetworkCode.o src/sam/network/data/NetworkCode.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/NetworkCode.o src/sam/network/data/NetworkCode.cpp
 
 ${OBJECTDIR}/src/sam/network/data/SensorMsg.o: src/sam/network/data/SensorMsg.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/SensorMsg.o src/sam/network/data/SensorMsg.cpp
+	$(COMPILE.cc) -g -Isrc -I../utils2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network/data/SensorMsg.o src/sam/network/data/SensorMsg.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../utils2 && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -95,6 +122,7 @@ ${OBJECTDIR}/src/sam/network/data/SensorMsg.o: src/sam/network/data/SensorMsg.cp
 
 # Subprojects
 .clean-subprojects:
+	cd ../utils2 && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

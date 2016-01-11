@@ -13,7 +13,7 @@
 #include <sam/utils/module2.h>
 #include "sam/manipulation/bus/Bus.h"
 #include "sam/manipulation/config/Config.h"
-#include "sam/backbone/AreaConnection.h"
+#include "sam/backbone/CodesConnection.h"
 #include "sam/backbone/ControlConnection.h"
 //#include "sam/backbone/SensorConnection.h"
 #include "sam/network/data/ControlMsg.h"
@@ -30,7 +30,7 @@ private:
     bool bconnected;        // connected to bus
     manipulation::Bus* pBus;
     // logic
-    backbone::AreaConnection oArmAreaConnection;            // connection to backbone's arm components table
+    backbone::CodesConnection oArmCodesConnection;            // connection to backbone's arm codes table
     //backbone::ControlConnection oArmControlConnection;   // connection to backbone's arm controls table 
     //backbone::SensorConnection oArmSensorConnection;   // connection to backbone's arm sensors table
     std::map<std::string, int> mapBoneModules;    // map of backbone's arm modules <module_name, module_ID>

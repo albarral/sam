@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -52,17 +52,17 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux-x86 -L../../manipulation/dist/Debug/GNU-Linux-x86 -lsam_manip -Wl,-rpath,../../utils/dist/Debug/GNU-Linux-x86 -L../../utils/dist/Debug/GNU-Linux-x86 -lsam_utils -Wl,-rpath,../../backbone/dist/Debug/GNU-Linux-x86 -L../../backbone/dist/Debug/GNU-Linux-x86 -lsam_backbone -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../../manipulation/dist/Debug/GNU-Linux -L../../manipulation/dist/Debug/GNU-Linux -lsam_manip -Wl,-rpath,../../utils/dist/Debug/GNU-Linux -L../../utils/dist/Debug/GNU-Linux -lsam_utils -Wl,-rpath,../../backbone/dist/Debug/GNU-Linux -L../../backbone/dist/Debug/GNU-Linux -lsam_backbone -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../manipulation/dist/Debug/GNU-Linux-x86/libsam_manip.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../manipulation/dist/Debug/GNU-Linux/libsam_manip.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../utils/dist/Debug/GNU-Linux-x86/libsam_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../utils/dist/Debug/GNU-Linux/libsam_utils.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../backbone/dist/Debug/GNU-Linux-x86/libsam_backbone.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ../../backbone/dist/Debug/GNU-Linux/libsam_backbone.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testmanip: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

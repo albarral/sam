@@ -11,7 +11,7 @@
 
 #include "sam/manipulation/bus/Bus.h"
 #include "sam/network/NetInterpreter.h"
-#include "sam/network/data/AreaComponent.h"
+#include "sam/network/data/NetworkCode.h"
 #include "sam/network/data/ControlMsg.h"
 
 namespace sam 
@@ -46,8 +46,8 @@ public:
     void init (std::string jointName, manipulation::Bus& oBus);       
     bool isEnabled() {return benabled;};
 
-    void setModuleInterpreter(std::vector<network::AreaComponent>& listAreaComponents);
-    void setCommandInterpreter(std::vector<network::AreaComponent>& listAreaComponents);
+    void setModuleInterpreter(std::vector<network::NetworkCode>& listAreaComponents);
+    void setCommandInterpreter(std::vector<network::NetworkCode>& listAreaComponents);
 
     // sends the received control command to the appropriate module. Returns true if ok, false if failed.
     bool processMessage(network::ControlMsg& oControlMsg);

@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Release
 CND_DISTDIR=dist
@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/utils2/DBClient.o
+	${OBJECTDIR}/src/sam/utils2/DBClient.o \
+	${OBJECTDIR}/src/sam/utils2/DBConnection.o
 
 
 # C Compiler Flags
@@ -62,10 +63,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils2.${CND_DLIB_EXT}: ${OBJECTFI
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils2.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/utils2/DBClient.o: src/utils2/DBClient.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/utils2
+${OBJECTDIR}/src/sam/utils2/DBClient.o: src/sam/utils2/DBClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils2
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils2/DBClient.o src/utils2/DBClient.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils2/DBClient.o src/sam/utils2/DBClient.cpp
+
+${OBJECTDIR}/src/sam/utils2/DBConnection.o: src/sam/utils2/DBConnection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils2
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils2/DBConnection.o src/sam/utils2/DBConnection.cpp
 
 # Subprojects
 .build-subprojects:

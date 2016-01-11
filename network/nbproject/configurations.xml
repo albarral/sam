@@ -14,6 +14,18 @@
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="network" displayName="network" projectFiles="true">
+          <logicalFolder name="areas" displayName="areas" projectFiles="true">
+            <itemPath>src/sam/network/areas/ArmNetwork.cpp</itemPath>
+            <itemPath>src/sam/network/areas/ArmNetwork.h</itemPath>
+            <itemPath>src/sam/network/areas/ArmTranslator.cpp</itemPath>
+            <itemPath>src/sam/network/areas/ArmTranslator.h</itemPath>
+            <itemPath>src/sam/network/areas/DBAreaCodes.cpp</itemPath>
+            <itemPath>src/sam/network/areas/DBAreaCodes.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="config" displayName="config" projectFiles="true">
+            <itemPath>src/sam/network/config/Config.cpp</itemPath>
+            <itemPath>src/sam/network/config/Config.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="data" displayName="data" projectFiles="true">
             <itemPath>src/sam/network/data/ControlMsg.cpp</itemPath>
             <itemPath>src/sam/network/data/ControlMsg.h</itemPath>
@@ -55,15 +67,63 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
+            <pElem>../utils2/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network.${CND_DLIB_EXT}</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../utils2"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../utils2"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils2.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>log4cxx</linkerLibLibItem>
+          </linkerLibItems>
         </linkerTool>
       </compileType>
       <item path="src/sam/network/NetInterpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/network/NetInterpreter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmNetwork.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmNetwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmTranslator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmTranslator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/DBAreaCodes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/DBAreaCodes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/config/Config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/network/config/Config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/network/data/ControlMsg.cpp"
             ex="false"
@@ -107,6 +167,37 @@
       <item path="src/sam/network/NetInterpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/network/NetInterpreter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmNetwork.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmNetwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmTranslator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/ArmTranslator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/DBAreaCodes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/areas/DBAreaCodes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/network/config/Config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/network/config/Config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/network/data/ControlMsg.cpp"
             ex="false"
