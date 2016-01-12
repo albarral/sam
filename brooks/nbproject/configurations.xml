@@ -59,12 +59,6 @@
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_brooks.${CND_DLIB_EXT}</output>
-          <linkerAddLib>
-            <pElem>/opt/ros/hydro/lib</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibLibItem>opencv_core</linkerLibLibItem>
-          </linkerLibItems>
         </linkerTool>
       </compileType>
       <item path="src/sam/brooks/control.cpp" ex="false" tool="1" flavor2="0">
