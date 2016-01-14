@@ -11,6 +11,9 @@
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "sam/alive/ConsoleControl.h"
+
+#include "sam/network2/Network.h"
+#include "sam/look/LookManager.h"
 #include "sam/head/HeadManager.h"
 #include "sam/head/bus/Bus.h"
 
@@ -35,12 +38,18 @@ void testSam()
 {        
     LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< SAM is ALIVE >>>>>>>>>>>>>>\n");
         
-    head::HeadManager oHeadManager;    
     alive::ConsoleControl oConsoleControl;
- 
-    oHeadManager.startModules();
     oConsoleControl.init();
 
+    network::Network oNetwork;
+    head::HeadManager oHeadManager;  
+    look::LookManager oLookManager;
+ 
+    oHeadManager.startModules();
+    oLookManager.connect(oNetwork);
+    oLookManager.startModules();
+
+    // temporal -> use network instead
     head::Bus& oBus = oHeadManager.getBus();
         
     // wait for user commands
@@ -58,6 +67,7 @@ void testSam()
         }
     }
     
+    oLookManager.stopModules();
     oHeadManager.stopModules();
     sleep(2);
     

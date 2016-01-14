@@ -74,7 +74,7 @@ private:
     void writeBus();
     
     // moves the head to the commanded position
-    void moveHead();
+    //void moveHead();
     
     // traces the changes in state
     void showStateName();     
