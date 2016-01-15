@@ -24,21 +24,38 @@ HeadManager::~HeadManager()
 void HeadManager::startModules()
 { 
     LOG4CXX_INFO(logger, "HeadManager: starting modules ..."); 
-
-    oHeadController.init("IPCameraHead");
-    oHeadController.connect(oBus);
-    oHeadController.setFrequency(5.0);
-    oHeadController.on();
+     
+    if (isNetConnected())
+    {
+        oHeadController.init("IPCameraHead");
+        // note: no internal bus, directly connected to the network
+        oHeadController.netConnect(getNetConnection());
+        oHeadController.setFrequency(5.0);
+        oHeadController.on();
+        LOG4CXX_INFO(logger, "HeadManager: started");  
+    }
+    // not connected to the network -> skip
+    else
+    {
+        LOG4CXX_ERROR(logger, "HeadManager: not connected to network. Ignored!");  
+    }
 }
 
 void HeadManager::stopModules()
 {
     LOG4CXX_INFO(logger, "HeadManager: stopping modules ..."); 
 
-    oHeadController.off();
-    oHeadController.wait();
-        
-    LOG4CXX_INFO(logger, "HeadManager: off");
+    if (isNetConnected())
+    {
+        oHeadController.off();
+        oHeadController.wait();        
+        LOG4CXX_INFO(logger, "HeadManager: off");
+    }
+    // not connected to the network -> skip
+    else
+    {
+        LOG4CXX_ERROR(logger, "HeadManager: not connected to network. Ignored!");  
+    }
 }
 
 }

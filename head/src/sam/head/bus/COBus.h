@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "sam/brooks/controlT.h"
+#include "sam/brooks/controlT2.h"
 
 namespace sam 
 {
@@ -16,13 +16,13 @@ namespace head
 class COBus
 {
     private:                
-        brooks::ControlT<int> CO_HEAD_PAN; 
-        brooks::ControlT<int> CO_HEAD_TILT; 
+        brooks::ControlT2<int> CO_HEAD_PAN; 
+        brooks::ControlT2<int> CO_HEAD_TILT; 
         
     public:
         COBus();
-        brooks::ControlT<int>& getCO_HEAD_PAN() {return CO_HEAD_PAN;};           
-        brooks::ControlT<int>& getCO_HEAD_TILT() {return CO_HEAD_TILT;};           
+        brooks::ControlT2<int>& getCO_HEAD_PAN() {return CO_HEAD_PAN;};           
+        brooks::ControlT2<int>& getCO_HEAD_TILT() {return CO_HEAD_TILT;};           
 };
 
 }

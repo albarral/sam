@@ -18,8 +18,7 @@ HeadController::HeadController()
 {
     //  initial state must be Module2::state_OFF
     binitialized = false;
-    bconnected = false;
-    pBus = 0;
+    binhibited = false;
     pHead = 0;
 }
 
@@ -38,26 +37,20 @@ void HeadController::init(std::string headModel)
         LOG4CXX_ERROR(logger, "HeadController NOT initialized!");                 
 };
 
-void HeadController::connect(Bus& oBus)
-{
-    pBus = &oBus;
-    bconnected = true;
-}
-
 void HeadController::first()
 {    
-    log4cxx::NDC::push("HeadController");   	
+    log4cxx::NDC::push("Head");   	
     //log4cxx::NDC::push("");   	
     
     // we start in LOST state
-    if (binitialized && bconnected)
+    if (binitialized && isNetConnected())
     {
         LOG4CXX_INFO(logger, "started");  
         setState(HeadController::eSTATE_ON);    
         setPrevState(utils::Module::state_OFF);
         showStateName();        
     }
-    // if not initialized or not connected to bus -> OFF
+    // if not initialized or not connected to network -> OFF
     else
     {
         LOG4CXX_WARN(logger, "NOT initialized or connected. Going off ... ");  
@@ -105,23 +98,25 @@ void HeadController::loop()
     writeBus();
 }
 
+// note: it directly senses the network (no bus)
 void HeadController::senseBus()
 {
     // read CI's ....
     // CO_HEAD_PAN
+    bool bpanRequested = pNetwork->getCO_HEAD_PAN().checkRequested(reqPan);
     // CO_HEAD_TILT
-    bool bpanRequested = pBus->getCOBus().getCO_HEAD_PAN().checkRequested(reqPan);
-    bool btiltRequested = pBus->getCOBus().getCO_HEAD_TILT().checkRequested(reqTilt);
+    bool btiltRequested = pNetwork->getCO_HEAD_TILT().checkRequested(reqTilt);
     bmoveRequested = bpanRequested || btiltRequested;
 }
 
+// note: it directly writes to the network (no bus)
 void HeadController::writeBus()
 {
     // write SO's ... 
     // SO_HEAD_PAN
-    pBus->getSOBus().getSO_HEAD_PAN().setValue(realPan);
+    pNetwork->getSO_HEAD_PAN().setValue(realPan);
     // SO_HEAD_TILT
-    pBus->getSOBus().getSO_HEAD_TILT().setValue(realTilt);
+    pNetwork->getSO_HEAD_TILT().setValue(realTilt);
 }
 
 // Shows the state name

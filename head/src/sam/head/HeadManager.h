@@ -8,18 +8,17 @@
 
 #include <log4cxx/logger.h>
 
-#include "sam/head/bus/Bus.h"
 #include "sam/head/modules/HeadController.h"
+#include "sam/network2/NetworkUser.h"
 
 namespace sam 
 {
 namespace head
 {  
-class HeadManager
+class HeadManager : public network::NetworkUser
 {
 private:
     static log4cxx::LoggerPtr logger;
-    Bus oBus;
     // modules
     HeadController oHeadController;
     
@@ -29,8 +28,6 @@ public:
         
     void startModules();
     void stopModules();
-    
-    Bus& getBus() {return oBus;};
 };
 
 }

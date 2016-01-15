@@ -11,14 +11,15 @@
 
 #include "sam/utils3/Module.h"
 #include "sam/head/modules/Head.h"
-#include "sam/head/bus/Bus.h"
+#include "sam/network2/NetworkUser.h"
 
 namespace sam 
 {
 namespace head
 {    
 // This module controls the head motion. 
-// It reads pan/tilt commands received through the bus and transmits them to the real head.
+// Connections: SAM's network.    
+// It reads pan/tilt commands received through the network and transmits them to the real head.
 // It also delivers the real head position at each moment.
 // Controls:
 // CO_HEAD_PAN (degrees)
@@ -26,8 +27,8 @@ namespace head
 // Sensors:
 // SO_HEAD_PAN (degrees)
 // SO_HEAD_TILT (degrees)   
-    
-class HeadController : public utils::Module
+// Derives from: Module, NetworkUser        
+class HeadController : public utils::Module, public network::NetworkUser
 {
 public:
     // states of HeadController module
@@ -39,8 +40,6 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     bool binitialized;
-    bool bconnected;        // connected to bus
-    Bus* pBus;
     // params (none)
     // logic
     Head* pHead;
@@ -57,8 +56,6 @@ public:
     
     // initializes the module 
     void init(std::string headModel);   
-    // bus connection    
-    void connect(Bus& oBus);
        
 private:
     // first action after thread begins 

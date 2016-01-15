@@ -59,15 +59,17 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../utils3/dist/Debug/GNU-Linux -L../utils3/dist/Debug/GNU-Linux -lsam_utils3 -Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/GNU-Linux -lsam_brooks -lcurl
+LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/GNU-Linux -lsam_brooks -Wl,-rpath,../network2/dist/Debug/GNU-Linux -L../network2/dist/Debug/GNU-Linux -lsam_network2 -Wl,-rpath,../utils3/dist/Debug/GNU-Linux -L../utils3/dist/Debug/GNU-Linux -lsam_utils3 -lcurl
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}: ../utils3/dist/Debug/GNU-Linux/libsam_utils3.so
-
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}: ../brooks/dist/Debug/GNU-Linux/libsam_brooks.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}: ../network2/dist/Debug/GNU-Linux/libsam_network2.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}: ../utils3/dist/Debug/GNU-Linux/libsam_utils3.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -76,47 +78,48 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/sam/head/HeadManager.o: src/sam/head/HeadManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/HeadManager.o src/sam/head/HeadManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/HeadManager.o src/sam/head/HeadManager.cpp
 
 ${OBJECTDIR}/src/sam/head/bus/Bus.o: src/sam/head/bus/Bus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/bus/Bus.o src/sam/head/bus/Bus.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/bus/Bus.o src/sam/head/bus/Bus.cpp
 
 ${OBJECTDIR}/src/sam/head/bus/COBus.o: src/sam/head/bus/COBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/bus/COBus.o src/sam/head/bus/COBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/bus/COBus.o src/sam/head/bus/COBus.cpp
 
 ${OBJECTDIR}/src/sam/head/bus/SOBus.o: src/sam/head/bus/SOBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/bus/SOBus.o src/sam/head/bus/SOBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/bus/SOBus.o src/sam/head/bus/SOBus.cpp
 
 ${OBJECTDIR}/src/sam/head/modules/Head.o: src/sam/head/modules/Head.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/Head.o src/sam/head/modules/Head.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/Head.o src/sam/head/modules/Head.cpp
 
 ${OBJECTDIR}/src/sam/head/modules/HeadController.o: src/sam/head/modules/HeadController.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/HeadController.o src/sam/head/modules/HeadController.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/HeadController.o src/sam/head/modules/HeadController.cpp
 
 ${OBJECTDIR}/src/sam/head/modules/HeadFactory.o: src/sam/head/modules/HeadFactory.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/HeadFactory.o src/sam/head/modules/HeadFactory.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/HeadFactory.o src/sam/head/modules/HeadFactory.cpp
 
 ${OBJECTDIR}/src/sam/head/modules/IPCamHead.o: src/sam/head/modules/IPCamHead.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/head/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../utils3/src -I../brooks/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/IPCamHead.o src/sam/head/modules/IPCamHead.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I/usr/include -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/head/modules/IPCamHead.o src/sam/head/modules/IPCamHead.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug
 	cd ../brooks && ${MAKE}  -f Makefile CONF=Debug
+	cd ../network2 && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -125,8 +128,9 @@ ${OBJECTDIR}/src/sam/head/modules/IPCamHead.o: src/sam/head/modules/IPCamHead.cp
 
 # Subprojects
 .clean-subprojects:
-	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../brooks && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../network2 && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

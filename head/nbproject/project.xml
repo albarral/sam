@@ -10,6 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../utils3</make-dep-project>
+                <make-dep-project>../network2</make-dep-project>
                 <make-dep-project>../brooks</make-dep-project>
             </make-dep-projects>
             <sourceRootList>

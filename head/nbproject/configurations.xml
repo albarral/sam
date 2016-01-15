@@ -67,8 +67,9 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../utils3/src</pElem>
             <pElem>../brooks/src</pElem>
+            <pElem>../network2/src</pElem>
+            <pElem>../utils3/src</pElem>
             <pElem>/usr/include</pElem>
           </incDir>
         </ccTool>
@@ -76,18 +77,6 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_head.${CND_DLIB_EXT}</output>
           <commandlineTool>gcc</commandlineTool>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../utils3"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../utils3"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils3.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../brooks"
                             CT="2"
@@ -98,6 +87,30 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_brooks.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../network2"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../network2"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_network2.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../utils3"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../utils3"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils3.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>curl</linkerLibLibItem>
