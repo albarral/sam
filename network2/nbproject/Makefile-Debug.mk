@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/sam/network2/Network.o
+	${OBJECTDIR}/src/sam/network2/Network.o \
+	${OBJECTDIR}/src/sam/network2/NetworkUser.o
 
 
 # C Compiler Flags
@@ -68,6 +69,11 @@ ${OBJECTDIR}/src/sam/network2/Network.o: src/sam/network2/Network.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/network2
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../brooks/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network2/Network.o src/sam/network2/Network.cpp
+
+${OBJECTDIR}/src/sam/network2/NetworkUser.o: src/sam/network2/NetworkUser.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/network2
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/network2/NetworkUser.o src/sam/network2/NetworkUser.cpp
 
 # Subprojects
 .build-subprojects:
