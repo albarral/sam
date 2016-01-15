@@ -9,13 +9,13 @@
 
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
+#include "log4cxx/ndc.h"
 
 #include "sam/alive/ConsoleControl.h"
 
 #include "sam/network2/Network.h"
 #include "sam/look/LookManager.h"
 #include "sam/head/HeadManager.h"
-#include "sam/head/bus/Bus.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.alive"));
 
@@ -27,6 +27,8 @@ void testSam();
 int main(int argc, char** argv) 
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
+
+    log4cxx::NDC::push("alive");   	
     
     testSam();
       
@@ -41,16 +43,14 @@ void testSam()
     alive::ConsoleControl oConsoleControl;
     oConsoleControl.init();
 
-    network::Network oNetwork;
     head::HeadManager oHeadManager;  
     look::LookManager oLookManager;
+    network::Network oNetwork;
  
+    oHeadManager.netConnect(&oNetwork);
     oHeadManager.startModules();
-    oLookManager.connect(oNetwork);
+    oLookManager.netConnect(&oNetwork);
     oLookManager.startModules();
-
-    // temporal -> use network instead
-    head::Bus& oBus = oHeadManager.getBus();
         
     // wait for user commands
     while (!oConsoleControl.want2Quit())
@@ -62,8 +62,8 @@ void testSam()
             // move head
             int pan = oConsoleControl.getPan();
             int tilt = oConsoleControl.getTilt();
-            oBus.getCOBus().getCO_HEAD_PAN().request(pan);            
-            oBus.getCOBus().getCO_HEAD_TILT().request(tilt);            
+            oNetwork.getCO_HEAD_PAN().request(pan, 2);            
+            oNetwork.getCO_HEAD_TILT().request(tilt, 2);            
         }
     }
     

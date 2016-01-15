@@ -53,7 +53,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/GNU-Linux -lsam_brooks -Wl,-rpath,../utils3/dist/Debug/GNU-Linux -L../utils3/dist/Debug/GNU-Linux -lsam_utils3 -Wl,-rpath,../network2/dist/Debug/GNU-Linux -L../network2/dist/Debug/GNU-Linux -lsam_network2 -Wl,-rpath,../look/dist/Debug/GNU-Linux -L../look/dist/Debug/GNU-Linux -llook -Wl,-rpath,../head/dist/Debug/GNU-Linux -L../head/dist/Debug/GNU-Linux -lsam_head -llog4cxx -lcurl
+LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/GNU-Linux -lsam_brooks -Wl,-rpath,../network2/dist/Debug/GNU-Linux -L../network2/dist/Debug/GNU-Linux -lsam_network2 -Wl,-rpath,../utils3/dist/Debug/GNU-Linux -L../utils3/dist/Debug/GNU-Linux -lsam_utils3 -Wl,-rpath,../look/dist/Debug/GNU-Linux -L../look/dist/Debug/GNU-Linux -llook -Wl,-rpath,../head/dist/Debug/GNU-Linux -L../head/dist/Debug/GNU-Linux -lsam_head -llog4cxx -lcurl
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -61,9 +61,9 @@ LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/G
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sam_alive: ../brooks/dist/Debug/GNU-Linux/libsam_brooks.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sam_alive: ../utils3/dist/Debug/GNU-Linux/libsam_utils3.so
-
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sam_alive: ../network2/dist/Debug/GNU-Linux/libsam_network2.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sam_alive: ../utils3/dist/Debug/GNU-Linux/libsam_utils3.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sam_alive: ../look/dist/Debug/GNU-Linux/liblook.so
 
@@ -76,18 +76,18 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sam_alive: ${OBJECTFILES}
 ${OBJECTDIR}/src/sam/alive/ConsoleControl.o: src/sam/alive/ConsoleControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/alive
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -I../look/src -I../head/src -I/usr/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/alive/ConsoleControl.o src/sam/alive/ConsoleControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I../look/src -I../head/src -I/usr/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/alive/ConsoleControl.o src/sam/alive/ConsoleControl.cpp
 
 ${OBJECTDIR}/src/sam/alive/main.o: src/sam/alive/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/alive
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -I../look/src -I../head/src -I/usr/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/alive/main.o src/sam/alive/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -I../look/src -I../head/src -I/usr/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/alive/main.o src/sam/alive/main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../brooks && ${MAKE}  -f Makefile CONF=Debug
-	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug
 	cd ../network2 && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug
 	cd ../look && ${MAKE}  -f Makefile CONF=Debug
 	cd ../head && ${MAKE}  -f Makefile CONF=Debug
 
@@ -99,8 +99,8 @@ ${OBJECTDIR}/src/sam/alive/main.o: src/sam/alive/main.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../brooks && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../network2 && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../look && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../head && ${MAKE}  -f Makefile CONF=Debug clean
 

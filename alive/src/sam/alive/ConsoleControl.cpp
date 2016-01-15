@@ -30,7 +30,7 @@ ConsoleControl::~ConsoleControl()
 
 void ConsoleControl::init()
 {
-    log4cxx::NDC::push("ConsoleControl");   	    
+    //log4cxx::NDC::push("ConsoleControl");   	    
 }
 
 void ConsoleControl::fetchCommand()
