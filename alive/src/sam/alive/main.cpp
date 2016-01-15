@@ -13,9 +13,10 @@
 
 #include "sam/alive/ConsoleControl.h"
 
-#include "sam/network2/Network.h"
 #include "sam/look/LookManager.h"
 #include "sam/head/HeadManager.h"
+#include "sam/network2/Network.h"
+#include "sam/network2/ControlPriority.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.alive"));
 
@@ -52,6 +53,8 @@ void testSam()
     oLookManager.netConnect(&oNetwork);
     oLookManager.startModules();
         
+    int headPriority = network::ControlPriority::headPriority4User;
+    
     // wait for user commands
     while (!oConsoleControl.want2Quit())
     {
@@ -62,8 +65,8 @@ void testSam()
             // move head
             int pan = oConsoleControl.getPan();
             int tilt = oConsoleControl.getTilt();
-            oNetwork.getCO_HEAD_PAN().request(pan, 2);            
-            oNetwork.getCO_HEAD_TILT().request(tilt, 2);            
+            oNetwork.getHeadComs().getCO_HEAD_PAN().request(pan, headPriority);            
+            oNetwork.getHeadComs().getCO_HEAD_TILT().request(tilt, headPriority);            
         }
     }
     

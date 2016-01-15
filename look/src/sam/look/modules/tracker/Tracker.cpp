@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "sam/look/modules/tracker/Tracker.h"
+#include "sam/network2/ControlPriority.h"
 
 namespace sam 
 {
@@ -20,6 +21,7 @@ Tracker::Tracker()
     busConnected = false;
     binhibited = false;
     pBus = 0;
+    headPriority = network::ControlPriority::headPriority4Tracker;
 }
 
 void Tracker::init()
@@ -91,18 +93,12 @@ void Tracker::loop()
 
 void Tracker::senseBus()
 {
-    // read CI's ....
-    // CO_HEAD_PAN
-    // CO_HEAD_TILT
-//    bool bpanRequested = pBus->getCOBus().getCO_HEAD_PAN().checkRequested(reqPan);
-//    bool btiltRequested = pBus->getCOBus().getCO_HEAD_TILT().checkRequested(reqTilt);
-//    bmoveRequested = bpanRequested || btiltRequested;
 }
 
 void Tracker::writeBus()
 {
-    pNetwork->getCO_HEAD_PAN().request(reqPan, 1);
-    pNetwork->getCO_HEAD_TILT().request(reqTilt, 1);
+    pNetwork->getHeadComs().getCO_HEAD_PAN().request(reqPan, headPriority);
+    pNetwork->getHeadComs().getCO_HEAD_TILT().request(reqTilt, headPriority);
 }
 
 // Shows the state name

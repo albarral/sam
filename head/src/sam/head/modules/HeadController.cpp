@@ -103,9 +103,9 @@ void HeadController::senseBus()
 {
     // read CI's ....
     // CO_HEAD_PAN
-    bool bpanRequested = pNetwork->getCO_HEAD_PAN().checkRequested(reqPan);
+    bool bpanRequested = pNetwork->getHeadComs().getCO_HEAD_PAN().checkRequested(reqPan);
     // CO_HEAD_TILT
-    bool btiltRequested = pNetwork->getCO_HEAD_TILT().checkRequested(reqTilt);
+    bool btiltRequested = pNetwork->getHeadComs().getCO_HEAD_TILT().checkRequested(reqTilt);
     bmoveRequested = bpanRequested || btiltRequested;
 }
 
@@ -114,9 +114,9 @@ void HeadController::writeBus()
 {
     // write SO's ... 
     // SO_HEAD_PAN
-    pNetwork->getSO_HEAD_PAN().setValue(realPan);
+    pNetwork->getHeadComs().getSO_HEAD_PAN().setValue(realPan);
     // SO_HEAD_TILT
-    pNetwork->getSO_HEAD_TILT().setValue(realTilt);
+    pNetwork->getHeadComs().getSO_HEAD_TILT().setValue(realTilt);
 }
 
 // Shows the state name

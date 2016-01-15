@@ -39,6 +39,7 @@ private:
     bool binhibited;           // module inhibition 
     int reqPan;                 // requested pan 
     int reqTilt;                  // requested tilt      
+    int headPriority;          // priority for head control
 
 public:
     Tracker();
