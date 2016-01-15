@@ -17,9 +17,9 @@ Tracker::Tracker()
 {
     //  initial state must be Module2::state_OFF
     binitialized = false;
-    bconnected = false;
+    busConnected = false;
+    binhibited = false;
     pBus = 0;
-    pNetwork = 0;
 }
 
 void Tracker::init()
@@ -28,11 +28,10 @@ void Tracker::init()
     LOG4CXX_INFO(logger, "Tracker initialized");             
 };
 
-void Tracker::connect(Bus& oBus, network::Network* pNetwork)
+void Tracker::busConnect(Bus& oBus)
 {
     pBus = &oBus;
-    this->pNetwork = pNetwork;
-    bconnected = true;
+    busConnected = true;
 }
 
 void Tracker::first()
@@ -41,7 +40,7 @@ void Tracker::first()
     //log4cxx::NDC::push("");   	
     
     // we start in LOST state
-    if (binitialized && bconnected)
+    if (binitialized && busConnected && isNetConnected())
     {
         LOG4CXX_INFO(logger, "started");  
         setState(Tracker::eSTATE_ON);    
@@ -102,8 +101,8 @@ void Tracker::senseBus()
 
 void Tracker::writeBus()
 {
-    pNetwork->getCO_HEAD_PAN().request(reqPan);
-    pNetwork->getCO_HEAD_TILT().request(reqTilt);
+    pNetwork->getCO_HEAD_PAN().request(reqPan, 1);
+    pNetwork->getCO_HEAD_TILT().request(reqTilt, 1);
 }
 
 // Shows the state name

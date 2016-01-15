@@ -11,14 +11,15 @@
 
 #include "sam/utils3/Module.h"
 #include "sam/look/bus/Bus.h"
-#include "sam/network2/Network.h"
+#include "sam/network2/NetworkUser.h"
 
 namespace sam 
 {
 namespace look
 {    
-// to fill ...    
-class Tracker : public utils::Module
+// Module in charge of tracking a focused object. TO EXTEND ...
+// Connections: internal bus & SAM's network.    
+class Tracker : public utils::Module, public network::NetworkUser
 {
 public:
     // states of Tracker module
@@ -30,9 +31,8 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     bool binitialized;
-    bool bconnected;        // connected to bus
+    bool busConnected;        // connected to bus
     Bus* pBus;
-    network::Network* pNetwork;     // sam's network
     // params (none)
     // logic
     // controls & sensors
@@ -46,7 +46,7 @@ public:
     // initializes the module 
     void init();   
     // bus connection    
-    void connect(Bus& oBus, network::Network* pNetwork);
+    void busConnect(Bus& oBus);
        
 private:
     // first action after thread begins 

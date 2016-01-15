@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/GNU-Linux -lsam_brooks -Wl,-rpath,../utils3/dist/Debug/GNU-Linux -L../utils3/dist/Debug/GNU-Linux -lsam_utils3 -Wl,-rpath,../network2/dist/Debug/GNU-Linux -L../network2/dist/Debug/GNU-Linux -lsam_network2
+LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/GNU-Linux -lsam_brooks -Wl,-rpath,../network2/dist/Debug/GNU-Linux -L../network2/dist/Debug/GNU-Linux -lsam_network2 -Wl,-rpath,../utils3/dist/Debug/GNU-Linux -L../utils3/dist/Debug/GNU-Linux -lsam_utils3
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -64,9 +64,9 @@ LDLIBSOPTIONS=-Wl,-rpath,../brooks/dist/Debug/GNU-Linux -L../brooks/dist/Debug/G
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblook.${CND_DLIB_EXT}: ../brooks/dist/Debug/GNU-Linux/libsam_brooks.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblook.${CND_DLIB_EXT}: ../utils3/dist/Debug/GNU-Linux/libsam_utils3.so
-
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblook.${CND_DLIB_EXT}: ../network2/dist/Debug/GNU-Linux/libsam_network2.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblook.${CND_DLIB_EXT}: ../utils3/dist/Debug/GNU-Linux/libsam_utils3.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblook.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -75,33 +75,33 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblook.${CND_DLIB_EXT}: ${OBJECTFILE
 ${OBJECTDIR}/src/sam/look/LookManager.o: src/sam/look/LookManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/look
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/LookManager.o src/sam/look/LookManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/LookManager.o src/sam/look/LookManager.cpp
 
 ${OBJECTDIR}/src/sam/look/bus/Bus.o: src/sam/look/bus/Bus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/look/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/bus/Bus.o src/sam/look/bus/Bus.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/bus/Bus.o src/sam/look/bus/Bus.cpp
 
 ${OBJECTDIR}/src/sam/look/bus/COBus.o: src/sam/look/bus/COBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/look/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/bus/COBus.o src/sam/look/bus/COBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/bus/COBus.o src/sam/look/bus/COBus.cpp
 
 ${OBJECTDIR}/src/sam/look/bus/SOBus.o: src/sam/look/bus/SOBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/look/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/bus/SOBus.o src/sam/look/bus/SOBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/bus/SOBus.o src/sam/look/bus/SOBus.cpp
 
 ${OBJECTDIR}/src/sam/look/modules/tracker/Tracker.o: src/sam/look/modules/tracker/Tracker.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/look/modules/tracker
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils3/src -I../network2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/modules/tracker/Tracker.o src/sam/look/modules/tracker/Tracker.cpp
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../network2/src -I../utils3/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/look/modules/tracker/Tracker.o src/sam/look/modules/tracker/Tracker.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../brooks && ${MAKE}  -f Makefile CONF=Debug
-	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug
 	cd ../network2 && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -111,8 +111,8 @@ ${OBJECTDIR}/src/sam/look/modules/tracker/Tracker.o: src/sam/look/modules/tracke
 # Subprojects
 .clean-subprojects:
 	cd ../brooks && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../network2 && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utils3 && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -10,29 +10,26 @@
 
 #include "sam/look/bus/Bus.h"
 #include "sam/look/modules/tracker/Tracker.h"
-#include "sam/network2/Network.h"
+#include "sam/network2/NetworkUser.h"
 
 namespace sam 
 {
 namespace look
 {  
-class LookManager
+// Manager of look modules.
+// Derives from: NetworkUser    
+class LookManager : public network::NetworkUser
 {
 private:
     static log4cxx::LoggerPtr logger;
-    bool bconnected;        // connected to network
     Bus oBus;                  // internal bus     
-    network::Network* pNetwork;     // sam's network
     // modules
     Tracker oTracker;
     
 public:
     LookManager();
     ~LookManager();
-               
-    // network connection    
-    void connect(network::Network& oNetwork);
-    
+                   
     void startModules();
     void stopModules();
 };

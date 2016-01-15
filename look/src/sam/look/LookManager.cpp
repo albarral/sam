@@ -15,18 +15,10 @@ log4cxx::LoggerPtr LookManager::logger(log4cxx::Logger::getLogger("sam.look"));
 
 LookManager::LookManager() 
 {
-    bconnected = false;
-    pNetwork = 0;
 }
 
 LookManager::~LookManager() 
 {
-}
-
-void LookManager::connect(network::Network& oNetwork)
-{
-    pNetwork = &oNetwork;
-    bconnected = true;
 }
 
 void LookManager::startModules()
@@ -34,10 +26,11 @@ void LookManager::startModules()
     LOG4CXX_INFO(logger, "LookManager: starting modules ..."); 
 
     // start modules if connected to the network
-    if (bconnected)
+    if (isNetConnected())
     {
         oTracker.init();
-        oTracker.connect(oBus, pNetwork);
+        oTracker.busConnect(oBus);
+        oTracker.netConnect(getNetConnection());
         oTracker.setFrequency(5.0);
         oTracker.on();
         LOG4CXX_INFO(logger, "LookManager: started");  
@@ -53,7 +46,7 @@ void LookManager::stopModules()
 {
     LOG4CXX_INFO(logger, "LookManager: stopping modules ..."); 
 
-    if (bconnected)
+    if (isNetConnected())
     {    
         oTracker.off();
         oTracker.wait();
