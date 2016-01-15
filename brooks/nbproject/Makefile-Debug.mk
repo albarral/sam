@@ -36,8 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/brooks/control.o \
-	${OBJECTDIR}/src/sam/brooks/inhibition.o \
-	${OBJECTDIR}/src/sam/brooks/suppress_control.o
+	${OBJECTDIR}/src/sam/brooks/inhibition.o
 
 
 # C Compiler Flags
@@ -73,11 +72,6 @@ ${OBJECTDIR}/src/sam/brooks/inhibition.o: src/sam/brooks/inhibition.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/brooks
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/brooks/inhibition.o src/sam/brooks/inhibition.cpp
-
-${OBJECTDIR}/src/sam/brooks/suppress_control.o: src/sam/brooks/suppress_control.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/brooks
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/brooks/suppress_control.o src/sam/brooks/suppress_control.cpp
 
 # Subprojects
 .build-subprojects:

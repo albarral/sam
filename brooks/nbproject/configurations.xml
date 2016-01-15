@@ -16,15 +16,11 @@
         <logicalFolder name="brooks" displayName="brooks" projectFiles="true">
           <itemPath>src/sam/brooks/control.cpp</itemPath>
           <itemPath>src/sam/brooks/control.h</itemPath>
-          <itemPath>src/sam/brooks/controlT.h</itemPath>
           <itemPath>src/sam/brooks/controlT2.h</itemPath>
           <itemPath>src/sam/brooks/inhibition.cpp</itemPath>
           <itemPath>src/sam/brooks/inhibition.h</itemPath>
           <itemPath>src/sam/brooks/sensor.h</itemPath>
           <itemPath>src/sam/brooks/sensorT.h</itemPath>
-          <itemPath>src/sam/brooks/suppress_control.cpp</itemPath>
-          <itemPath>src/sam/brooks/suppress_control.h</itemPath>
-          <itemPath>src/sam/brooks/suppress_controlT.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -66,8 +62,6 @@
       </item>
       <item path="src/sam/brooks/control.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/brooks/controlT.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/sam/brooks/controlT2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/brooks/inhibition.cpp" ex="false" tool="1" flavor2="0">
@@ -77,15 +71,6 @@
       <item path="src/sam/brooks/sensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/brooks/suppress_control.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/brooks/suppress_control.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/brooks/suppress_controlT.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -112,8 +97,6 @@
       </item>
       <item path="src/sam/brooks/control.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/brooks/controlT.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/sam/brooks/controlT2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/brooks/inhibition.cpp" ex="false" tool="1" flavor2="0">
@@ -123,15 +106,6 @@
       <item path="src/sam/brooks/sensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/brooks/suppress_control.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/sam/brooks/suppress_control.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/sam/brooks/suppress_controlT.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

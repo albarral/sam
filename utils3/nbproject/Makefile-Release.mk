@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/sam/utils3/Click.o \
 	${OBJECTDIR}/src/sam/utils3/Console.o \
 	${OBJECTDIR}/src/sam/utils3/Module.o
 
@@ -62,6 +63,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils3.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils3.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/src/sam/utils3/Click.o: src/sam/utils3/Click.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/utils3
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils3/Click.o src/sam/utils3/Click.cpp
 
 ${OBJECTDIR}/src/sam/utils3/Console.o: src/sam/utils3/Console.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/utils3

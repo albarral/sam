@@ -10,6 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "sam/utils3/Module.h"
+#include "sam/utils3/Click.h"
 #include "sam/look/bus/Bus.h"
 #include "sam/network2/NetworkUser.h"
 
@@ -25,7 +26,9 @@ public:
     // states of Tracker module
     enum eState
     {
-        eSTATE_ON       // just on and off states
+        eSTATE_START,      // start tracking a new target 
+        eSTATE_TRACK,      // move head following the target (trying to emulate the target speed)
+        eSTATE_LOST         // target is lost, no head moves    
     };
 
 private:
@@ -35,10 +38,17 @@ private:
     Bus* pBus;
     // params (none)
     // logic
+    int panSpeed;        // degrees/sec   
+    int tiltSpeed;          // degrees/sec        
+    utils::Click oClick;   
+    int counterPan;
+    int counterTilt;
     // controls & sensors
     bool binhibited;           // module inhibition 
-    int reqPan;                 // requested pan 
-    int reqTilt;                  // requested tilt      
+    int realPan;           // real sensed pan
+    int realTilt;            // real sensed tilt
+    float reqPan;              // requested pan (must be float to accumulate small increments)
+    float reqTilt;               // requested tilt  (must be float to accumulate small increments)    
     int headPriority;          // priority for head control
 
 public:
@@ -63,7 +73,10 @@ private:
     void writeBus();
     
     // moves the head to the commanded position
-    void sendMove();
+    void followTarget();
+    
+    // TEST method: when pan/tilt limits are reached, speed sign is changed
+    void switchSpeedOnLimit();
     
     // traces the changes in state
     void showStateName();     

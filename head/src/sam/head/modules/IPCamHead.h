@@ -39,9 +39,6 @@ public:
 private:
     static void activateCurl();
     static void deactivateCurl();
-    // checks that pan and tilt lay inside the limits, cutting them if necessary.  
-    void checkLimits();
-
 };
 
 }

@@ -7,6 +7,7 @@
 
 #include "sam/head/modules/HeadController.h"
 #include "sam/head/modules/HeadFactory.h"
+#include "sam/network2/areas/HeadComs.h"
 
 namespace sam 
 {
@@ -48,7 +49,11 @@ void HeadController::first()
         LOG4CXX_INFO(logger, "started");  
         setState(HeadController::eSTATE_ON);    
         setPrevState(utils::Module::state_OFF);
-        showStateName();        
+        showStateName();   
+        // force initial frontal gaze
+        reqPan = 0;
+        reqTilt = 0;
+        moveHead();
     }
     // if not initialized or not connected to network -> OFF
     else
@@ -79,23 +84,30 @@ void HeadController::loop()
         case HeadController::eSTATE_ON:            
                         
             if (bmoveRequested && pHead->isConnected())
-            {
-                pHead->move(reqPan, reqTilt);
-                realPan = pHead->getLimitedPan();
-                realTilt = pHead->getLimitedTilt();
-                LOG4CXX_INFO(logger, "real: " << realPan << ", " << realTilt);
-            }
+                moveHead();
             break;            
     }   // end switch    
     
+    // write to bus
+    writeBus();
+
     if (isStateChanged())
     {
         showStateName();    
         setPrevState(getState());
     }
+}
 
-    // write to bus
-    writeBus();
+void HeadController::moveHead()
+{
+    pHead->move(reqPan, reqTilt);
+    realPan = pHead->getLimitedPan();
+    realTilt = pHead->getLimitedTilt();
+    if (pHead->isPanLimited())                    
+        LOG4CXX_WARN(logger, "pan exceeds limit");
+    if (pHead->isTiltLimited())
+        LOG4CXX_WARN(logger, "tilt exceeds max value");
+    LOG4CXX_INFO(logger, "real: " << realPan << ", " << realTilt);    
 }
 
 // note: it directly senses the network (no bus)
@@ -112,11 +124,16 @@ void HeadController::senseBus()
 // note: it directly writes to the network (no bus)
 void HeadController::writeBus()
 {
+    network::HeadComs& oHeadComs = pNetwork->getHeadComs();
     // write SO's ... 
     // SO_HEAD_PAN
-    pNetwork->getHeadComs().getSO_HEAD_PAN().setValue(realPan);
+    oHeadComs.getSO_HEAD_PAN().setValue(realPan);
     // SO_HEAD_TILT
-    pNetwork->getHeadComs().getSO_HEAD_TILT().setValue(realTilt);
+    oHeadComs.getSO_HEAD_TILT().setValue(realTilt);
+    // SO_HEAD_PAN_LIMIT
+    oHeadComs.getSO_HEAD_PAN_LIMIT().setValue(pHead->isPanLimited());
+    // SO_HEAD_TILT_LIMIT
+    oHeadComs.getSO_HEAD_TILT_LIMIT().setValue(pHead->isTiltLimited());
 }
 
 // Shows the state name

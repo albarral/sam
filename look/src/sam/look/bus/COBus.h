@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "sam/brooks/controlT.h"
+#include "sam/brooks/controlT2.h"
 
 namespace sam 
 {

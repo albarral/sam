@@ -44,12 +44,15 @@ void testSam()
     alive::ConsoleControl oConsoleControl;
     oConsoleControl.init();
 
-    head::HeadManager oHeadManager;  
-    look::LookManager oLookManager;
     network::Network oNetwork;
  
+    head::HeadManager oHeadManager;  
     oHeadManager.netConnect(&oNetwork);
     oHeadManager.startModules();
+    
+    sleep(2);    
+    
+    look::LookManager oLookManager;
     oLookManager.netConnect(&oNetwork);
     oLookManager.startModules();
         

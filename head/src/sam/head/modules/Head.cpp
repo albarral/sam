@@ -15,6 +15,8 @@ Head::Head ()
    bconnected = false;
    setPanRange(0,0);
    setTiltRange(0,0);   
+   bpanLimited = false;
+   btiltLimited = false;
 }
 
 void Head::setAddress(std::string address)
@@ -42,6 +44,39 @@ void Head::setPanOffset(int value)
 void Head::setTiltOffset(int value)
 {
     internalTiltOffset = value;
+}
+
+void Head::checkLimits()
+{
+    // pan exceeds min value
+    if (limitedPan < minPan)
+    {
+        limitedPan = minPan;
+        bpanLimited = true;
+    }
+    // pan exceeds max value
+    else if (limitedPan > maxPan)
+    {
+        limitedPan = maxPan;
+        bpanLimited = true;
+    }
+    else
+        bpanLimited = false;
+       
+    // tilt exceeds min value
+    if (limitedTilt < minTilt)
+    {
+        limitedTilt = minTilt;
+        btiltLimited = true;
+    }
+    // tilt exceeds max value
+    else if (limitedTilt > maxTilt)
+    {
+        limitedTilt = maxTilt;
+        btiltLimited = true;
+    }            
+    else
+        btiltLimited = false;
 }
 
 }

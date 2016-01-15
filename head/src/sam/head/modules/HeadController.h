@@ -50,6 +50,8 @@ private:
     int reqTilt;                  // requested tilt      
     int realPan;                // real sensed pan 
     int realTilt;                 // real sensed tilt  
+    bool panLimited;         // pan request exceeds pan range
+    bool tiltLimited;           // tilt request exceeds tilt range
 
 public:
     HeadController();
@@ -71,7 +73,7 @@ private:
     void writeBus();
     
     // moves the head to the commanded position
-    //void moveHead();
+    void moveHead();
     
     // traces the changes in state
     void showStateName();     

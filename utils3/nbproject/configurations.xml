@@ -14,6 +14,8 @@
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="utils3" displayName="utils3" projectFiles="true">
+          <itemPath>src/sam/utils3/Click.cpp</itemPath>
+          <itemPath>src/sam/utils3/Click.h</itemPath>
           <itemPath>src/sam/utils3/Console.cpp</itemPath>
           <itemPath>src/sam/utils3/Console.h</itemPath>
           <itemPath>src/sam/utils3/Module.cpp</itemPath>
@@ -55,6 +57,10 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils3.${CND_DLIB_EXT}</output>
         </linkerTool>
       </compileType>
+      <item path="src/sam/utils3/Click.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/utils3/Click.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sam/utils3/Console.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/utils3/Console.h" ex="false" tool="3" flavor2="0">
@@ -84,6 +90,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/sam/utils3/Click.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/utils3/Click.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sam/utils3/Console.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/utils3/Console.h" ex="false" tool="3" flavor2="0">

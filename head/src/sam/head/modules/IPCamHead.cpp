@@ -107,10 +107,11 @@ int IPCamHead::move(int pan, int tilt)
 
     LOG4CXX_INFO(logger, "move: " << pan << ", " << tilt);
 
-    // check pan&tilt limits and obtain raw values to be sent
+    // check pan&tilt limits
     limitedPan = pan;
     limitedTilt = tilt;
     checkLimits();
+    // and obtain raw values to be sent
     sentPan = limitedPan + internalPanOffset;
     sentTilt = limitedTilt + internalTiltOffset;
     
@@ -134,33 +135,6 @@ int IPCamHead::move(int pan, int tilt)
         LOG4CXX_INFO(logger, "ok");
         return 0;        
     }
-}
-
-void IPCamHead::checkLimits()
-{
-    // pan limits
-    if (limitedPan < minPan)
-    {
-        limitedPan = minPan;
-        LOG4CXX_WARN(logger, "pan exceeds min value");
-    }
-    else if (limitedPan > maxPan)
-    {
-        limitedPan = maxPan;
-        LOG4CXX_WARN(logger, "pan exceeds max value");    
-    } 
-       
-    // tilt limits
-    if (limitedTilt < minTilt)
-    {
-        limitedTilt = minTilt;
-        LOG4CXX_WARN(logger, "tilt exceeds min value");    
-    }
-    else if (limitedTilt > maxTilt)
-    {
-        limitedTilt = maxTilt;
-        LOG4CXX_WARN(logger, "tilt exceeds max value");
-    }            
 }
 
 }
