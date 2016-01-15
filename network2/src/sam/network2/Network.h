@@ -6,8 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "sam/brooks/controlT2.h"
-#include "sam/brooks/sensorT.h"
+#include "sam/network2/areas/HeadComs.h"
 
 namespace sam 
 {
@@ -16,21 +15,14 @@ namespace network
 // Network for interconnection of SAM areas
 class Network
 {
-    private:                
-        // Head section
-        brooks::ControlT2<int> CO_HEAD_PAN; 
-        brooks::ControlT2<int> CO_HEAD_TILT; 
-        brooks::SensorT<int> SO_HEAD_PAN; 
-        brooks::SensorT<int> SO_HEAD_TILT;         
+    private:           
+        HeadComs oHeadComs;     // Head section
 
     public:
         Network();
 
         // Head section
-        brooks::ControlT2<int>& getCO_HEAD_PAN() {return CO_HEAD_PAN;};           
-        brooks::ControlT2<int>& getCO_HEAD_TILT() {return CO_HEAD_TILT;};           
-        brooks::SensorT<int>& getSO_HEAD_PAN(){return SO_HEAD_PAN;};        
-        brooks::SensorT<int>& getSO_HEAD_TILT() {return SO_HEAD_TILT;};           
+        HeadComs& getHeadComs() {return oHeadComs;};
 };
 
 }
